@@ -1,0 +1,98 @@
+:root{
+    --text-primary:#000;
+    --bgPrimary:#fff;
+    --bgSecondary: #F9F9F9;
+    --navBg: rgb(0, 133, 167);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.app{
+   
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    height: 100vh;
+}
+
+.navbar{
+    flex: 0.15;
+    background-color: var(--navBg)
+    
+}
+
+.main{
+    display: flex;
+    flex: 0.85;
+    width: 100%; 
+    position: relative;
+
+}
+
+.navbar-container{
+    position: fixed;
+    left: 0;
+    margin: 0px;
+    background-color: var(--navBg)
+}
+
+
+.logo-container{
+    background-color: var(--navBg);
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    align-items: center;
+    width: 100%;
+}
+
+.guitar-logo{
+    width: 200px;
+    margin:0 0 0 15px;
+}
+
+.logo{
+    margin:0 0 0 15px;
+}
+.logo a{
+   color: white;
+}
+
+.footer {
+    background-color: var(--navBg);
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.chord-display-card {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.chord-main-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.chord-options-container {
+    display: flex;
+    flex-direction: row; 
+}
+
+.chord-option {
+    margin: 0.5rem;
+}

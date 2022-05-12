@@ -1,9 +1,9 @@
 import React from 'react';
+import { Routes, Route, Link } from "react-router-dom";
+import { Layout, Typography, Space } from 'antd';
+import { Navbar, Homepage, ChordsPage, MyProgress } from './components';
 
-import Navbar from './components/Navbar/Navbar';
-import Home from './components/Home';
-import Footer from './components/Footer';
-
+import './App.css';
 
 const App = () => {
     return (
@@ -12,13 +12,24 @@ const App = () => {
                 <Navbar />
             </div>
             <div className="main">
-                {/* Routes can go here */}
-                <Home />
+            <Layout>
+                    <div className="routes">
+                        <Routes>
+                            <Route path="/" element={<Homepage />} />
+                            <Route path="/myprogress" element={<MyProgress />} />
+                            <Route path="/chords" element={<ChordsPage />} />
+                        </Routes>
+                    </div>
+                </Layout>
+                <div className="footer">
+                    <Typography.Title level={5} style={{ color: 'white', textAlign: 'center' }}>
+                        2022 Guitar Quest
+                    </Typography.Title>
+                    <Space>
+                        <Link to="/">Home</Link>
+                    </Space>
+                </div>
             </div>
-            <div className="footer">
-                <Footer />
-            </div>
-
         </div>
     )
 }

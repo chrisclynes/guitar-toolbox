@@ -1,0 +1,17 @@
+.chord-main-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    background-color: aqua;
+}
+
+.chord-options-container {
+    display: flex;
+    flex-direction: row; 
+}
+
+.chord-option {
+    margin: 0.5rem;
+}

@@ -1,0 +1,17 @@
+.homepage-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    padding: 2rem;
+    background-color: aqua;
+}
+
+.welcome-header h1 {
+    font-size: 40px;
+}
+
+.welcome-header h2 {
+    font-size: 25px;
+}

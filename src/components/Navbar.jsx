@@ -1,6 +1,8 @@
 import React from 'react';
-import { Button, Menu, Typography } from 'antd';
 import { Link } from 'react-router-dom';
+import { Button, Menu, Typography } from 'antd';
+import { HomeOutlined } from '@ant-design/icons';
+
 
 
 import logo from '../images/guitarlogo.png';
@@ -17,7 +19,7 @@ const Navbar = () => {
                 </Typography.Title>
             </div>
             <Menu theme="dark">
-                <Menu.Item key={1}>
+                <Menu.Item key={1} icon={<HomeOutlined />} >
                     <Link to="/">Home</Link>
                 </Menu.Item>
                 <Menu.Item key={2}>

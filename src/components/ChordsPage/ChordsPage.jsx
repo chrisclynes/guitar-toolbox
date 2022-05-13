@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
-import ChordCard from './ChordCard';
+import ChordCard from '../ChordCard/ChordCard';
 
-
+import "./ChordsPage.css";
 
 const ChordsPage = () => {
     const [chordData, setChordData] = useState({root: "A", quality: "MAJ"});
@@ -12,7 +12,6 @@ const ChordsPage = () => {
     const handleChordData = (chordSelect) => {
         const chordRoot = document.getElementById("chord-root-selector").value;
         const chordQuality = document.getElementById("chord-quality-selector").value;
-        console.log(chordRoot)
        
         setChordData({root: chordRoot, quality: chordQuality});
     }

@@ -3,6 +3,8 @@ import React from 'react';
 
 import GuitarChord from 'react-guitar-chord';
 
+import "./ChordCard.css";
+
 const ChordCard = ({chordData: {root, quality}}) => {
     return (
         <div className="chord-display-card">

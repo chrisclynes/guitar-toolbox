@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route, Link } from "react-router-dom";
 import { Layout, Typography, Space } from 'antd';
-import { Navbar, Homepage, ChordsPage, MyProgress } from './components';
+import { Navbar, Homepage, ChordsPage, MyDashboard } from './components';
 
 import './App.css';
 
@@ -16,7 +16,7 @@ const App = () => {
                     <div className="routes">
                         <Routes>
                             <Route path="/" element={<Homepage />} />
-                            <Route path="/myprogress" element={<MyProgress />} />
+                            <Route path="/mydashboard" element={<MyDashboard />} />
                             <Route path="/chords" element={<ChordsPage />} />
                         </Routes>
                     </div>

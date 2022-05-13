@@ -22,11 +22,11 @@ const Navbar = () => {
                 <Menu.Item key={1} icon={<HomeOutlined />} >
                     <Link to="/">Home</Link>
                 </Menu.Item>
+                <Menu.Item key={3}>
+                    <Link to="/mydashboard">My Dashboard</Link>
+                </Menu.Item>
                 <Menu.Item key={2}>
                     <Link to="/chords">Chords</Link>
-                </Menu.Item>
-                <Menu.Item key={3}>
-                    <Link to="/myprogress">My Progress</Link>
                 </Menu.Item>
             </Menu>
         </div>   

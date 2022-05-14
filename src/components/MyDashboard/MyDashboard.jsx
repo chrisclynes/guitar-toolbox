@@ -3,7 +3,10 @@ import React from 'react';
 
 const MyDashboard = () => {
     return (
-        <div>
+        <div className="dashboard-container">
+            <div className="dashboard-header center-items">
+                {/*Header */}
+            </div>
             <div className='my-progress-bar'>
                 {/*insert progress bar here */}
             </div>

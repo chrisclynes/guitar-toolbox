@@ -3,7 +3,7 @@ import React from 'react';
 import "./Homepage.css"; 
 const Homepage = () => {
     return (
-        <div className="homepage-container">
+        <div className="homepage-container center-items">
             <div className="welcome-header">
                 <h1>Welcome to Guitar Quest</h1>
                 <h2>the app that helps guide you on your guitar journey</h2>

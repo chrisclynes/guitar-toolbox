@@ -1,19 +1,17 @@
 import React from 'react';
 
+import Tasks from '../../container/Tasks/Tasks'
 
 const MyDashboard = () => {
     return (
         <div className="dashboard-container">
-            <div className="dashboard-header center-items">
-                {/*Header */}
-            </div>
-            <div className='my-progress-bar'>
+            
+
+            <div className='my-progress-bar center-items'>
                 {/*insert progress bar here */}
             </div>
             <div className="main-content-container">
-                <div className="Tasks container">
-                    {/*leftside  */}
-                </div>
+                <Tasks />
                 <div className="schedule-container">
                     {/*leftside  */}
                 </div>

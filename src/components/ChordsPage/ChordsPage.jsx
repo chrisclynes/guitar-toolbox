@@ -3,6 +3,8 @@ import { Layout , Typography, Space } from 'antd';
 
 import ChordCard from '../../container/ChordCard/ChordCard';
 
+import getChordsData from '../../api';
+
 import "./ChordsPage.css";
 
 const { Header, Sider } = Layout;
@@ -15,9 +17,13 @@ const ChordsPage = ({theme}) => {
     const handleChordData = (chordSelect) => {
         const chordRoot = document.getElementById("chord-root-selector").value;
         const chordQuality = document.getElementById("chord-quality-selector").value;
-       
-        setChordData({root: chordRoot, quality: chordQuality});
+        
+        setChordData(getChordsData(chordRoot));
+        
     }
+
+    
+
 
     return (
         <Layout theme="light">

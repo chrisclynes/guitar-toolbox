@@ -3,26 +3,26 @@ import { Table, Button } from 'antd';
 
 const columns = [
   {
-    title: 'Name',
-    dataIndex: 'name',
+    title: 'Task',
+    dataIndex: 'task',
   },
   {
-    title: 'Age',
-    dataIndex: 'age',
+    title: 'Time (in minutes)',
+    dataIndex: 'time',
   },
   {
-    title: 'Address',
-    dataIndex: 'address',
+    title: 'Description',
+    dataIndex: 'description',
   },
 ];
 
 const data = [];
-for (let i = 0; i < 46; i++) {
+for (let i = 0; i < 16; i++) {
   data.push({
     key: i,
-    name: `Edward King ${i}`,
-    age: 32,
-    address: `London, Park Lane no. ${i}`,
+    task: `Strumming ${i}`,
+    time: 10,
+    description: `Learn a 2/4 strumming pattern ${i}`,
   });
 }
 
@@ -57,7 +57,7 @@ class Tasks extends React.Component {
     const hasSelected = selectedRowKeys.length > 0;
     return (
       <div>
-        <div style={{ marginBottom: 16 }}>
+        <div style={{ margin: "1rem" }}>
           <Button type="primary" onClick={this.start} disabled={!hasSelected} loading={loading}>
             Reload
           </Button>

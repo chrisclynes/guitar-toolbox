@@ -58,7 +58,7 @@ const App = () => {
                         <Content theme={theme}>
                             <Routes>
                                 <Route path="/" element={<Homepage />} />
-                                <Route path="/mydashboard" element={<MyDashboard />} />
+                                <Route path="/mydashboard" element={<MyDashboard theme={theme} />} />
                                 <Route path="/chords" element={<ChordsPage theme={theme} />} />
                                 <Route path="/chord-progressions" element={<ChordProgressions />} />
                                 <Route path="/scales" element={<Scales />} />

@@ -1,21 +1,12 @@
 import axios from 'axios';
 
-const URL = 'https://guitar-chords.p.rapidapi.com/select/chord';
+const URL = 'https://api.uberchord.com/v1/chords/';
 
-const getChordsData = async (chord) => {
+const getChordsData = async (root, quality) => {
     try {
-        console.log("trying")
-        const {data: data} = await axios.get(URL, {
-            params: {
-                chord: chord
-            },
-            headers: {
-                'X-RapidAPI-Host': 'guitar-chords.p.rapidapi.com',
-                'X-RapidAPI-Key': process.env.REACT_APP_RAPIDAPI_GuitarChords_API_KEY
-              }
-        });
-        
-        return data;
+        const response = await axios.get(`${URL}${root}${quality}`)
+        console.log(response.data[0])
+        return response.data[0];
     }catch (error) {
         console.log(error)
     }

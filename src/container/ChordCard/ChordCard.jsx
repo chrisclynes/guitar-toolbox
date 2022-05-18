@@ -5,12 +5,12 @@ import GuitarChord from 'react-guitar-chords';
 
 import "./ChordCard.css";
 
-const ChordCard = ({chordData: {root, quality}}) => {
+const ChordCard = ({chordData: {chordName, strings}}) => {
     return (
         <div className="chord-display-card" style={{margin: "1rem"}} >
             <GuitarChord 
-                chordName='C Major' 
-                frets={['x', 3, 2, 0, 1, 0]} 
+                chordName={chordName} 
+                frets= {strings.split(' ').map((item) => item.match(/[0-9]/) ? parseInt(item, 10): item.toLowerCase())}
             />
         </div>
     )

@@ -3,7 +3,7 @@ import { Layout , Typography, Space } from 'antd';
 
 import ChordCard from '../../container/ChordCard/ChordCard';
 
-import getChordsData from '../../api';
+
 import axios from 'axios';
 
 import "./ChordsPage.css";

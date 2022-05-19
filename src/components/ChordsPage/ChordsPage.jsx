@@ -28,8 +28,9 @@ const ChordsPage = ({theme}) => {
             try {
                 const response = await axios.get(chordToCall)
                 const chordData = response.data[0]
+                const chord = `${chordRoot}${chordQuality}${chordAlternative}`
                 setChordData({
-                    chordName: chordData.chordName.replace(/\,+/g, ''),//remove commas from response
+                    chordName: chord.replace(/(%23)/g, "#").replace(/(_)/g, ''),//remove commas from response
                     strings: chordData.strings
                 });
                 console.log(response.data)

@@ -32,4 +32,37 @@ const minorKeys = [
     { "Cb Minor" :{ i: "Cbm", ii: "Db⁰", III: "Ebb", iv: "Fbm", v: "Gbm", VI: "Abb", VII: "Bbb⁰" }}
 ];
 
+const majCommonProgressions = [
+    { "I-IV-V" : ["I","IV","V"] },
+    { "I-vi-IV-V" : ["I", "vi", "IV","V"] },
+    { "vi-IV-I-V" : ["vi","IV", "I", "V"] },
+    { "I-vi-ii-V" : ["I","vi", "ii", "V"] },
+]
+
+const majRockProgressions = [
+    { "I-vi-IV-V" : ["I", "vi", "IV","V"] },
+    { "I-IV-V-I" : ["I", "IV","V", "I"] },
+    { "I-V-vi-iii-IV-I-IV-V" : ["I", "V", "vi","iii", "IV", "I", "IV", "V"] },
+    { "ii-I-V" : ["ii", "I", "V"] },
+    { "ii-I-V" : ["ii", "I", "V"] },
+    { "I-V-vi-IV" : ["I", "V", "vi", "IV"] },
+    { "ii-IV-V" : ["ii", "IV", "V"] },
+    { "VI-IV-V" : ["VI", "IV", "V"] },
+]
+
+const minSadProgressions = [
+    { "i-iv-v" : ["i", "iv", "v"] },
+    { "i-iv-V" : ["i", "iv","V"] },
+    { "i-ii-VII-V-i" : ["i", "ii", "VII","V", "i"] },
+    { "i-VI-III-VII" : ["i", "VI", "III", "VII"] },
+]
+
+const minJazzProgressions = [
+    { "i-iv-v" : ["i", "iv", "v"] },
+    { "i-iv-V" : ["i", "iv","V"] },
+    { "i-ii-VII-V-i" : ["i", "ii", "VII","V", "i"] },
+    { "i-VI-III-VII" : ["i", "VI", "III", "VII"] },
+]
+
+
 export { majorKeys, minorKeys };

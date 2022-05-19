@@ -5,6 +5,7 @@ import "./ChordProgressions.css";
 
 const ChordProgressions = () => {
     const [majorMinor, setMajorMinor] = useState("Major");
+    const [progression, setprogression] = useState("Major");
 
 
     return (

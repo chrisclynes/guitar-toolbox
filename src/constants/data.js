@@ -1,46 +1,43 @@
 const majorKeys = [
-    { "C Major" :{ I: "C", ii: "Dm", iii: "Em", IV: "F", V: "G", vi: "Am", vii: "B⁰" }},
-    { "G Major" :{ I: "G", ii: "Am", iii: "Bm", IV: "C", V: "D", vi: "Em", vii: "F#⁰" }},
-    { "D Major" :{ I: "D", ii: "Em", iii: "F#m", IV: "G", V: "A", vi: "Bm", vii: "C#⁰" }},
-    { "A Major" :{ I: "A", ii: "Bm", iii: "C#m", IV: "D", V: "E", vi: "F#m", vii: "G#⁰" }},
-    { "E Major" :{ I: "E", ii: "F#m", iii: "G#m", IV: "A", V: "B", vi: "C#m", vii: "D#⁰" }},
-    { "B Major" :{ I: "B", ii: "C#m", iii: "D#m", IV: "E", V: "F#", vi: "G#m", vii: "A#⁰" }},
-    { "F# Major" :{ I: "F#", ii: "G#m", iii: "A#m", IV: "B", V: "C#", vi: "D#m", vii: "E#⁰" }},
-    { "F Major" :{ I: "F", ii: "Gm", iii: "Am", IV: "Bb", V: "C", vi: "Dm", vii: "E⁰" }},
-    { "Bb Major" :{ I: "Bb", ii: "Cm", iii: "Dm", IV: "Eb", V: "F", vi: "Gm", vii: "A⁰" }},
-    { "Eb Major" :{ I: "Eb", ii: "Fm", iii: "Gm", IV: "Ab", V: "Bb", vi: "Cm", vii: "D⁰" }},
-    { "Ab Major" :{ I: "Ab", ii: "Bbm", iii: "Cm", IV: "Db", V: "Eb", vi: "Fm", vii: "G⁰" }},
-    { "Db Major" :{ I: "Db", ii: "Ebm", iii: "Fm", IV: "Gb", V: "Ab", vi: "Bbm", vii: "C⁰" }},
-    { "Gb Major" :{ I: "Gb", ii: "Abm", iii: "Bbm", IV: "Cb", V: "Db", vi: "Ebm", vii: "F⁰" }},
-    { "Cb Major" :{ I: "Cb", ii: "Dbm", iii: "Ebm", IV: "Fb", V: "Gb", vi: "Abm", vii: "Bb⁰" }}
+    { "C Major" :{ I: "C", ii: "D_m", iii: "E_m", IV: "F", V: "G", vi: "A_m", vii: "B_dim" }},
+    { "G Major" :{ I: "G", ii: "A_m", iii: "B_m", IV: "C", V: "D", vi: "E_m", vii: "F%23_dim" }},
+    { "D Major" :{ I: "D", ii: "E_m", iii: "F%23_m", IV: "G", V: "A", vi: "B_m", vii: "C%23_dim" }},
+    { "A Major" :{ I: "A", ii: "B_m", iii: "C%23_m", IV: "D", V: "E", vi: "F%23_m", vii: "G%23_dim" }},
+    { "E Major" :{ I: "E", ii: "F_m", iii: "G%23_m", IV: "A", V: "B", vi: "C%23_m", vii: "D%23_dim" }},
+    { "B Major" :{ I: "B", ii: "C%23_m", iii: "D%23_m", IV: "E", V: "F%23", vi: "G%23_m", vii: "A%23_dim" }},
+    { "F# Major" :{ I: "F%23", ii: "G%23_m", iii: "A%23_m", IV: "B", V: "C%23", vi: "D%23_m", vii: "E%23_dim" }},
+    { "F Major" :{ I: "F", ii: "G_m", iii: "A_m", IV: "Bb", V: "C", vi: "D_m", vii: "E_dim" }},
+    { "Bb Major" :{ I: "Bb", ii: "C_m", iii: "D_m", IV: "Eb", V: "F", vi: "G_m", vii: "A_dim" }},
+    { "Eb Major" :{ I: "Eb", ii: "F_m", iii: "G_m", IV: "Ab", V: "Bb", vi: "C_m", vii: "D_dim" }},
+    { "Ab Major" :{ I: "Ab", ii: "Bb_m", iii: "C_m", IV: "Db", V: "Eb", vi: "F_m", vii: "G_dim" }},
+    { "Db Major" :{ I: "Db", ii: "Eb_m", iii: "F_m", IV: "Gb", V: "Ab", vi: "Bb_m", vii: "C_dim" }},
+    { "Gb Major" :{ I: "Gb", ii: "Ab_m", iii: "Bb_m", IV: "Cb", V: "Db", vi: "Eb_m", vii: "F_dim" }},
+    { "Cb Major" :{ I: "Cb", ii: "Db_m", iii: "Eb_m", IV: "Fb", V: "Gb", vi: "Ab_m", vii: "Bb_dim" }}
 ];
 
 const minorKeys = [
-    { "C Minor" :{ i: "Cm", ii: "D⁰", III: "Eb", iv: "Fm", v: "Gm", VI: "Ab", VII: "Bb" }},
-    { "G Minor" :{ i: "Gm", ii: "A⁰", III: "Bb", iv: "Cm", v: "Dm", VI: "Eb", VII: "F" }},
-    { "D Minor" :{ i: "Dm", ii: "E⁰", III: "F", iv: "Gm", v: "Am", VI: "Bb", VII: "C" }},
-    { "A Minor" :{ i: "Am", ii: "B⁰", III: "C", iv: "Dm", v: "Em", VI: "F", VII: "G" }},
-    { "E Minor" :{ i: "Em", ii: "F#⁰", III: "G", iv: "Am", v: "Bm", VI: "C", VII: "D" }},
-    { "B Minor" :{ i: "Bm", ii: "C#⁰", III: "D", iv: "Em", v: "F#m", VI: "G", VII: "A" }},
-    { "F# Minor" :{ i: "F#m", ii: "G#⁰", III: "A", iv: "Bm", v: "C#m", VI: "D", VII: "E" }},
-    { "F Minor" :{ i: "Fm", ii: "G⁰", III: "Ab", iv: "Bbm", v: "Cm", VI: "Db", VII: "Eb" }},
-    { "Bb Minor" :{ i: "Bbm", ii: "C⁰", III: "Db", iv: "Ebm", v: "Fm", VI: "Gb", VII: "Ab" }},
-    { "Eb Minor" :{ i: "Ebm", ii: "F⁰", III: "Gb", iv: "Abm", v: "Bbm", VI: "Cb", VII: "Db" }},
-    { "Ab Minor" :{ i: "Abm", ii: "Bb⁰", III: "Cb", iv: "Dbm", v: "Ebm", VI: "Fb", VII: "Gb" }},
-    { "Db Minor" :{ i: "Dbm", ii: "Eb⁰", III: "Fb", iv: "Gbm", v: "Abm", VI: "Bbb", VII: "Cb" }},
-    { "Gb Minor" :{ i: "Gbm", ii: "Ab⁰", III: "Bbb", iv: "Cbm", v: "Dbm", VI: "Ebb", VII: "Fb" }},
-    { "Cb Minor" :{ i: "Cbm", ii: "Db⁰", III: "Ebb", iv: "Fbm", v: "Gbm", VI: "Abb", VII: "Bbb⁰" }}
+    { "C Minor" :{ i: "C_m", ii: "D_dim", III: "Eb", iv: "F_m", v: "G_m", VI: "Ab", VII: "Bb" }},
+    { "G Minor" :{ i: "G_m", ii: "A_dim", III: "Bb", iv: "C_m", v: "D_m", VI: "Eb", VII: "F" }},
+    { "D Minor" :{ i: "D_m", ii: "E_dim", III: "F", iv: "G_m", v: "A_m", VI: "Bb", VII: "C" }},
+    { "A Minor" :{ i: "A_m", ii: "B_dim", III: "C", iv: "D_m", v: "E_m", VI: "F", VII: "G" }},
+    { "E Minor" :{ i: "E_m", ii: "F%23_dim", III: "G", iv: "A_m", v: "B_m", VI: "C", VII: "D" }},
+    { "B Minor" :{ i: "B_m", ii: "C%23_dim", III: "D", iv: "E_m", v: "F%23_m", VI: "G", VII: "A" }},
+    { "F Minor" :{ i: "F_m", ii: "G_dim", III: "Ab", iv: "Bb_m", v: "C_m", VI: "Db", VII: "Eb" }},
+    { "F# Minor" :{ i: "F%23_m", ii: "G%23_dim", III: "A", iv: "B_m", v: "C%23_m", VI: "D", VII: "E" }}, 
+    { "A# Minor" :{ i: "A%23_m", ii: "C_dim", III: "C%23", iv: "D%23_m", v: "F_m", VI: "Gb", VII: "Ab" }},
+    { "D# Minor" :{ i: "D%23_m", ii: "F_dim", III: "F%23", iv: "G%23_m", v: "A%23_m", VI: "B", VII: "C%23" }},
+    { "Ab Minor" :{ i: "Ab_m", ii: "Bb_dim", III: "Cb", iv: "Db_m", v: "Eb_m", VI: "Fb", VII: "Gb" }},
+    { "C# Minor" :{ i: "C%23_m", ii: "D%23_dim", III: "E", iv: "F%23_m", v: "G%23_m", VI: "A", VII: "B" }},
+    { "Eb Minor" :{ i: "Eb_m", ii: "F_dim", III: "Gb", iv: "Ab_m", v: "Bb_m", VI: "Cb", VII: "Db" }},
+    { "G# Minor" :{ i: "G%23_m", ii: "A%23_dim", III: "B", iv: "C%23_m", v: "D%23_m", VI: "E", VII: "F%23" }},
+    { "Bb Minor" :{ i: "Bb_m", ii: "C_dim", III: "Db", iv: "Eb_m", v: "F_m", VI: "Gb", VII: "Ab" }}
 ];
 
-const majCommonProgressions = [
+const majorProgressions = [
     { "I-IV-V" : ["I","IV","V"] },
     { "I-vi-IV-V" : ["I", "vi", "IV","V"] },
     { "vi-IV-I-V" : ["vi","IV", "I", "V"] },
     { "I-vi-ii-V" : ["I","vi", "ii", "V"] },
-]
-
-const majRockProgressions = [
-    { "I-vi-IV-V" : ["I", "vi", "IV","V"] },
     { "I-IV-V-I" : ["I", "IV","V", "I"] },
     { "I-V-vi-iii-IV-I-IV-V" : ["I", "V", "vi","iii", "IV", "I", "IV", "V"] },
     { "ii-I-V" : ["ii", "I", "V"] },
@@ -50,19 +47,13 @@ const majRockProgressions = [
     { "VI-IV-V" : ["VI", "IV", "V"] },
 ]
 
-const minSadProgressions = [
+
+const minorProgressions = [
     { "i-iv-v" : ["i", "iv", "v"] },
     { "i-iv-V" : ["i", "iv","V"] },
     { "i-ii-VII-V-i" : ["i", "ii", "VII","V", "i"] },
     { "i-VI-III-VII" : ["i", "VI", "III", "VII"] },
 ]
 
-const minJazzProgressions = [
-    { "i-iv-v" : ["i", "iv", "v"] },
-    { "i-iv-V" : ["i", "iv","V"] },
-    { "i-ii-VII-V-i" : ["i", "ii", "VII","V", "i"] },
-    { "i-VI-III-VII" : ["i", "VI", "III", "VII"] },
-]
 
-
-export { majorKeys, minorKeys };
+export { majorKeys, minorKeys, majorProgressions, minorProgressions };

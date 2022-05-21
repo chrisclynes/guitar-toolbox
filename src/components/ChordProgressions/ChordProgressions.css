@@ -1,0 +1,8 @@
+.progression-title-container {
+    flex-direction: column;
+    width: 100%;
+}
+
+.progression-selectors-container select{
+    margin: 0.5rem;
+}

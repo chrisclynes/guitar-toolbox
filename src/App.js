@@ -54,7 +54,7 @@ const App = () => {
             </Sider>
             <div className="main">
                 <Layout theme={theme}>
-                <Header theme={theme}/>
+                <Header className="light" theme={theme}/>
                         <Content theme={theme}>
                             <Routes>
                                 <Route path="/" element={<Homepage />} />

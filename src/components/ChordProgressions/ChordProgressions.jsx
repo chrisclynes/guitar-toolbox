@@ -27,20 +27,20 @@ const ChordProgressions = () => {
             </div>
             <div className="progression-selectors-container center-items">
                 <Space size="small">
-                    <Select defauleValue="Major" size="autoSize" id="major-minor-selctor" onChange={(e) => setMajorMinor(e.target.value)}>
+                    <Select defauleValue="Major" style={{width: "80px"}} name="major-minor-selctor" onChange={(e) => setMajorMinor(e.target.value)}>
                         <Option value="Major">Major</Option>
                         <Option value="Minor">Minor</Option>
                     </Select>
                     {majorMinor === "Major" && (
                         <div>
-                            <Select defauleValue="" size="autoSize" id="major-keys-selctor" >
+                            <Select defauleValue="" style={{width: "100px"}} name="major-keys-selctor" >
                                 {majorKeys.map((item) => {
                                     return (
                                         <Option key={Object.keys(item)} value={Object.keys(item)}>{Object.keys(item)}</Option>
                                     )
                                 })}
                             </Select>
-                            <Select defauleValue="" size="autoSize" id="major-progression-selctor" >
+                            <Select defauleValue="" style={{width: "150px"}} name="major-progression-selctor" >
                                 {majorProgressions.map((item) => {
                                         return (
                                             <Option key={Object.keys(item)} value={Object.keys(item)}>{Object.keys(item)}</Option>
@@ -50,14 +50,14 @@ const ChordProgressions = () => {
                         </div>)}
                     {majorMinor === "Minor" && (
                         <div className="minor-selection-container">
-                            <Select defauleValue="" size="autoSize" id="minor-keys-selctor" >
+                            <Select defauleValue="" style={{width: "100px"}} name="minor-keys-selctor" >
                                 {minorKeys.map((item) => {
                                     return (
                                         <Option key={Object.keys(item)} value={Object.keys(item)}>{Object.keys(item)}</Option>
                                     )
                                 })}
                             </Select>
-                            <Select defauleValue="" size="autoSize" id="minor-progression-selctor" >
+                            <Select defauleValue="" style={{width: "150px"}} name="minor-progression-selctor" >
                                 {minorProgressions.map((item) => {
                                         return (
                                             <Option key={Object.keys(item)} value={Object.keys(item)}>{Object.keys(item)}</Option>

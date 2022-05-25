@@ -109,7 +109,7 @@ const ChordsPage = ({theme}) => {
                     <Space>
                     <div className="chord-options-two-container">
                             {stringSelector.map((string, index) => {
-                                return <VoicingOption voicingData={voicingData} setVoicingData={setVoicingData} key={index} stringKey={index} string={string}/>
+                                return <VoicingOption setVoicingData={setVoicingData} key={index} stringKey={index} string={string}/>
                             })}
                     </div>
                 </Space>

@@ -12,7 +12,7 @@ const ChordProgressions = () => {
     const [progressionData, setprogressionData] = useState({
         chordQuality: "Major",
         chordKey: "C Major",
-        chordProgression: ["1", "IV", "V"]
+        chordProgression: ["I", "IV", "V"]
     })
 
 

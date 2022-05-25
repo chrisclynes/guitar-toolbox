@@ -5,12 +5,12 @@ const { Option } = Select;
 
 
 
-const VoicingOption = ({string, stringKey, voicingData, setVoicingData}) => {
+const VoicingOption = ({string, stringKey, setVoicingData}) => {
 
     const handleOptionData = (val) => {
-        console.log(voicingData.strings)
+        
         setVoicingData(prevState => ({ 
-            strings: prevState.strings.map((el, i) => i == stringKey? el = val: el) 
+            strings: prevState.strings.map((el, i) => i == stringKey? el = val: el)//sets the index of state array to option input value
          }))   
     }
 

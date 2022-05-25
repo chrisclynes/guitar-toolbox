@@ -29,7 +29,7 @@ const App = () => {
                     mode="inline"
                     >
                     <img src={logo} className="guitar-logo"/>
-                    <Typography.Title theme={theme} level={3} style={{ margin: "0rem 1rem 1rem 1rem"}}>
+                    <Typography.Title  level={3} style={{ margin: "0rem 1rem 1rem 1rem"}}>
                         Guitar Quest
                     </Typography.Title>
                     <Menu.Item key="home" icon={<HomeOutlined />} >
@@ -54,7 +54,7 @@ const App = () => {
             </Sider>
             <div className="main">
                 <Layout theme={theme}>
-                <Header className="light" theme={theme}/>
+                <Header theme={theme}/>
                         <Content theme={theme}>
                             <Routes>
                                 <Route path="/" element={<Homepage />} />

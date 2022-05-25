@@ -14,7 +14,7 @@ const { Option } = Select;
 
 const ChordsPage = ({theme}) => {
     const [chordData, setChordData] = useState({chordName: "A", strings: "X 0 2 2 2 0" });
-    const [voicingData, setVoicingData] = useState({strings: ["X", "0", "2", "2", "1", "0"] });
+    const [voicingData, setVoicingData] = useState({strings: ["X", "X", "X", "X", "X", "X"] });
     const [selectorVals, setSelectorVals] = useState({root: "A_", quality: "", alterations: ""});
     
     const [chordError, setChordError] = useState("");
@@ -108,8 +108,8 @@ const ChordsPage = ({theme}) => {
                 <Typography.Paragraph type="secondary" style={{margin: "1rem"}} >Or, get the name of a chord</Typography.Paragraph>
                     <Space>
                     <div className="chord-options-two-container">
-                            {stringSelector.map((string, i) => {
-                                return <VoicingOption voicingData={voicingData} setVoicingData={setVoicingData} key={i} string={string}/>
+                            {stringSelector.map((string, index) => {
+                                return <VoicingOption voicingData={voicingData} setVoicingData={setVoicingData} key={index} stringKey={index} string={string}/>
                             })}
                     </div>
                 </Space>

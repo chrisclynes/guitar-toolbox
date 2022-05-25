@@ -3,11 +3,21 @@ import { Typography,  Select } from 'antd';
 
 const { Option } = Select;
 
-const VoicingOption = ({string, i, voicingData, setVoicingData}) => {
+
+
+const VoicingOption = ({string, stringKey, voicingData, setVoicingData}) => {
+
+    const handleOptionData = (val) => {
+        console.log(voicingData.strings)
+        setVoicingData(prevState => ({ 
+            strings: prevState.strings.map((el, i) => i == stringKey? el = val: el) 
+         }))   
+    }
+
     return (
         <div>
             <Typography.Paragraph>{string}</Typography.Paragraph>
-            <Select defaultValue="X" style={{width: "70px"}} name="chord-voicing-selector" onChange={(val) => setVoicingData([...voicingData.strings][i] = val)}>
+            <Select defaultValue="X" style={{width: "70px"}} name="chord-voicing-selector" onChange={(value) => handleOptionData(value)}>
                 <Option value="X" >X</Option>
                 <Option value="0" >0</Option>
                 <Option value="1" >1</Option>

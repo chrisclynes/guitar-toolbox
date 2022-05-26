@@ -75,7 +75,7 @@ const ChordsPage = ({theme}) => {
                     <Typography.Title>Welcome to Chord Search</Typography.Title>
                     <h2>Your tool to mastering new chords!</h2>
                 </div>
-                <ChordCard chordData={chordData} />
+                <ChordCard chordName={chordData.chordName} strings={chordData.strings} />
                 <div className="chord-options-container">
                     <Space size="small">
                         <div>

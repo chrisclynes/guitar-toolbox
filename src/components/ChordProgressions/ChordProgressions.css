@@ -3,3 +3,6 @@
     width: 100%;
 }
 
+.progression-cards-container {
+    flex-direction: row;
+}

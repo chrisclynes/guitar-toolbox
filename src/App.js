@@ -29,7 +29,7 @@ const App = () => {
                     mode="inline"
                     >
                     <img src={logo} className="guitar-logo"/>
-                    <Typography.Title  level={3} style={{ margin: "0rem 1rem 1rem 1rem"}}>
+                    <Typography.Title level={3} style={{ margin: "0rem 1rem 1rem 1rem"}}>
                         Guitar Quest
                     </Typography.Title>
                     <Menu.Item key="home" icon={<HomeOutlined />} >

@@ -4,9 +4,7 @@ import { Card } from "antd";
 
 import GuitarChord from 'react-guitar-chords';
 
-import "./ChordCard.css";
-
-const ChordCard = ({chordData: {chordName, strings}}) => {
+const ChordCard = ({chordName, strings}) => {
     return (
         <Card>
             <GuitarChord 

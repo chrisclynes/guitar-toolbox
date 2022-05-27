@@ -12,14 +12,13 @@ const { Option } = Select;
 
 
 const ChordProgressions = () => {
-    const [majorMinor, setMajorMinor] = useState("Major");
-    const [progression, setprogression] = useState("Major");
-    const [progressionData, setprogressionData] = useState({
+    const [progression, setProgression] = useState("Major");
+    const [progressionData, setProgressionData] = useState({
         chordQuality: "Major",
         chordKey: "C Major",
         chordProgression: ["C", "F", "G"]
     })
-    const [chordData, setChordData] = useState([{chordName: "C", strings: "X 0 2 2 2 0" }, {chordName: "F", strings: "1 3 3 2 1 X" }, {chordName: "G", strings: "3 2 0 0 0 3" }]);
+    const [chordData, setChordData] = useState([{title: "I", chordName: "C", strings: "X 0 2 2 2 0" }, {title: "IV", chordName: "F", strings: "1 3 3 2 1 X" }, {title: "V", chordName: "G", strings: "3 2 0 0 0 3" }]);
 
     const handleChordData = async (chord) => {
         const URL = 'https://api.uberchord.com/v1/chords/';
@@ -40,62 +39,80 @@ const ChordProgressions = () => {
             }
     }
 
+    const handleTest = () => {
+        console.log(majorKeys)
+    }
+
+    const handleProgressionInput = (val) => {
+        const valToArr = val.split("-")
+        console.log(valToArr)
+
+        setProgressionData(prevState => ({
+            ...prevState,
+            chordProgression: valToArr
+        }))
+    }
+
     return (
         <div>
             <div className="progresssion-cards-containers">
                 <div className="progression-title-container center-items" style={{textAlign: "center"}}>
                     <Typography.Title>Choose a progression or create your own</Typography.Title>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Hac habitasse platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper. Dolor purus non enim praesent elementum facilisis leo vel fringilla.</p>
-                    <Space size="large">
                         <div className="progression-cards-container center-items">
-                            {chordData.map((item, i) => {
-                                return (
-                                        <ChordCard chordName={item.chordName} strings={item.strings} />   
-                                )
-                            })}
+                            <Space size="small">
+                                {chordData.map((item, i) => {
+                                    return (
+                                            <ChordCard key={i} title={item.title} chordName={item.chordName} strings={item.strings} />   
+                                    )
+                                })}
+                            </Space>
                         </div>
-                    </Space>
                 </div>
             </div>
-            <div className="progression-selectors-container center-items">
-                <Space size="small">
-                    <Select defaultValue="Major" style={{width: "80px"}} name="major-minor-selctor" onChange={(e) => setMajorMinor(e.target.value)}>
+            <div className="progression-selectors-container center-items" style={{margin: "1rem"}}>
+            <Space size="small">
+                    <Select defaultValue="Major" style={{width: "80px"}} name="major-minor-selctor" onChange={(val) => setProgressionData((prevState) => ({...prevState, chordQuality: val}))}>
                         <Option value="Major">Major</Option>
                         <Option value="Minor">Minor</Option>
                     </Select>
-                    {majorMinor === "Major" && (
-                        <div>
-                            <Select defaultValue="" style={{width: "100px"}} name="major-keys-selctor" >
-                                {majorKeys.map((item) => {
-                                    return (
-                                        <Option key={Object.keys(item)} value={Object.keys(item)}>{Object.keys(item)}</Option>
-                                    )
-                                })}
-                            </Select>
-                            <Select defaultValue="" style={{width: "150px"}} name="major-progression-selctor" >
-                                {majorProgressions.map((item, i) => {
+                    {progressionData.chordQuality === "Major" && (
+                        <div className="major-selection-container">
+                            <Space size="small">
+                                <Select defaultValue="C Major" style={{width: "100px"}} name="major-keys-selctor" onChange={(val) => setProgressionData((prevState) => ({...prevState, chordProgression: val}))}>
+                                    {majorKeys.map((item) => {
                                         return (
-                                            <Option key={i} value={Object.keys(item)}>{Object.keys(item)}</Option>
+                                            <Option key={Object.keys(item)[0]} value={Object.keys(item)[0]}>{Object.keys(item)[0]}</Option>
                                         )
                                     })}
-                            </Select>
+                                </Select>
+                                <Select defaultValue="" style={{width: "150px"}} name="major-progression-selctor" >
+                                    {majorProgressions.map((item, i) => {
+                                            return (
+                                                <Option key={i} value={Object.keys(item)[0]}>{Object.keys(item)[0]}</Option>
+                                            )
+                                        })}
+                                </Select>
+                            </Space>
                         </div>)}
-                    {majorMinor === "Minor" && (
+                    {progressionData.chordQuality === "Minor" && (
                         <div className="minor-selection-container">
-                            <Select defaultValue="" style={{width: "100px"}} name="minor-keys-selctor" >
-                                {minorKeys.map((item) => {
-                                    return (
-                                        <Option key={Object.keys(item)} value={Object.keys(item)}>{Object.keys(item)}</Option>
-                                    )
-                                })}
-                            </Select>
-                            <Select defaultValue="" style={{width: "150px"}} name="minor-progression-selctor" >
-                                {minorProgressions.map((item, i) => {
+                            <Space size="small">
+                                <Select defaultValue="" style={{width: "100px"}} name="minor-keys-selctor" onChange={(val) => setProgressionData((prevState) => ({...prevState, chordKey: val}))}>
+                                    {minorKeys.map((item) => {
                                         return (
-                                            <Option key={i} value={Object.keys(item)}>{Object.keys(item)}</Option>
+                                            <Option key={Object.keys(item)[0]} value={Object.keys(item)[0]}>{Object.keys(item)[0]}</Option>
                                         )
                                     })}
-                        </Select>
+                                </Select>
+                                <Select defaultValue="" style={{width: "150px"}} name="minor-progression-selctor" onChange={(val) => setProgressionData((prevState) => ({...prevState, chordProgression: val}))}>
+                                    {minorProgressions.map((item, i) => {
+                                            return (
+                                                <Option key={i} value={Object.keys(item)[0]}>{Object.keys(item)[0]}</Option>
+                                            )
+                                        })}
+                                </Select>
+                            </Space>
                     </div>)}
                 </Space>
             </div>

@@ -50,8 +50,8 @@ const majorProgressions = [
 
 const minorProgressions = [
     { "i-iv-v": ["i", "iv", "v"] },
-    { "i-iv-V": ["i", "iv","V"] },
-    { "i-ii-VII-V-i": ["i", "ii", "VII","V", "i"] },
+    { "i-iv-v": ["i", "iv","v"] },
+    { "i-ii-VII-v-i": ["i", "ii", "VII","v", "i"] },
     { "i-VI-III-VII": ["i", "VI", "III", "VII"] },
 ]
 

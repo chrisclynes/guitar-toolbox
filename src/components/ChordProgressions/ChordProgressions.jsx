@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Typography, Space, Button, Select} from 'antd';
 
 import { majorKeys, minorKeys, majorProgressions, minorProgressions } from '../../constants/data';
@@ -9,55 +9,50 @@ import "./ChordProgressions.css";
 
 const { Option } = Select;
 
-
-
 const ChordProgressions = () => {
     const [progression, setProgression] = useState("Major");
     const [progressionData, setProgressionData] = useState({
-        chordQuality: "Major",
-        chordKey: "C Major",
-        chordProgression: ["C", "F", "G"]
-    })
+        progQuality: "Major",
+        progKey: "",
+        progKeyIndex: 0,
+        progNumbers: ["I", "IV", "V"],
+        chordProgression: ""
+    });
     const [chordData, setChordData] = useState([{title: "I", chordName: "C", strings: "X 0 2 2 2 0" }, {title: "IV", chordName: "F", strings: "1 3 3 2 1 X" }, {title: "V", chordName: "G", strings: "3 2 0 0 0 3" }]);
 
-    const handleChordData = async (chord) => {
-        const URL = 'https://api.uberchord.com/v1/chords/';
-        const chordToCall = `${URL}${chord}`;
-    
+    const handleChordData = async () => {
+        const chords = progressionData.chordProgression.join(",");
+        const URL = 'https://api.uberchord.com/v1/chords?names=';
+        const chordToCall = `${URL}${chords}`;
+        console.log(progressionData)
             try {
                 const response = await axios.get(chordToCall)
                 const apiData = response.data[0]
-                setChordData({
-                    chordName: apiData.chordName.replace(/(%23)/g, "#").replace(/(,)/g, ''),//replace URI code with # and remove underscore
-                    strings: apiData.strings
-                });
-                console.log(response.data)
+                setChordData(response.data.map((item, i) => ({
+                    title: progressionData.progNumbers[i],//provides chordData with the progression nashville number for title on card
+                    chordName: item.chordName.replace(/(%23)/g, "#").replace(/(,)/g, ''),//replace URI code with # and remove underscore
+                    strings: item.strings
+                    })
+                ));
+                // console.log(response.data)
             }catch (error) {
                 console.log(error)
-                if(error){
-                }
             }
     }
 
-    const handleTest = () => {
-        console.log(majorKeys)
-    }
-
-    const handleProgressionInput = (val) => {
-        const valToArr = val.split("-")
-        console.log(valToArr)
-
-        setProgressionData(prevState => ({
+    useEffect(() => {
+        setProgressionData((prevState) => ({
             ...prevState,
-            chordProgression: valToArr
+            chordProgression: progressionData.progNumbers.map((e) => Object.values(progressionData.progQuality === "Major" ? majorKeys[progressionData.progKeyIndex] : minorKeys[progressionData.progKeyIndex])[0][e])//gets the correct chords from progression numbers input
         }))
-    }
+    }, [progressionData]);
+
 
     return (
         <div>
             <div className="progresssion-cards-containers">
                 <div className="progression-title-container center-items" style={{textAlign: "center"}}>
-                    <Typography.Title>Choose a progression or create your own</Typography.Title>
+                    <Typography.Title>Choose a chord progression or create your own</Typography.Title>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Hac habitasse platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper. Dolor purus non enim praesent elementum facilisis leo vel fringilla.</p>
                         <div className="progression-cards-container center-items">
                             <Space size="small">
@@ -72,21 +67,29 @@ const ChordProgressions = () => {
             </div>
             <div className="progression-selectors-container center-items" style={{margin: "1rem"}}>
             <Space size="small">
-                    <Select defaultValue="Major" style={{width: "80px"}} name="major-minor-selctor" onChange={(val) => setProgressionData((prevState) => ({...prevState, chordQuality: val}))}>
+                    <Select defaultValue="Major" style={{width: "80px"}} name="major-minor-selctor" onChange={(val) => setProgressionData((prevState) => ({...prevState, progQuality: val}))}>
                         <Option value="Major">Major</Option>
                         <Option value="Minor">Minor</Option>
                     </Select>
-                    {progressionData.chordQuality === "Major" && (
+                    {progressionData.progQuality === "Major" && (
                         <div className="major-selection-container">
                             <Space size="small">
-                                <Select defaultValue="C Major" style={{width: "100px"}} name="major-keys-selctor" onChange={(val) => setProgressionData((prevState) => ({...prevState, chordProgression: val}))}>
-                                    {majorKeys.map((item) => {
+                                <Select defaultValue="" style={{width: "100px"}} name="major-keys-selctor" onChange={(val, key) => setProgressionData((prevState) => ({...prevState, progKey: val, progKeyIndex: parseInt(key.key)}))}>
+                                    {majorKeys.map((item, i) => {
                                         return (
-                                            <Option key={Object.keys(item)[0]} value={Object.keys(item)[0]}>{Object.keys(item)[0]}</Option>
+                                            <Option key={i} value={Object.keys(item)[0]}>{Object.keys(item)[0]}</Option>
                                         )
                                     })}
                                 </Select>
-                                <Select defaultValue="" style={{width: "150px"}} name="major-progression-selctor" >
+                                <Select defaultValue="" 
+                                        style={{width: "150px"}} 
+                                        name="major-progression-selctor" 
+                                        onChange={(val, key) => {
+                                            setProgressionData((prevState) => ({
+                                            ...prevState, 
+                                            progNumbers: Object.values(majorProgressions[parseInt(key.key)])[0],//pulls array value of progressions data from selected value
+                                                })
+                                            )}}>
                                     {majorProgressions.map((item, i) => {
                                             return (
                                                 <Option key={i} value={Object.keys(item)[0]}>{Object.keys(item)[0]}</Option>
@@ -95,17 +98,24 @@ const ChordProgressions = () => {
                                 </Select>
                             </Space>
                         </div>)}
-                    {progressionData.chordQuality === "Minor" && (
+                    {progressionData.progQuality === "Minor" && (
                         <div className="minor-selection-container">
                             <Space size="small">
-                                <Select defaultValue="" style={{width: "100px"}} name="minor-keys-selctor" onChange={(val) => setProgressionData((prevState) => ({...prevState, chordKey: val}))}>
-                                    {minorKeys.map((item) => {
+                                <Select defaultValue="" style={{width: "100px"}} name="minor-keys-selctor" onChange={(val, key) => setProgressionData((prevState) => ({...prevState, progKey: val,  progKeyIndex: parseInt(key.key)}))}>
+                                    {minorKeys.map((item, i) => {
                                         return (
-                                            <Option key={Object.keys(item)[0]} value={Object.keys(item)[0]}>{Object.keys(item)[0]}</Option>
+                                            <Option key={i} value={Object.keys(item)[0]}>{Object.keys(item)[0]}</Option>
                                         )
                                     })}
                                 </Select>
-                                <Select defaultValue="" style={{width: "150px"}} name="minor-progression-selctor" onChange={(val) => setProgressionData((prevState) => ({...prevState, chordProgression: val}))}>
+                                <Select defaultValue="" 
+                                        style={{width: "150px"}} 
+                                        name="minor-progression-selctor" 
+                                        onChange={(val, key) => setProgressionData((prevState) => ({
+                                                ...prevState, 
+                                                progNumbers: Object.values(minorProgressions[parseInt(key.key)])[0],//pulls array value of progressions data from selected value,
+                                                    })
+                                                )}>
                                     {minorProgressions.map((item, i) => {
                                             return (
                                                 <Option key={i} value={Object.keys(item)[0]}>{Object.keys(item)[0]}</Option>
@@ -114,6 +124,7 @@ const ChordProgressions = () => {
                                 </Select>
                             </Space>
                     </div>)}
+                    <Button type="primary" size="medium" onClick={() => handleChordData()} >Get Progression</Button>
                 </Space>
             </div>
         </div>

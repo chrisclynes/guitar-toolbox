@@ -1,4 +1,5 @@
 import React from 'react';
+import { Col } from 'antd';
 
 import ProgressBar from '../../container/ProgressBar/ProgressBar';
 import Tasks from '../../container/Tasks/Tasks';
@@ -6,7 +7,9 @@ import Tasks from '../../container/Tasks/Tasks';
 const MyDashboard = ({theme}) => {
     return (
         <div className="dashboard-container">
-            <ProgressBar theme={theme} />
+            <Col span={12}>
+                <ProgressBar theme={theme} />
+            </Col>
             <div className='my-progress-bar center-items'>
                 {/*insert progress bar here */}
             </div>

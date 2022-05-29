@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Typography, Space, Button, Select} from 'antd';
+import { Typography, Space, Button, Select, Row, Col} from 'antd';
 
 import { majorKeys, minorKeys, majorProgressions, minorProgressions } from '../../constants/data';
 import ChordCard from '../../container/ChordCard/ChordCard';
@@ -13,7 +13,7 @@ const ChordProgressions = () => {
     const [progression, setProgression] = useState("Major");
     const [progressionData, setProgressionData] = useState({
         progQuality: "Major",
-        progKey: "",
+        progKey: "C Major",
         progKeyIndex: 0,
         progNumbers: ["I", "IV", "V"],
         chordProgression: ""
@@ -53,35 +53,49 @@ const ChordProgressions = () => {
             <div className="progresssion-cards-containers">
                 <div className="progression-title-container center-items" style={{textAlign: "center"}}>
                     <Typography.Title>Choose a chord progression or create your own</Typography.Title>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Hac habitasse platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper. Dolor purus non enim praesent elementum facilisis leo vel fringilla.</p>
+                    <Col span={12}>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Hac habitasse platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper. Dolor purus non enim praesent elementum facilisis leo vel fringilla.</p>
+                    </Col>
+                    <Col span={12}>       
                         <div className="progression-cards-container center-items">
-                            <Space size="small">
+                            
                                 {chordData.map((item, i) => {
                                     return (
-                                            <ChordCard key={i} title={item.title} chordName={item.chordName} strings={item.strings} />   
+                                            <ChordCard key={i} title={item.title} chordName={item.chordName} strings={item.strings} /> 
                                     )
                                 })}
-                            </Space>
+                            
                         </div>
+                    </Col> 
                 </div>
             </div>
             <div className="progression-selectors-container center-items" style={{margin: "1rem"}}>
             <Space size="small">
-                    <Select defaultValue="Major" style={{width: "80px"}} name="major-minor-selctor" onChange={(val) => setProgressionData((prevState) => ({...prevState, progQuality: val}))}>
+                    <Select defaultValue="Major" style={{width: "80px"}} name="major-minor-selctor" onChange={(val) => {
+                            setProgressionData((prevState) => ({
+                                        ...prevState, 
+                                        progQuality: val,
+                                        progKey: val === "Major" ? "C Major" : "C Minor",
+                                        progKeyIndex: 0,
+                                        progNumbers: val === "Major" ? ["I", "IV", "V"] : ["i", "iv", "v"],
+                                        chordProgression: ""
+                                         })
+                                    )}
+                                }>
                         <Option value="Major">Major</Option>
                         <Option value="Minor">Minor</Option>
                     </Select>
                     {progressionData.progQuality === "Major" && (
                         <div className="major-selection-container">
                             <Space size="small">
-                                <Select defaultValue="" style={{width: "100px"}} name="major-keys-selctor" onChange={(val, key) => setProgressionData((prevState) => ({...prevState, progKey: val, progKeyIndex: parseInt(key.key)}))}>
+                                <Select defaultValue="C Major" style={{width: "100px"}} name="major-keys-selctor" onChange={(val, key) => setProgressionData((prevState) => ({...prevState, progKey: val, progKeyIndex: parseInt(key.key)}))}>
                                     {majorKeys.map((item, i) => {
                                         return (
                                             <Option key={i} value={Object.keys(item)[0]}>{Object.keys(item)[0]}</Option>
                                         )
                                     })}
                                 </Select>
-                                <Select defaultValue="" 
+                                <Select defaultValue="I-IV-V" 
                                         style={{width: "150px"}} 
                                         name="major-progression-selctor" 
                                         onChange={(val, key) => {
@@ -101,14 +115,14 @@ const ChordProgressions = () => {
                     {progressionData.progQuality === "Minor" && (
                         <div className="minor-selection-container">
                             <Space size="small">
-                                <Select defaultValue="" style={{width: "100px"}} name="minor-keys-selctor" onChange={(val, key) => setProgressionData((prevState) => ({...prevState, progKey: val,  progKeyIndex: parseInt(key.key)}))}>
+                                <Select defaultValue="C Minor" style={{width: "100px"}} name="minor-keys-selctor" onChange={(val, key) => setProgressionData((prevState) => ({...prevState, progKey: val,  progKeyIndex: parseInt(key.key)}))}>
                                     {minorKeys.map((item, i) => {
                                         return (
                                             <Option key={i} value={Object.keys(item)[0]}>{Object.keys(item)[0]}</Option>
                                         )
                                     })}
                                 </Select>
-                                <Select defaultValue="" 
+                                <Select defaultValue="i-iv-v" 
                                         style={{width: "150px"}} 
                                         name="minor-progression-selctor" 
                                         onChange={(val, key) => setProgressionData((prevState) => ({

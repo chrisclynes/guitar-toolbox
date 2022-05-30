@@ -2,3 +2,9 @@
     flex-direction: column;
     width: 100%;
 }
+
+.progression-cards-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

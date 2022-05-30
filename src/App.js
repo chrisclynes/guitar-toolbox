@@ -53,9 +53,10 @@ const App = () => {
                 <div className="theme-container center-items">Light<Switch onChange={changeTheme} className="center-items" style={{margin: "0.5rem"}}></Switch>Dark</div>
             </Sider>
             <div className="main">
-                <Layout theme={theme}>
+                <Layout theme={theme} style={{ height: "100vh", position: "relative", overflow: "hidden"}} >
                 <Header theme={theme}/>
-                        <Content theme={theme}>
+                    <div style={{ height: "100%", position: "relative", overflowY: "scroll"}}>
+                        <Content theme={theme} style={{paddingBottom: "60px"}}>
                             <Routes>
                                 <Route path="/" element={<Homepage />} />
                                 <Route path="/mydashboard" element={<MyDashboard theme={theme} />} />
@@ -64,7 +65,13 @@ const App = () => {
                                 <Route path="/scales" element={<Scales />} />
                             </Routes>
                         </Content>
-                    <Footer theme={theme}>
+                        </div>
+                    <Footer theme={theme} style={{
+                        position: "absolute",
+                        left: 0,
+                        bottom: 0,
+                        right: 0
+                    }}>
                         <Typography.Title level={5} style={{ textAlign: 'center' }}>
                             2022 Guitar Quest
                         </Typography.Title>

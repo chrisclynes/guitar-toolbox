@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Typography, Space, Button, Select, Row, Col} from 'antd';
+import { Typography, Space, Button, Select, Row, Col, List} from 'antd';
 
 import { majorKeys, minorKeys, majorProgressions, minorProgressions } from '../../constants/data';
 import ChordCard from '../../container/ChordCard/ChordCard';
@@ -18,7 +18,11 @@ const ChordProgressions = () => {
         progNumbers: ["I", "IV", "V"],
         chordProgression: ""
     });
-    const [chordData, setChordData] = useState([{title: "I", chordName: "C", strings: "X 0 2 2 2 0" }, {title: "IV", chordName: "F", strings: "1 3 3 2 1 X" }, {title: "V", chordName: "G", strings: "3 2 0 0 0 3" }]);
+    const [chordData, setChordData] = useState([
+            {title: "I", chordName: "C", strings: "X 3 2 0 1 0" }, 
+            {title: "IV", chordName: "F", strings: "1 3 3 2 1 1" }, 
+            {title: "V", chordName: "G", strings: "3 2 0 0 3 3" }]
+        );
 
     const handleChordData = async () => {
         const chords = progressionData.chordProgression.join(",");
@@ -56,17 +60,25 @@ const ChordProgressions = () => {
                     <Col span={12}>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Hac habitasse platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper. Dolor purus non enim praesent elementum facilisis leo vel fringilla.</p>
                     </Col>
-                    <Col span={12}>       
-                        <div className="progression-cards-container center-items">
-                            
-                                {chordData.map((item, i) => {
-                                    return (
+                           
+                        <div className="progression-cards-container" style={{width: "100%"}}>
+                        <Col span={24}>
+                            <List
+                                grid={{
+                                gutter: 16,
+                                xs: 1, sm: 1, md: 2, lg: 3, xl: 4, xxl: 4
+                              }}
+                              dataSource={chordData}
+                              renderItem={(item, i) => (
+                                    
+                                        <List.Item>
                                             <ChordCard key={i} title={item.title} chordName={item.chordName} strings={item.strings} /> 
-                                    )
-                                })}
-                            
+                                        </List.Item>
+                    
+                                )}
+                            />
+                        </Col> 
                         </div>
-                    </Col> 
                 </div>
             </div>
             <div className="progression-selectors-container center-items" style={{margin: "1rem"}}>

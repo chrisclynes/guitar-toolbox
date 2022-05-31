@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Typography, Space, Button, Select, Row, Col, List} from 'antd';
 
-import { majorKeys, minorKeys, majorProgressions, minorProgressions } from '../../constants/data';
+import { majorKeys, minorKeys, majorProgressions, minorProgressions, majorNashNumbers, minorNashNumbers } from '../../constants/data';
 import ChordCard from '../../container/ChordCard/ChordCard';
 
 import axios from 'axios';
@@ -56,25 +56,20 @@ const ChordProgressions = () => {
         <div>
             <div className="progresssion-cards-containers">
                 <div className="progression-title-container center-items" style={{textAlign: "center"}}>
-                    <Typography.Title>Choose a chord progression or create your own</Typography.Title>
-                    <Col span={12}>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Hac habitasse platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper. Dolor purus non enim praesent elementum facilisis leo vel fringilla.</p>
-                    </Col>
-                           
+                    <Typography.Title level={1}>Chord Progression Generator</Typography.Title>
+                    <h2>Choose a chord progression or create your own</h2>
                         <div className="progression-cards-container" style={{width: "100%"}}>
-                        <Col span={24}>
+                        <Col span={12}>
                             <List
                                 grid={{
                                 gutter: 16,
-                                xs: 1, sm: 1, md: 2, lg: 3, xl: 4, xxl: 4
+                                md: 1, lg: 2, xl: 3, xxl: 4
                               }}
                               dataSource={chordData}
                               renderItem={(item, i) => (
-                                    
-                                        <List.Item>
-                                            <ChordCard key={i} title={item.title} chordName={item.chordName} strings={item.strings} /> 
-                                        </List.Item>
-                    
+                                    <List.Item>
+                                        <ChordCard key={i} title={item.title} chordName={item.chordName} strings={item.strings} /> 
+                                    </List.Item>
                                 )}
                             />
                         </Col> 
@@ -152,6 +147,15 @@ const ChordProgressions = () => {
                     </div>)}
                     <Button type="primary" size="medium" onClick={() => handleChordData()} >Get Progression</Button>
                 </Space>
+            </div>
+            <div className="chooseYourOwnProg-container center-items">
+            <Select>
+                {(progressionData.progQuality == "Major" ? majorNashNumbers : minorNashNumbers).map((item, i) => {
+                    return (
+                        <Option key={i} value={item}>{item}</Option>
+                    )
+                })}
+            </Select>
             </div>
         </div>
     )

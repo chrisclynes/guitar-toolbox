@@ -45,15 +45,17 @@ const majorProgressions = [
     { "I-V-vi-IV": ["I", "V", "vi", "IV"] },
     { "ii-IV-V": ["ii", "IV", "V"] },
     { "VI-IV-V": ["VI", "IV", "V"] },
-]
+];
 
+const majorNashNumbers = ["I", "ii", "iii", "IV", "V", "vi", "vii"];
 
 const minorProgressions = [
     { "i-iv-v": ["i", "iv", "v"] },
     { "i-iv-v": ["i", "iv","v"] },
     { "i-ii-VII-v-i": ["i", "ii", "VII","v", "i"] },
     { "i-VI-III-VII": ["i", "VI", "III", "VII"] },
-]
+];
 
+const minorNashNumbers = ["i", "ii", "III", "iv", "v", "VI", "VII"];
 
-export { majorKeys, minorKeys, majorProgressions, minorProgressions };
+export { majorKeys, minorKeys, majorProgressions, minorProgressions, minorNashNumbers, majorNashNumbers };

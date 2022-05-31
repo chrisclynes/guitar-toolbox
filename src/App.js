@@ -55,7 +55,7 @@ const App = () => {
             <div className="main">
                 <Layout theme={theme} style={{ height: "100vh", position: "relative", overflow: "hidden"}} >
                 <Header theme={theme}/>
-                    <div style={{ height: "100%", position: "relative", overflowY: "scroll"}}>
+                    <div style={{ height: "100%", position: "relative", overflowY: "auto"}}>
                         <Content theme={theme} style={{paddingBottom: "60px"}}>
                             <Routes>
                                 <Route path="/" element={<Homepage />} />

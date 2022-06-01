@@ -23,6 +23,7 @@ const ChordProgressions = () => {
             {title: "IV", chordName: "F", strings: "1 3 3 2 1 1" }, 
             {title: "V", chordName: "G", strings: "3 2 0 0 3 3" }]
         );
+    const [chooseProgData, setChooseProgData] = useState([]);
 
     const handleChordData = async () => {
         const chords = progressionData.chordProgression.join(",");
@@ -51,6 +52,13 @@ const ChordProgressions = () => {
         }))
     }, [progressionData]);
 
+    useEffect(() => {
+        console.log(chooseProgData)
+        // setProgressionData((prevState) => ({
+        //     ...prevState,
+        //     progNumbers: chooseProgData
+        // }))
+    }, [chooseProgData]);
 
     return (
         <div>
@@ -148,8 +156,8 @@ const ChordProgressions = () => {
                     <Button type="primary" size="medium" onClick={() => handleChordData()} >Get Progression</Button>
                 </Space>
             </div>
-            <div className="chooseYourOwnProg-container center-items">
-            <Select>
+            <div className="chooseProgression-container center-items" id="chooseProgression">
+            <Select defaultValue="" onChange={(val) => setChooseProgData((prevState) => ({...prevState.push(val)}))}>
                 {(progressionData.progQuality == "Major" ? majorNashNumbers : minorNashNumbers).map((item, i) => {
                     return (
                         <Option key={i} value={item}>{item}</Option>

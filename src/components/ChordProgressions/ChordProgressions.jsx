@@ -61,7 +61,7 @@ const ChordProgressions = () => {
     }, [chooseProgData]);
 
     return (
-        <div>
+        <div className='progression-main-container'>
             <div className="progresssion-cards-containers">
                 <div className="progression-title-container center-items" style={{textAlign: "center"}}>
                     <Typography.Title level={1}>Chord Progression Generator</Typography.Title>
@@ -153,17 +153,37 @@ const ChordProgressions = () => {
                                 </Select>
                             </Space>
                     </div>)}
-                    <Button type="primary" size="medium" onClick={() => handleChordData()} >Get Progression</Button>
+                    
                 </Space>
             </div>
+            <div classname="choose-progression-label center-items" style={{width: "100%", textAlign: "center"}}>
+                <Typography.Paragraph type="secondary" style={{margin: "1rem"}} >Or, choose your own progression below</Typography.Paragraph>
+            </div>
             <div className="chooseProgression-container center-items" id="chooseProgression">
-            <Select defaultValue="" onChange={(val) => setChooseProgData((prevState) => ({...prevState.push(val)}))}>
+            <Select defaultValue="" onChange={(val) => setChooseProgData((prevState) => ([prevState].push(val)))}>
                 {(progressionData.progQuality == "Major" ? majorNashNumbers : minorNashNumbers).map((item, i) => {
                     return (
                         <Option key={i} value={item}>{item}</Option>
                     )
                 })}
             </Select>
+            <Select defaultValue="" onChange={(val) => setChooseProgData((prevState) => ([...prevState].push(val)))}>
+                {(progressionData.progQuality == "Major" ? majorNashNumbers : minorNashNumbers).map((item, i) => {
+                    return (
+                        <Option key={i} value={item}>{item}</Option>
+                    )
+                })}
+            </Select>
+            <Select defaultValue="" onChange={(val) => setChooseProgData((prevState) => ([...prevState].push(val)))}>
+                {(progressionData.progQuality == "Major" ? majorNashNumbers : minorNashNumbers).map((item, i) => {
+                    return (
+                        <Option key={i} value={item}>{item}</Option>
+                    )
+                })}
+            </Select>
+            </div>
+            <div className="get-progression-btn center-items" style={{margin: "1rem"}}>
+                <Button type="primary" size="medium" onClick={() => handleChordData()} >Get Progression</Button>
             </div>
         </div>
     )

@@ -23,7 +23,10 @@ const ChordProgressions = () => {
             {title: "IV", chordName: "F", strings: "1 3 3 2 1 1" }, 
             {title: "V", chordName: "G", strings: "3 2 0 0 3 3" }]
         );
-    const [chooseProgData, setChooseProgData] = useState({choiceArr: []});
+    const [chooseProgData, setChooseProgData] = useState({
+        count: 8,
+        choiceArr: []
+    });
 
     const handleChordData = async () => {
         const chords = progressionData.chordProgression.join(",");
@@ -53,11 +56,10 @@ const ChordProgressions = () => {
     }, [progressionData]);//sets the main "progressionData" state's chordProgression values for api call.
 
     useEffect(() => {
-        
-        // setProgressionData((prevState) => ({
-        //     ...prevState,
-        //     progNumbers: chooseProgData
-        // }))
+        setProgressionData((prevState) => ({
+            ...prevState,
+            progNumbers: chooseProgData.choiceArr
+        }))
     }, [chooseProgData]);
 
     const handleProgressionArray = (value, index) => {
@@ -172,20 +174,24 @@ const ChordProgressions = () => {
                     
                 </Space>
             </div>
-            <div classname="choose-progression-label center-items" style={{width: "100%", textAlign: "center"}}>
-                <Typography.Paragraph type="secondary" style={{margin: "1rem"}} >Or, choose your own progression below</Typography.Paragraph>
+            <div className="choose-progression-label center-items" style={{width: "100%", textAlign: "center"}}>
+                <Typography.Paragraph type="secondary"  >Or, choose your own progression below</Typography.Paragraph>
             </div>
             <div className="chooseProgression-container center-items" id="chooseProgression">
             <Space>
                 {/* if choose array .length == # of selectors, append new selector limit to 8 */}
-                <Select defaultValue="" onChange={(val) => handleProgressionArray(val, 0)}>
+                {[...Array(chooseProgData.count)].map((item, index) => {
+                    return (
+                    <Select key={index} defaultValue="" onChange={(val, key) => handleProgressionArray(val, key)}>
                     {(progressionData.progQuality == "Major" ? majorNashNumbers : minorNashNumbers).map((item, i) => {
                         return (
                             <Option key={i} value={item}>{item}</Option>
                         )
-                    })}
+                        })}
                 </Select>
-                <Select defaultValue="" onChange={(val) => handleProgressionArray(val, 1)}>
+                )})}
+                
+                {/* <Select defaultValue="" onChange={(val) => handleProgressionArray(val, 1)}>
                     {(progressionData.progQuality == "Major" ? majorNashNumbers : minorNashNumbers).map((item, i) => {
                         return (
                             <Option key={i} value={item}>{item}</Option>
@@ -198,7 +204,7 @@ const ChordProgressions = () => {
                             <Option key={i} value={item}>{item}</Option>
                         )
                     })}
-                </Select>
+                </Select> */}
             </Space>
             </div>
             <div className="get-progression-btn center-items" style={{margin: "1rem"}}>

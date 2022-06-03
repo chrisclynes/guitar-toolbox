@@ -23,7 +23,7 @@ const ChordProgressions = () => {
             {title: "IV", chordName: "F", strings: "1 3 3 2 1 1" }, 
             {title: "V", chordName: "G", strings: "3 2 0 0 3 3" }]
         );
-    const [chooseProgData, setChooseProgData] = useState([]);
+    const [chooseProgData, setChooseProgData] = useState({choiceArr: []});
 
     const handleChordData = async () => {
         const chords = progressionData.chordProgression.join(",");
@@ -50,15 +50,31 @@ const ChordProgressions = () => {
             ...prevState,
             chordProgression: progressionData.progNumbers.map((e) => Object.values(progressionData.progQuality === "Major" ? majorKeys[progressionData.progKeyIndex] : minorKeys[progressionData.progKeyIndex])[0][e])//gets the correct chords from progression numbers input
         }))
-    }, [progressionData]);
+    }, [progressionData]);//sets the main "progressionData" state's chordProgression values for api call.
 
     useEffect(() => {
-        console.log(chooseProgData)
+        
         // setProgressionData((prevState) => ({
         //     ...prevState,
         //     progNumbers: chooseProgData
         // }))
     }, [chooseProgData]);
+
+    const handleProgressionArray = (value, index) => {
+        if (chooseProgData.choiceArr.length > index) {
+            let newArr = [...chooseProgData.choiceArr];
+            newArr.splice(index, 1, value);
+            setChooseProgData((prevState) => ({
+                ...prevState,
+                choiceArr: newArr
+            }))
+        }else {
+            setChooseProgData((prevState) => (
+                {
+                choiceArr: [...prevState.choiceArr, value]
+                }))
+            }
+        }
 
     return (
         <div className='progression-main-container'>
@@ -160,30 +176,35 @@ const ChordProgressions = () => {
                 <Typography.Paragraph type="secondary" style={{margin: "1rem"}} >Or, choose your own progression below</Typography.Paragraph>
             </div>
             <div className="chooseProgression-container center-items" id="chooseProgression">
-            <Select defaultValue="" onChange={(val) => setChooseProgData((prevState) => ([prevState].push(val)))}>
-                {(progressionData.progQuality == "Major" ? majorNashNumbers : minorNashNumbers).map((item, i) => {
-                    return (
-                        <Option key={i} value={item}>{item}</Option>
-                    )
-                })}
-            </Select>
-            <Select defaultValue="" onChange={(val) => setChooseProgData((prevState) => ([...prevState].push(val)))}>
-                {(progressionData.progQuality == "Major" ? majorNashNumbers : minorNashNumbers).map((item, i) => {
-                    return (
-                        <Option key={i} value={item}>{item}</Option>
-                    )
-                })}
-            </Select>
-            <Select defaultValue="" onChange={(val) => setChooseProgData((prevState) => ([...prevState].push(val)))}>
-                {(progressionData.progQuality == "Major" ? majorNashNumbers : minorNashNumbers).map((item, i) => {
-                    return (
-                        <Option key={i} value={item}>{item}</Option>
-                    )
-                })}
-            </Select>
+            <Space>
+                {/* if choose array .length == # of selectors, append new selector limit to 8 */}
+                <Select defaultValue="" onChange={(val) => handleProgressionArray(val, 0)}>
+                    {(progressionData.progQuality == "Major" ? majorNashNumbers : minorNashNumbers).map((item, i) => {
+                        return (
+                            <Option key={i} value={item}>{item}</Option>
+                        )
+                    })}
+                </Select>
+                <Select defaultValue="" onChange={(val) => handleProgressionArray(val, 1)}>
+                    {(progressionData.progQuality == "Major" ? majorNashNumbers : minorNashNumbers).map((item, i) => {
+                        return (
+                            <Option key={i} value={item}>{item}</Option>
+                        )
+                    })}
+                </Select>
+                <Select defaultValue="" onChange={(val) => handleProgressionArray(val, 2)}>
+                    {(progressionData.progQuality == "Major" ? majorNashNumbers : minorNashNumbers).map((item, i) => {
+                        return (
+                            <Option key={i} value={item}>{item}</Option>
+                        )
+                    })}
+                </Select>
+            </Space>
             </div>
             <div className="get-progression-btn center-items" style={{margin: "1rem"}}>
                 <Button type="primary" size="medium" onClick={() => handleChordData()} >Get Progression</Button>
+
+                <Button type="primary" size="medium" onClick={() => console.log(chooseProgData)} >Get arr vals</Button>
             </div>
         </div>
     )

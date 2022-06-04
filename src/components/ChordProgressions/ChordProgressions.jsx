@@ -24,7 +24,7 @@ const ChordProgressions = () => {
             {title: "V", chordName: "G", strings: "3 2 0 0 3 3" }]
         );
     const [chooseProgData, setChooseProgData] = useState({
-        count: 8,
+        count: 1,
         choiceArr: []
     });
 
@@ -73,6 +73,7 @@ const ChordProgressions = () => {
         }else {
             setChooseProgData((prevState) => (
                 {
+                count: prevState.count < 8 ? prevState.count + 1 : prevState.count,//appends new selector up to eight total
                 choiceArr: [...prevState.choiceArr, value]
                 }))
             }
@@ -190,21 +191,6 @@ const ChordProgressions = () => {
                         })}
                 </Select>
                 )})}
-                
-                {/* <Select defaultValue="" onChange={(val) => handleProgressionArray(val, 1)}>
-                    {(progressionData.progQuality == "Major" ? majorNashNumbers : minorNashNumbers).map((item, i) => {
-                        return (
-                            <Option key={i} value={item}>{item}</Option>
-                        )
-                    })}
-                </Select>
-                <Select defaultValue="" onChange={(val) => handleProgressionArray(val, 2)}>
-                    {(progressionData.progQuality == "Major" ? majorNashNumbers : minorNashNumbers).map((item, i) => {
-                        return (
-                            <Option key={i} value={item}>{item}</Option>
-                        )
-                    })}
-                </Select> */}
             </Space>
             </div>
             <div className="get-progression-btn center-items" style={{margin: "1rem"}}>

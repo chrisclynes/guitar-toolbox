@@ -16,34 +16,33 @@ const Metronome = () => {
     const [isPlaying, setIsPlaying] = useState(false); 
     const { bpm, count, measure } = metronomeData;//destructure state
 
-    const playClick = () => {
-        if(count % measure === 0) {
-            beat.play();
-        }else {
-            click.play();
-        }
-        setMetronomeData((prevState) => ({
-            ...prevState,
-            count: (prevState.count + 1) % prevState.measure
-        }))
-    }
+    useEffect(() => {
+        let counter = count;//uses vals from state but state not updated each time. run within this effect only
+            const time = setInterval(() => {
+                if(isPlaying) {
+                    if(counter == 0) {
+                        beat.play();
+                    }else {
+                        click.play();
+                    }
+                   counter = (counter + 1) % measure
+                   console.log(counter)
+                }
+            }, (60000 / bpm));
+            return () => clearInterval(time);//clears interval if isPlaying changes back to false
+    }, [isPlaying, metronomeData])
 
     const handleStartStopClick = () => {
-        let timer = null;
-        if(!isPlaying) {
-            timer = setInterval(() => playClick(), (60 / metronomeData.bpm) * 1000);
+        if(isPlaying) {
+            setIsPlaying(false)      
+        }else {
             setMetronomeData((prevState) => ({
                 ...prevState,
                 count: 0,
             }))
             setIsPlaying(true);
-        }else {
-            clearInterval(timer)
-            setIsPlaying(false)
         }
-
     }
-
     
     return (
         <Card title="Metronome" style={{width: "280px", margin: "1rem"}} bodyStyle={{display: "flex", justifyContent: "center", alignItems: "center"}}>

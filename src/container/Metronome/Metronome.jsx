@@ -28,17 +28,18 @@ const Metronome = () => {
         }))
     }
 
-    const handleStartStopClick = (startStop) => {
+    const handleStartStopClick = () => {
+        let timer = null;
         if(!isPlaying) {
-            setIsPlaying(startStop);
-            this.timer = setInterval(playClick(), (60 / metronomeData.bpm) * 1000);
+            timer = setInterval(() => playClick(), (60 / metronomeData.bpm) * 1000);
             setMetronomeData((prevState) => ({
                 ...prevState,
                 count: 0,
             }))
+            setIsPlaying(true);
         }else {
-            clearInterval(this.timer)
-            setIsPlaying(startStop)
+            clearInterval(timer)
+            setIsPlaying(false)
         }
 
     }
@@ -50,10 +51,10 @@ const Metronome = () => {
                     <Typography.Title>{`${bpm} bpm`}</Typography.Title>
                     <Slider min={0} max={300} defaultValue={90} style={{width: "200px"}} onChange={(val) => {setMetronomeData((prevState) => ({...prevState, bpm: val}))}}/>
                     {!isPlaying &&
-                        <Button label="start" onClick={() => handleStartStopClick(true)}>Start</Button>
+                        <Button label="start" onClick={() => handleStartStopClick()}>Start</Button>
                     }
                     {isPlaying &&
-                        <Button label="stop" style={{color: "red"}} onClick={() => handleStartStopClick(false)}>Stop</Button>
+                        <Button label="stop" style={{color: "red"}} onClick={() => handleStartStopClick()}>Stop</Button>
                     }
                 </Space>
         </Card>

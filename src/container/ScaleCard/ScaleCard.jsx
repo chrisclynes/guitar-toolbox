@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card } from "antd";
 
+import "./ScaleCard.css";
 
 const ScaleCard = ({chordName, strings, title}) => {
     return (

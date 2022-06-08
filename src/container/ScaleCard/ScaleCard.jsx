@@ -1,12 +1,16 @@
 import React from 'react';
-import { Card } from "antd";
+import { Card, Image } from 'antd';
 
-import "./ScaleCard.css";
 
-const ScaleCard = ({chordName, strings, title}) => {
+import './ScaleCard.css';
+
+const ScaleCard = ({ title, image}) => {
     return (
         <Card title={title} style={{ margin: "1rem"}} bodyStyle={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-            
+            <Image
+                width={250}
+                src={image}
+            />
         </Card>
     )
 }

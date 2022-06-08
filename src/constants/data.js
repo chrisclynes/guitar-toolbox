@@ -1,3 +1,5 @@
+import images from "./images";
+
 const majorKeys = [
     { "C Major": { I: "C", ii: "D_m", iii: "E_m", IV: "F", V: "G", vi: "A_m", vii: "B_dim" }},
     { "G Major": { I: "G", ii: "A_m", iii: "B_m", IV: "C", V: "D", vi: "E_m", vii: "F%23_dim" }},
@@ -58,4 +60,31 @@ const minorProgressions = [
 
 const minorNashNumbers = ["i", "ii", "III", "iv", "v", "VI", "VII"];
 
-export { majorKeys, minorKeys, majorProgressions, minorProgressions, minorNashNumbers, majorNashNumbers };
+const guitarScalesData = [
+    {"Major Scale": {
+        1: images.Major5th,
+        2: images.Major6th
+    }},   
+    {"Minor Pentatonic": {
+        1: images.MinPentatonic5th,
+        2: images.MinPentatonic6th
+    }},  
+    {"Blues Scale": {
+        1: images.Blues5th,
+        2: images.Blues6th
+    }}, 
+    {"Natural Minor/Aeolian Mode": {
+        1: images.NatMinor5th,
+        2: images.NatMinor6th
+    }}, 
+    {"Dorian Mode": {
+        1: images.Dorian5th,
+        2: images.Dorian6th
+    }}, 
+    {"Mixolydian Mode": {
+        1: images.Mixolydian5th,
+        2: images.Mixolydian6th
+    }}
+];
+
+export { majorKeys, minorKeys, majorProgressions, minorProgressions, minorNashNumbers, majorNashNumbers, guitarScalesData };

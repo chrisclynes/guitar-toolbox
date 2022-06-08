@@ -19,20 +19,20 @@ const Metronome = () => {
     const [isPlaying, setIsPlaying] = useState(false); 
     const { bpm, count, measure } = metronomeData;//destructure state
 
-    const playClick = () => {
-        // console.log('here')
-        // if(count == 0){
-            beat.play()
-        // }else {
-        //     click.play()
-        // }
-        // setMetronomeData((prevState) => ({
-        //     ...prevState,
-        //     count: (count + 1) % measure
-        // }))
-    }
+    // const playClick = () => {
+    //     // console.log('here')
+    //     // if(count == 0){
+    //         beat.play()
+    //     // }else {
+    //     //     click.play()
+    //     // }
+    //     // setMetronomeData((prevState) => ({
+    //     //     ...prevState,
+    //     //     count: (count + 1) % measure
+    //     // }))
+    // }
 
-    const clickTime = new AccurateTime(() => beat.play(), (60000 / bpm))
+    const clickTime = new AccurateTime((60000 / bpm))
     const handleStartStopClick = () => {
         if(!isPlaying){
             setIsPlaying(true)

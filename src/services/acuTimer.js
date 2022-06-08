@@ -1,6 +1,10 @@
-import { toHaveDisplayValue } from "@testing-library/jest-dom/dist/matchers";
 
-function AccurateTime(callback, interval) {
+import beatSound from '../Sounds/beatSound.wav';
+
+
+
+function AccurateTime(interval) {
+    this.beat = new Audio(beatSound);
     this.interval = interval;
 
     this.start = () => {
@@ -16,7 +20,7 @@ function AccurateTime(callback, interval) {
                 console.log("interval error, likely browser's tab focus has changed")
                 this.stop()
             }
-        callback();//run inserted callback function
+        this.beat.play();//run inserted callback function
         this.expected += this.interval;
         
         this.timeout = setTimeout(this.driftFix, this.interval - drift);

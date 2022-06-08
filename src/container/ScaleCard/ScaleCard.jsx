@@ -10,6 +10,7 @@ const ScaleCard = ({ title, image}) => {
             <Image
                 width={250}
                 src={image}
+                alt="scale img"
             />
         </Card>
     )

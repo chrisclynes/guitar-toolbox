@@ -62,28 +62,28 @@ const minorNashNumbers = ["i", "ii", "III", "iv", "v", "VI", "VII"];
 
 const guitarScalesData = [
     {"Major Scale": {
-        1: images.Major5th,
-        2: images.Major6th
+        fifth: images.Major5th,
+        sixth: images.Major6th
     }},   
     {"Minor Pentatonic": {
-        1: images.MinPentatonic5th,
-        2: images.MinPentatonic6th
+        fifth: images.MinPentatonic5th,
+        sixth: images.MinPentatonic6th
     }},  
     {"Blues Scale": {
-        1: images.Blues5th,
-        2: images.Blues6th
+        fifth: images.Blues5th,
+        sixth: images.Blues6th
     }}, 
-    {"Natural Minor/Aeolian Mode": {
-        1: images.NatMinor5th,
-        2: images.NatMinor6th
+    {"Natural Minor/Aeolian": {
+        fifth: images.NatMinor5th,
+        sixth: images.NatMinor6th
     }}, 
     {"Dorian Mode": {
-        1: images.Dorian5th,
-        2: images.Dorian6th
+        fifth: images.Dorian5th,
+        sixth: images.Dorian6th
     }}, 
     {"Mixolydian Mode": {
-        1: images.Mixolydian5th,
-        2: images.Mixolydian6th
+        fifth: images.Mixolydian5th,
+        sixth: images.Mixolydian6th
     }}
 ];
 

@@ -10,6 +10,7 @@ const click = new Audio(clickSound);
 const beat = new Audio(beatSound);
 
 
+
 const Metronome = () => {
     const [metronomeData, setMetronomeData] = useState({
         bpm: 90,
@@ -40,8 +41,7 @@ const Metronome = () => {
         }else {
             clickTime.stop()
             setIsPlaying(false)
-        }
-        
+        } 
     }
     
     return (

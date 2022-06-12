@@ -30,6 +30,7 @@ const App = () => {
                     selectedKeys={menuArray}
                     defaultSelectedKeys={["home"]}
                     mode="inline"
+                    onClick={((item) => setMenuArray([item.key]))}//set highlighted sider menu item, array will always only contain a single value.
                     >
                     <img src={logo} className="guitar-logo"/>
                     <Typography.Title level={3} style={{ margin: "0rem 1rem 1rem 1rem"}}>
@@ -61,7 +62,7 @@ const App = () => {
                     <div style={{ height: "100%", position: "relative", overflowY: "auto"}}>
                         <Content theme={theme} style={{paddingBottom: "60px"}}>
                             <Routes>
-                                <Route path="/" element={<Homepage />} />
+                                <Route path="/" element={<Homepage setMenuArray={setMenuArray} />} />
                                 <Route path="/mydashboard" element={<MyDashboard theme={theme} />} />
                                 <Route path="/chords" element={<ChordsPage theme={theme} />} />
                                 <Route path="/chord-progressions" element={<ChordProgressions />} />

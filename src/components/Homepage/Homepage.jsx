@@ -3,7 +3,7 @@ import { Typography, Col, Button} from 'antd';
 import { Link } from "react-router-dom";
 
 import "./Homepage.css"; 
-const Homepage = () => {
+const Homepage = ({ setMenuArray }) => {
     return (
         <div className="homepage-container center-items">
             <div className="welcome-header">
@@ -14,7 +14,7 @@ const Homepage = () => {
             <Col span={12}>
                 <div className="hompage-content center items">
                         <Link to="/mydashboard">
-                            <Button type="primary" size="medium" style={{margin: "1rem"}} >Start</Button>
+                            <Button type="primary" size="medium" style={{margin: "1rem"}} onClick={(() => setMenuArray(["dashboard"]))} >Start</Button>
                         </Link>
                 </div>
             </Col>

@@ -148,9 +148,10 @@ const ChordProgressions = () => {
                                     })}
                                 </Select>
                                 {!toggleSelectors &&
-                                    <Select defaultValue="" 
+                                    <Select 
                                             style={{width: "150px"}} 
-                                            name="major-progression-selctor" 
+                                            name="major-progression-selctor"
+                                            placeholder="Progression" 
                                             onChange={(val, key) => {
                                                 setProgressionData((prevState) => ({
                                                 ...prevState, 
@@ -179,9 +180,10 @@ const ChordProgressions = () => {
                                     })}
                                 </Select>
                                 {!toggleSelectors &&
-                                    <Select defaultValue="" 
+                                    <Select  
                                             style={{width: "150px"}} 
-                                            name="minor-progression-selctor" 
+                                            name="minor-progression-selctor"
+                                            placeholder="Progression"  
                                             onChange={(val, key) => {
                                                 setProgressionData((prevState) => ({
                                                     ...prevState, 
@@ -204,7 +206,7 @@ const ChordProgressions = () => {
             </div>
             {!toggleSelectors &&
                 <div className="choose-progression-label center-items" style={{width: "100%", textAlign: "center"}}>
-                    <Typography.Paragraph type="secondary"  >Or, choose your own progression below</Typography.Paragraph>
+                    <Typography.Paragraph type="secondary" >Or, choose your own progression below</Typography.Paragraph>
                 </div>
             }
             <div className="chooseProgression-container center-items" id="chooseProgression">

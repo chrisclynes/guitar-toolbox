@@ -13,6 +13,7 @@ const ChordProgressions = () => {
     //---------------------------USE STATES------------------------------
 
     const [toggleSelectors, setToggleSelectors] = useState(false);
+    const [toggleGetProgBtn, setToggleGetProBtn] = useState(false);
     const [progression, setProgression] = useState("Major");
     const [progressionData, setProgressionData] = useState({
         progQuality: "Major",
@@ -101,6 +102,7 @@ const ChordProgressions = () => {
                         choiceArr: []
                     }))
         setToggleSelectors(false);
+        setToggleGetProBtn(false)
             }
 
 //---------------------------COMPONENT RENDER------------------------------
@@ -146,7 +148,7 @@ const ChordProgressions = () => {
                                     })}
                                 </Select>
                                 {!toggleSelectors &&
-                                    <Select defaultValue="I-IV-V" 
+                                    <Select defaultValue="" 
                                             style={{width: "150px"}} 
                                             name="major-progression-selctor" 
                                             onChange={(val, key) => {
@@ -155,6 +157,7 @@ const ChordProgressions = () => {
                                                 progNumbers: Object.values(majorProgressions[parseInt(key.key)])[0],//pulls array value of progressions data from selected value
                                                     }))
                                                 setToggleSelectors(false)
+                                                setToggleGetProBtn(true)
                                                 }}>
                                         {majorProgressions.map((item, i) => {
                                                 return (
@@ -176,7 +179,7 @@ const ChordProgressions = () => {
                                     })}
                                 </Select>
                                 {!toggleSelectors &&
-                                    <Select defaultValue="i-iv-v" 
+                                    <Select defaultValue="" 
                                             style={{width: "150px"}} 
                                             name="minor-progression-selctor" 
                                             onChange={(val, key) => {
@@ -185,6 +188,7 @@ const ChordProgressions = () => {
                                                     progNumbers: Object.values(minorProgressions[parseInt(key.key)])[0],//pulls array value of progressions data from selected value,
                                                         }))
                                                 setToggleSelectors(false)
+                                                setToggleGetProBtn(true)
                                             }}>
                                         {minorProgressions.map((item, i) => {
                                                 return (
@@ -205,7 +209,10 @@ const ChordProgressions = () => {
             }
             <div className="chooseProgression-container center-items" id="chooseProgression">
             {!toggleSelectors &&
-                <Button type="primary" size="medium" onClick={() => setToggleSelectors(true)} >Choose Your Own</Button>
+                <Button type="primary" size="medium" onClick={() => {
+                    setToggleSelectors(true)
+                    setToggleGetProBtn(true)
+                }} >Choose Your Own</Button>
             }
             {toggleSelectors &&
             <Space>
@@ -223,12 +230,11 @@ const ChordProgressions = () => {
                 </Space>
             }
             </div>
-            {progressionData.chordProgression !== "" &&
+            {toggleGetProgBtn &&
                 <div className="get-progression-btn center-items" style={{margin: "1rem"}}>
                     <Button type="primary" size="medium" onClick={() => handleChordData()} >Get Progression</Button>
                 </div>
             }
-            
         </div>
     )
 }

@@ -88,7 +88,7 @@ const ChordsPage = ({theme}) => {
                         </div>
                         <div>
                             <Typography.Paragraph>Quality</Typography.Paragraph>
-                            <Select defaultValue="" style={{width: "80px"}} name="chord-quality-selector" onChange={(val) => setSelectorVals((prevState) => ({...prevState, quality: val}))}>
+                            <Select defaultValue="" style={{width: "80px"}} label="Quality" name="chord-quality-selector" onChange={(val) => setSelectorVals((prevState) => ({...prevState, quality: val}))}>
                                 <Option value="">Major</Option>
                                 <Option value="m">Minor</Option>
                                 <Option value="dim">dim</Option>

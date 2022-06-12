@@ -1,5 +1,6 @@
 import React from 'react';
-import { Typography, Col} from 'antd';
+import { Typography, Col, Button} from 'antd';
+import { Link } from "react-router-dom";
 
 import "./Homepage.css"; 
 const Homepage = () => {
@@ -12,8 +13,9 @@ const Homepage = () => {
             {/*IF PROGRESS STARTED, RENDER PROGRESS HERE */}
             <Col span={12}>
                 <div className="hompage-content center items">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Hac habitasse platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper. Dolor purus non enim praesent elementum facilisis leo vel fringilla.</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Hac habitasse platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper. Dolor purus non enim praesent elementum facilisis leo vel fringilla.</p>
+                        <Link to="/mydashboard">
+                            <Button type="primary" size="medium" style={{margin: "1rem"}} >Start</Button>
+                        </Link>
                 </div>
             </Col>
         </div>

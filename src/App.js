@@ -15,16 +15,19 @@ const { Header, Footer, Sider, Content } = Layout;
 
 const App = () => {
     const [theme, setTheme] = useState('light');
+    const [menuArray, setMenuArray] = useState(["home"])
 
     const changeTheme = (value) => {
         setTheme(value ? 'dark' : 'light');
       };
+
 
     return (
         <div className="app">
             <Sider theme={theme}>
                 <Menu 
                     theme={theme}
+                    selectedKeys={menuArray}
                     defaultSelectedKeys={["home"]}
                     mode="inline"
                     >
@@ -33,10 +36,10 @@ const App = () => {
                         Guitar Quest
                     </Typography.Title>
                     <Menu.Item key="home" icon={<HomeOutlined />} >
-                        <Link to="/">Home</Link>
+                        <Link to="/" >Home</Link>
                     </Menu.Item>
                     <Menu.Item key="dashboard" icon={<DashboardOutlined />}>
-                        <Link to="/mydashboard">My Dashboard</Link>
+                        <Link to="/mydashboard" >My Dashboard</Link>
                     </Menu.Item>
                     <Menu.SubMenu key="training-sub" title="Training">
                             <Menu.Item key="chords">

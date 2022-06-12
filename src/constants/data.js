@@ -35,6 +35,7 @@ const minorKeys = [
     { "Bb Minor": { i: "Bb_m", ii: "C_dim", III: "Db", iv: "Eb_m", v: "F_m", VI: "Gb", VII: "Ab" }}
 ];
 
+//add more progressions here to build up selection, handleProgressionArray function will do all the work
 const majorProgressions = [
     { "I-IV-V": ["I","IV","V"] },
     { "I-vi-IV-V": ["I", "vi", "IV","V"] },
@@ -48,16 +49,16 @@ const majorProgressions = [
     { "ii-IV-V": ["ii", "IV", "V"] },
     { "VI-IV-V": ["VI", "IV", "V"] },
 ];
-
 const majorNashNumbers = ["I", "ii", "iii", "IV", "V", "vi", "vii"];
 
+//add more progressions here to build up selection, handleProgressionArray function will do all the work
 const minorProgressions = [
     { "i-iv-v": ["i", "iv", "v"] },
-    { "i-iv-v": ["i", "iv","v"] },
+    { "i-VI-III-iv": ["i", "VI", "III", "iv"] },
+    { "i-VI-VII": ["i", "VI","VII"] },
     { "i-ii-VII-v-i": ["i", "ii", "VII","v", "i"] },
     { "i-VI-III-VII": ["i", "VI", "III", "VII"] },
 ];
-
 const minorNashNumbers = ["i", "ii", "III", "iv", "v", "VI", "VII"];
 
 const guitarScalesData = [

@@ -76,10 +76,12 @@ const ChordsPage = ({theme}) => {
                     <h2>Your tool to mastering new chords!</h2>
                 </div>
                 <ChordCard chordName={chordData.chordName} strings={chordData.strings} />
+                <div>
+                    <Typography.Paragraph type="secondary" style={{margin: "1rem"}} >Select root note, quality, add any optional alterations</Typography.Paragraph>
+                </div>
                 <div className="chord-options-container">
                     <Space size="small">
                         <div>
-                            <Typography.Paragraph>Root</Typography.Paragraph>
                             <Select style={{width: "80px"}} defaultValue="A" name="chord-root-selector" onChange={(val) => setSelectorVals((prevState) => ({...prevState, root: val}))}>
                                 {chordKeySelectors.map((item, i) => {
                                     return <Option key={i} value={item}>{item.replace(/(%23)/g, "#").replace(/(_)/g, '')}</Option>
@@ -87,7 +89,6 @@ const ChordsPage = ({theme}) => {
                             </Select>
                         </div>
                         <div>
-                            <Typography.Paragraph>Quality</Typography.Paragraph>
                             <Select defaultValue="" style={{width: "80px"}} label="Quality" name="chord-quality-selector" onChange={(val) => setSelectorVals((prevState) => ({...prevState, quality: val}))}>
                                 <Option value="">Major</Option>
                                 <Option value="m">Minor</Option>
@@ -95,17 +96,18 @@ const ChordsPage = ({theme}) => {
                             </Select>
                         </div>
                         <div>
-                            <Typography.Paragraph>Alterations</Typography.Paragraph>
-                                <Input style={{ width: "100px" }} name="chord-alterations" defaultValue="" placeholder="sus2, maj9..." onChange={(val) => setSelectorVals((prevState) => ({...prevState, alterations: val.target.value}))}/>
+                                <Input style={{ width: "100px" }} name="chord-alterations" defaultValue="" placeholder="sus2, maj7..." onChange={(val) => setSelectorVals((prevState) => ({...prevState, alterations: val.target.value}))}/>
                         </div>
-                        <div>
-                            <Typography.Paragraph>"</Typography.Paragraph>
-                                <Button type="primary" size="medium" onClick={() => handleChordData()} >Get Chord</Button>
-                        </div>
+                        
                     </Space>
                 </div>
+                <Space>
+                    <div>
+                        <Button type="primary" size="medium" style={{margin: "1rem"}} onClick={() => handleChordData()} >Get Chord</Button>
+                    </div>
+                </Space>
                 <Typography.Paragraph type="danger" >{chordError}</Typography.Paragraph>
-                <Typography.Paragraph type="secondary" style={{margin: "1rem"}} >Or, get the name of a chord</Typography.Paragraph>
+                <Typography.Paragraph type="secondary" style={{margin: "1rem"}} >Or, learn a new chord by using tab below</Typography.Paragraph>
                     <Space>
                     <div className="chord-options-two-container">
                             {stringSelector.map((string, index) => {

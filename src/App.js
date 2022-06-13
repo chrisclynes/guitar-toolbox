@@ -2,7 +2,7 @@ import React, { startTransition, useState, useEffect } from 'react';
 import { Routes, Route, Link } from "react-router-dom";
 import { Homepage, ChordsPage, MyDashboard, ChordProgressions, Scales } from './components';
 
-import { Layout , Typography, Space, Menu, Switch, } from 'antd';
+import { Layout , Typography, Menu, } from 'antd';
 
 import { HomeOutlined, DashboardOutlined } from '@ant-design/icons';
 
@@ -14,19 +14,14 @@ import './App.css';
 const { Header, Footer, Sider, Content } = Layout;
 
 const App = () => {
-    const [theme, setTheme] = useState('light');
     const [menuArray, setMenuArray] = useState(["home"])
-
-    const changeTheme = (value) => {
-        setTheme(value ? 'dark' : 'light');
-      };
 
 
     return (
         <div className="app">
-            <Sider theme={theme}>
+            <Sider theme='light' >
                 <Menu 
-                    theme={theme}
+                    theme='light'
                     selectedKeys={menuArray}
                     defaultSelectedKeys={["home"]}
                     mode="inline"
@@ -54,23 +49,22 @@ const App = () => {
                             </Menu.Item>
                     </Menu.SubMenu>
                 </Menu>
-                <div className="theme-container center-items">Light<Switch onChange={changeTheme} className="center-items" style={{margin: "0.5rem"}}></Switch>Dark</div>
             </Sider>
             <div className="main">
-                <Layout theme={theme} style={{ height: "100vh", position: "relative", overflow: "hidden"}} >
-                <Header theme={theme}/>
+                <Layout style={{ height: "100vh", position: "relative", overflow: "hidden"}} >
+                <Header />
                     <div style={{ height: "100%", position: "relative", overflowY: "auto"}}>
-                        <Content theme={theme} style={{paddingBottom: "60px"}}>
+                        <Content style={{paddingBottom: "60px"}}>
                             <Routes>
                                 <Route path="/" element={<Homepage setMenuArray={setMenuArray} />} />
-                                <Route path="/mydashboard" element={<MyDashboard theme={theme} />} />
-                                <Route path="/chords" element={<ChordsPage theme={theme} />} />
+                                <Route path="/mydashboard" element={<MyDashboard />} />
+                                <Route path="/chords" element={<ChordsPage />} />
                                 <Route path="/chord-progressions" element={<ChordProgressions />} />
                                 <Route path="/scales" element={<Scales />} />
                             </Routes>
                         </Content>
                         </div>
-                    <Footer theme={theme} style={{
+                    <Footer style={{
                         position: "absolute",
                         left: 0,
                         bottom: 0,

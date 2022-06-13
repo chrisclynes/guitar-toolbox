@@ -12,7 +12,7 @@ import "./ChordsPage.css";
 const { Header, Sider } = Layout;
 const { Option } = Select;
 
-const ChordsPage = ({theme}) => {
+const ChordsPage = () => {
     const [chordData, setChordData] = useState({chordName: "A", strings: "X 0 2 2 2 0" });
     const [voicingData, setVoicingData] = useState({strings: ["X", "X", "X", "X", "X", "X"] });
     const [selectorVals, setSelectorVals] = useState({root: "A_", quality: "", alterations: ""});
@@ -68,7 +68,7 @@ const ChordsPage = ({theme}) => {
     }
 
     return (
-        <Layout theme={theme}>
+        <Layout>
             
             <div className="chord-main-container">
                 <div className="chords-title">

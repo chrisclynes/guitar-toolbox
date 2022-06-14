@@ -8,10 +8,10 @@ import { HomeOutlined, DashboardOutlined } from '@ant-design/icons';
 
 import logo from './images/guitarlogo.png';
 
-
 import './App.css';
 
 const { Header, Footer, Sider, Content } = Layout;
+
 
 const App = () => {
     const [menuArray, setMenuArray] = useState(["home"])

@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Typography, Card, Space, Button, Select, Slider} from 'antd';
 
-import clickSound from '../../Sounds/clickSound.wav';
-import beatSound from '../../Sounds/beatSound.wav';
 
-import AccurateTime from "../../services/acuTimer";
 
-const click = new Audio(clickSound);
-const beat = new Audio(beatSound);
+// var clickSound = new Tone.Player('../../Sounds/clickSound.wav').toDestination()
+// var beatSound = new Tone.Player('../../Sounds/beatSound.wav').toDestination()
 
 
 
@@ -20,6 +17,7 @@ const Metronome = () => {
     const [isPlaying, setIsPlaying] = useState(false); 
     const { bpm, count, measure } = metronomeData;//destructure state
 
+    
     // const playClick = () => {
     //     // console.log('here')
     //     // if(count == 0){
@@ -33,13 +31,15 @@ const Metronome = () => {
     //     // }))
     // }
 
-    const clickTime = new AccurateTime((60000 / bpm))
+    // const clickTime = new AccurateTime((60000 / bpm))
+
     const handleStartStopClick = () => {
         if(!isPlaying){
+           
             setIsPlaying(true)
-            clickTime.start()
+            
         }else {
-            clickTime.stop()
+            
             setIsPlaying(false)
         } 
     }

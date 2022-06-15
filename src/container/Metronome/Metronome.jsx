@@ -2,57 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Typography, Card, Space, Button, Select, Slider} from 'antd';
 import { SoundOutlined } from '@ant-design/icons';
 
-// const Metronome = () => {
-//     const [metronomeData, setMetronomeData] = useState({
-//         bpm: 90,
-//         count: 0,
-//         measure: 3
-//     });
-//     const [isPlaying, setIsPlaying] = useState(false); 
-//     const { bpm, count, measure } = metronomeData;//destructure state
-
-    
-//     // const playClick = () => {
-//     //     // console.log('here')
-//     //     // if(count == 0){
-//     //         beat.play()
-//     //     // }else {
-//     //     //     click.play()
-//     //     // }
-//     //     // setMetronomeData((prevState) => ({
-//     //     //     ...prevState,
-//     //     //     count: (count + 1) % measure
-//     //     // }))
-//     // }
-
-//     // const clickTime = new AccurateTime((60000 / bpm))
-
-//     const handleStartStopClick = () => {
-//         if(!isPlaying){
-           
-//             setIsPlaying(true)
-            
-//         }else {
-            
-//             setIsPlaying(false)
-//         } 
-//     }
-    
-//     return (
-//         <Card title="Metronome" style={{width: "280px", margin: "1rem"}} bodyStyle={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-//                 <Space style={{flexDirection: "column"}}>
-//                     <Typography.Title>{`${bpm} bpm`}</Typography.Title>
-//                     <Slider min={30} max={300} defaultValue={90} style={{width: "200px"}} onChange={(val) => {setMetronomeData((prevState) => ({...prevState, bpm: val}))}}/>
-                    // {!isPlaying &&
-                    //     <Button label="start" onClick={() => handleStartStopClick()}>Start</Button>
-                    // }
-                    // {isPlaying &&
-                    //     <Button label="stop" style={{color: "red"}} onClick={() => handleStartStopClick()}>Stop</Button>
-                    // }
-//                 </Space>
-//         </Card>
-//     )
-// }
 const { Option } = Select;
 const { Meta } = Card;
 
@@ -150,32 +99,7 @@ const Metronome = () => {
                 </div>
             </Space>
     </Card>
-)
-    // return (
-    // <Card>
-    // <div>
-    
-    // <label for="bpm">BPM:</label>
-
-    
-    //   <input id="bpm" type="number" onChange={handleChangeBPM} value={bpm} />
-    
-    // <label for="duration">Duration:</label>
-    
-    // <select id="duration" onChange={handleChangeDur} value={duration}>
-    //   <Option value={1}>Whole</Option>
-    //   <Option value={1 / 2}>Half</Option>
-    //   <Option value={1 / 4}>Quarter</Option>
-    //   <Option value={1 / 8}>Eigth </Option>
-    //   <Option value={1 / 16}>Sixteenth</Option>
-    //   <Option value={1 / 32}>Thirtysecond</Option>
-    // </select> 
-    
-    // <label for="typ">Type:</label>
-    // <select id="typ" onChange={handleChangeType} value={type}>
-    //   <Option value={1}>Regular</Option>
-    //   <Option value={3 / 2}>Dotted</Option>
-    //   <Option value={2 / 3}>Triplet</Option>
+  )
 }
 
 export default Metronome;

@@ -54,4 +54,5 @@ const ScalesPage = () => {
     )
 }
 
+
 export default ScalesPage;

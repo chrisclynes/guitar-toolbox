@@ -6,7 +6,10 @@ import Metronome from '../../container/Metronome/Metronome';
 const MetronomePage = () => {
  
     return (
-        <Metronome />
+        <div className="metronome-main-container">
+            <Metronome />
+        </div>
+        
     )
 }
 

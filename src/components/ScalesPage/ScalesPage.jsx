@@ -10,7 +10,7 @@ import { guitarScalesData } from '../../constants/data';
 
 const { Option } = Select;
 
-const Scales = () => {
+const ScalesPage = () => {
     const [scaleData, setScaleData] = useState({
         scaleFifthTitle: "Major Scale, 5th String Root",
         scaleSixthTitle: "Major Scale, 6th String Root",
@@ -54,4 +54,4 @@ const Scales = () => {
     )
 }
 
-export default Scales;
+export default ScalesPage;

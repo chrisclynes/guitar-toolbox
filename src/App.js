@@ -1,6 +1,6 @@
 import React, { startTransition, useState, useEffect } from 'react';
 import { Routes, Route, Link } from "react-router-dom";
-import { Homepage, ChordsPage, MyDashboard, ChordProgressions, Scales } from './components';
+import { Homepage, ChordsPage, MyDashboard, ChordProgressions, ScalesPage, MetronomePage } from './components';
 
 import { Layout , Typography, Menu, } from 'antd';
 
@@ -47,6 +47,9 @@ const App = () => {
                             <Menu.Item key="scales">
                                 <Link to="/scales">Scales</Link>
                             </Menu.Item>
+                            <Menu.Item key="metronome">
+                                <Link to="/metronome">Metronome</Link>
+                            </Menu.Item>
                     </Menu.SubMenu>
                 </Menu>
             </Sider>
@@ -60,7 +63,8 @@ const App = () => {
                                 <Route path="/mydashboard" element={<MyDashboard />} />
                                 <Route path="/chords" element={<ChordsPage />} />
                                 <Route path="/chord-progressions" element={<ChordProgressions />} />
-                                <Route path="/scales" element={<Scales />} />
+                                <Route path="/scales" element={<ScalesPage />} />
+                                <Route path="/metronome" element={<MetronomePage />} />
                             </Routes>
                         </Content>
                         </div>

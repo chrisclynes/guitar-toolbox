@@ -3,39 +3,48 @@ import { Typography, Card, Space, Button, Select, Slider} from 'antd';
 import { SoundOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
-const { Meta } = Card;
 
-function noteDurationToMs (bpm, duration, type) {
+
+//------------------Metronome Engine-----------------------
+function convertToMs (bpm, duration, type) {
     return 60000 * 4 * duration * type / bpm
 }
-const aContext = new AudioContext();
-let interval, lastNote = 0;
 
-function scheduleClick(audio, time, duration) {
+const aContext = new AudioContext();
+const clickVolume = aContext.createGain();
+let interval = 0
+let lastClick = 0;
+
+function metronomeEngine(audio, time, duration, volume) {
     let click = audio.createOscillator();
     click.connect( audio.destination );
     click.frequency.setValueAtTime(1800, 0)
+    //volume gain set from -1 to 1 range, convert value 0-100 to correct gain range
+    clickVolume.gain.linearRampToValueAtTime((volume / 50) - 1, 0);
+    click.connect(clickVolume);
+    clickVolume.connect(audio.destination);
     
     click.start(time);
     click.stop(time + duration);
 }
 
+//------------------Metronome Component-----------------------
 const Metronome = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(1 / 4);  
   const [type, setType] = useState(1);
-  const [bpm, setBpm] = useState(100);
+  const [bpm, setBpm] = useState(90);
   const [volume, setVolume] = useState(50);   
   
-  const step = noteDurationToMs(bpm, duration, type) / 1000;
+  const step = convertToMs(bpm, duration, type) / 1000;
     const lookAhead = step / 2;
   
   const timer = () => {
-    const diff = aContext.currentTime - lastNote;
+    const diff = aContext.currentTime - lastClick;
     if (diff >= lookAhead) {
-     const nextNote = lastNote + step;
-     scheduleClick(aContext, nextNote, 0.0050)
-     lastNote = nextNote;
+     const nextClick = lastClick + step;
+     metronomeEngine(aContext, nextClick, 0.0050, volume)
+     lastClick = nextClick;
     }
   }
   
@@ -69,7 +78,7 @@ const Metronome = () => {
     <Card title="Metronome" style={{width: "280px", margin: "1rem"}} bodyStyle={{display: "flex", justifyContent: "center", alignItems: "center", textAlign: "center"}}>
             <Space style={{flexDirection: "column"}}>
                 <Typography.Title>{`${bpm} bpm`}</Typography.Title>
-                <Slider min={30} max={300} defaultValue={90} style={{width: "200px"}} onChange={(val) => setBpm(val)}/>
+                <Slider min={30} max={250} defaultValue={bpm} style={{width: "200px"}} onChange={(val) => setBpm(val)}/>
                 {!isPlaying &&
                         <Button type="primary" label="start" size="large" onClick={() => handleStartStopClick()}>Start</Button>
                     }

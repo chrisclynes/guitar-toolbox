@@ -1,8 +1,8 @@
-import React, { startTransition, useState, useEffect } from 'react';
+import React, { startTransition, useState, useEffect, useRef } from 'react';
 import { Routes, Route, Link } from "react-router-dom";
 import { Homepage, ChordsPage, MyDashboard, ChordProgressions, ScalesPage, MetronomePage } from './components';
 
-import { Layout , Typography, Menu, } from 'antd';
+import { Layout , Typography, Menu, Button } from 'antd';
 
 import { HomeOutlined, DashboardOutlined } from '@ant-design/icons';
 
@@ -14,8 +14,16 @@ const { Header, Footer, Sider, Content } = Layout;
 
 
 const App = () => {
-    const [menuArray, setMenuArray] = useState(["home"])
+    const [menuArray, setMenuArray] = useState(["home"]);
+    const [isPlaying, setIsPlaying] = useState(false);
+    //useRef setsInterval for metronome to be controlled outside of the metronome component pages
+    const metronomeInterval = useRef()
 
+    const handleClearMetronome = () => {
+        console.log(metronomeInterval.current)
+        clearInterval(metronomeInterval.current)
+        setIsPlaying(false)
+    }
 
     return (
         <div className="app">
@@ -55,7 +63,11 @@ const App = () => {
             </Sider>
             <div className="main">
                 <Layout style={{ height: "100vh", position: "relative", overflow: "hidden"}} >
-                <Header />
+                <Header>
+                    {isPlaying &&
+                        <Button type="danger" label="stop" size="large" onClick={() => handleClearMetronome()}>Stop Metronome</Button>
+                    }
+                </Header>
                     <div style={{ height: "100%", position: "relative", overflowY: "auto"}}>
                         <Content style={{paddingBottom: "60px"}}>
                             <Routes>
@@ -63,8 +75,8 @@ const App = () => {
                                 <Route path="/mydashboard" element={<MyDashboard />} />
                                 <Route path="/chords" element={<ChordsPage />} />
                                 <Route path="/chord-progressions" element={<ChordProgressions />} />
-                                <Route path="/scales" element={<ScalesPage />} />
-                                <Route path="/metronome" element={<MetronomePage />} />
+                                <Route path="/scales" element={<ScalesPage metronomeInterval={metronomeInterval}  isPlaying={isPlaying} setIsPlaying={setIsPlaying}/>} />
+                                <Route path="/metronome" element={<MetronomePage metronomeInterval={metronomeInterval}  isPlaying={isPlaying} setIsPlaying={setIsPlaying} />} />
                             </Routes>
                         </Content>
                         </div>

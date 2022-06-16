@@ -4,21 +4,20 @@ import { SoundOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
 
-
-//------------------Metronome Engine-----------------------
+//------------------Metronome Engine WebAudioAPI-----------------------
 function convertToMs (bpm, duration, type) {
     return 60000 * 4 * duration * type / bpm
 }
 
 const aContext = new AudioContext();
 const clickVolume = aContext.createGain();
-let interval = 0
+var interval = null;
 let lastClick = 0;
 
 function metronomeEngine(audio, time, duration, volume) {
     let click = audio.createOscillator();
     click.connect( audio.destination );
-    click.frequency.setValueAtTime(1800, 0)
+    click.frequency.setValueAtTime(1700, 0)
     //volume gain set from -1 to 1 range, convert value 0-100 to correct gain range
     clickVolume.gain.linearRampToValueAtTime((volume / 50) - 1, 0);
     click.connect(clickVolume);
@@ -29,12 +28,12 @@ function metronomeEngine(audio, time, duration, volume) {
 }
 
 //------------------Metronome Component-----------------------
-const Metronome = () => {
-  const [isPlaying, setIsPlaying] = useState(false);
+const Metronome = ({metronomeInterval, isPlaying, setIsPlaying}) => {
+  
   const [duration, setDuration] = useState(1 / 4);  
   const [type, setType] = useState(1);
   const [bpm, setBpm] = useState(90);
-  const [volume, setVolume] = useState(50);   
+  const [volume, setVolume] = useState(30);   
   
   const step = convertToMs(bpm, duration, type) / 1000;
     const lookAhead = step / 2;
@@ -54,7 +53,7 @@ const Metronome = () => {
   }
   
   const stopPlaying = () => {
-    clearInterval(interval);
+    clearInterval(metronomeInterval.current);
     setIsPlaying(false);
   }
   
@@ -66,19 +65,25 @@ const Metronome = () => {
         }
     }
 
-    //clears interval based on state change, have to use a use Effect for this, otherwise it will continue playing
+    //clears metronomeInterval based on state change, have to use a use Effect for this, otherwise it will continue playing
     useEffect(() => {
     if (isPlaying) {
-        clearInterval(interval);
-      interval = setInterval(timer, step / 4);
+        clearInterval(metronomeInterval.current);
+      metronomeInterval.current = setInterval(timer, step / 4);
     }
   });
+
+  useEffect(() => {
+      clearInterval(metronomeInterval.current)
+      setIsPlaying(false)
+  }, []);
+
   
   return (
-    <Card title="Metronome" style={{width: "280px", margin: "1rem"}} bodyStyle={{display: "flex", justifyContent: "center", alignItems: "center", textAlign: "center"}}>
+    <Card title="Metronome" style={{width: "280px", margin: "1rem"}} bodyStyle={{display: "flex", justifyContent: "center", alignItems: "center"}}>
             <Space style={{flexDirection: "column"}}>
                 <Typography.Title>{`${bpm} bpm`}</Typography.Title>
-                <Slider min={30} max={250} defaultValue={bpm} style={{width: "200px"}} onChange={(val) => setBpm(val)}/>
+                <Slider min={30} max={240} defaultValue={bpm} style={{width: "200px"}} onChange={(val) => setBpm(val)}/>
                 {!isPlaying &&
                         <Button type="primary" label="start" size="large" onClick={() => handleStartStopClick()}>Start</Button>
                     }
@@ -91,12 +96,11 @@ const Metronome = () => {
                         <Option value={1}>Whole</Option>
                         <Option value={1 / 2}>Half</Option>
                         <Option value={1 / 4}>Quarter</Option>
-                        <Option value={1 / 8}>Eigth </Option>
-                        <Option value={1 / 16}>Sixteenth</Option>
-                        <Option value={1 / 32}>Thirtysecond</Option>
+                        <Option value={1 / 8}>8th </Option>
+                        <Option value={1 / 16}>16th</Option>
                       </Select> 
                       <Select id="typ" onChange={(val) => setType(val)} value={type}>
-                        <Option value={1}>Regular</Option>
+                        <Option value={1}>None</Option>
                         <Option value={3 / 2}>Dotted</Option>
                         <Option value={2 / 3}>Triplet</Option>
                       </Select>
@@ -104,7 +108,7 @@ const Metronome = () => {
                 </div>
                 <div className="metronome-volume center-items" style={{flexDirection: "row"}}>
                     <SoundOutlined />
-                    <Slider min={0} max={100} defaultValue={50} style={{width: "100px"}} onChange={(val) => setVolume(val)}/>
+                    <Slider min={0} max={100} defaultValue={volume} style={{width: "100px"}} onChange={(val) => setVolume(val)}/>
                 </div>
             </Space>
     </Card>

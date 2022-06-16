@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Typography, Space, Button, Select } from 'antd';
+import { Layout, Typography, Space, Button, Select } from 'antd';
 
 import Metronome from '../../container/Metronome/Metronome';
 import ScaleCard from '../../container/ScaleCard/ScaleCard';
@@ -10,7 +10,7 @@ import { guitarScalesData } from '../../constants/data';
 
 const { Option } = Select;
 
-const ScalesPage = () => {
+const ScalesPage = ({metronomeInterval, isPlaying, setIsPlaying}) => {
     const [scaleData, setScaleData] = useState({
         scaleFifthTitle: "Major Scale, 5th String Root",
         scaleSixthTitle: "Major Scale, 6th String Root",
@@ -28,29 +28,31 @@ const ScalesPage = () => {
         }))
      }
     return (
-        <div className="chord-main-container">
-            <div className="chords-title">
-                <Typography.Title>Guitar Scale Lookup</Typography.Title>
-                <h2>Learn new scales and practice with a metronome</h2>
+        <Layout>
+            <div className="chord-main-container">
+                <div className="chords-title">
+                    <Typography.Title>Guitar Scale Lookup</Typography.Title>
+                    <h2>Learn new scales and practice with a metronome</h2>
+                </div>
+                <div className="scales-container center-items">
+                    <ScaleCard title={scaleData.scaleSixthTitle} image={scaleData.sixthRoot} />
+                    <ScaleCard title={scaleData.scaleFifthTitle} image={scaleData.fifthRoot} />
+                </div>
+                <div className="scale-selector-container">
+                    <Typography.Paragraph type="secondary"  >choose a scale to start practicing</Typography.Paragraph>
+                    <Space>
+                        <Select defaultValue="Major Scale" style={{width: "220px"}} name="scales-selctor" onChange={(val, key) => scaleSelectHandler(val, key.key)}>
+                                {guitarScalesData.map((item, i) => {
+                                    return (
+                                        <Option key={i} value={Object.keys(item)[0]}>{Object.keys(item)[0]}</Option>
+                                    )
+                                })}
+                        </Select>
+                    </Space>
+                </div>
+                <Metronome metronomeInterval={metronomeInterval}  isPlaying={isPlaying} setIsPlaying={setIsPlaying} />
             </div>
-            <div className="scales-container center-items">
-                <ScaleCard title={scaleData.scaleSixthTitle} image={scaleData.sixthRoot} />
-                <ScaleCard title={scaleData.scaleFifthTitle} image={scaleData.fifthRoot} />
-            </div>
-            <div className="scale-selector-container">
-                <Typography.Paragraph type="secondary"  >choose a scale to start practicing</Typography.Paragraph>
-                <Space>
-                    <Select defaultValue="Major Scale" style={{width: "220px"}} name="scales-selctor" onChange={(val, key) => scaleSelectHandler(val, key.key)}>
-                            {guitarScalesData.map((item, i) => {
-                                return (
-                                    <Option key={i} value={Object.keys(item)[0]}>{Object.keys(item)[0]}</Option>
-                                )
-                            })}
-                    </Select>
-                </Space>
-            </div>
-            <Metronome/>
-        </div>
+        </Layout>
     )
 }
 

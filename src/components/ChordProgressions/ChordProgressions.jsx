@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Typography, Space, Button, Select, Row, Col, List} from 'antd';
+import { Layout, Typography, Space, Button, Select, Row, Col, List} from 'antd';
 
 import { majorKeys, minorKeys, majorProgressions, minorProgressions, majorNashNumbers, minorNashNumbers } from '../../constants/data';
 import ChordCard from '../../container/ChordCard/ChordCard';
@@ -108,136 +108,138 @@ const ChordProgressions = () => {
 //---------------------------COMPONENT RENDER------------------------------
 
     return (
-        <div className='progression-main-container'>
-            <div className="progresssion-cards-containers">
-                <div className="progression-title-container center-items" style={{textAlign: "center"}}>
-                    <Typography.Title level={1}>Chord Progression Generator</Typography.Title>
-                    <h2>Choose a chord progression or create your own</h2>
-                        <div className="progression-cards-container" style={{width: "100%"}}>
-                        <Col span={12}>
-                            <List
-                                grid={{
-                                gutter: 16,
-                                md: 1, lg: 2, xl: 3, xxl: 4
-                              }}
-                              dataSource={chordData}
-                              renderItem={(item, i) => (
-                                    <List.Item>
-                                        <ChordCard key={i} title={item.title} chordName={item.chordName} strings={item.strings} /> 
-                                    </List.Item>
-                                )}
-                            />
-                        </Col> 
-                        </div>
+        <Layout>
+            <div className='progression-main-container'>
+                <div className="progresssion-cards-containers">
+                    <div className="progression-title-container center-items" style={{textAlign: "center"}}>
+                        <Typography.Title level={1}>Chord Progression Generator</Typography.Title>
+                        <h2>Choose a chord progression or create your own</h2>
+                            <div className="progression-cards-container" style={{width: "100%"}}>
+                            <Col span={12}>
+                                <List
+                                    grid={{
+                                    gutter: 16,
+                                    md: 1, lg: 2, xl: 3, xxl: 4
+                                }}
+                                dataSource={chordData}
+                                renderItem={(item, i) => (
+                                        <List.Item>
+                                            <ChordCard key={i} title={item.title} chordName={item.chordName} strings={item.strings} /> 
+                                        </List.Item>
+                                    )}
+                                />
+                            </Col> 
+                            </div>
+                    </div>
                 </div>
-            </div>
-            <div className="progression-selectors-container center-items" style={{margin: "1rem"}}>
-            <Space size="small">
-                    <Select defaultValue="Major" style={{width: "80px"}} name="major-minor-selctor" onChange={(val) => handleMajMinToggle(val)}>
-                        <Option value="Major">Major</Option>
-                        <Option value="Minor">Minor</Option>
-                    </Select>
-                    {progressionData.progQuality === "Major" && (
-                        <div className="major-selection-container">
-                            <Space size="small">
-                                <Select defaultValue="C Major" style={{width: "100px"}} name="major-keys-selctor" onChange={(val, key) => setProgressionData((prevState) => ({...prevState, progKey: val, progKeyIndex: parseInt(key.key)}))}>
-                                    {majorKeys.map((item, i) => {
-                                        return (
-                                            <Option key={i} value={Object.keys(item)[0]}>{Object.keys(item)[0]}</Option>
-                                        )
-                                    })}
-                                </Select>
-                                {!toggleSelectors &&
-                                    <Select 
-                                            style={{width: "150px"}} 
-                                            name="major-progression-selctor"
-                                            placeholder="Progression" 
-                                            onChange={(val, key) => {
-                                                setProgressionData((prevState) => ({
-                                                ...prevState, 
-                                                progNumbers: Object.values(majorProgressions[parseInt(key.key)])[0],//pulls array value of progressions data from selected value
-                                                    }))
-                                                setToggleSelectors(false)
-                                                setToggleGetProBtn(true)
-                                                }}>
-                                        {majorProgressions.map((item, i) => {
-                                                return (
-                                                    <Option key={i} value={Object.keys(item)[0]}>{Object.keys(item)[0]}</Option>
-                                                )
-                                            })}
+                <div className="progression-selectors-container center-items" style={{margin: "1rem"}}>
+                <Space size="small">
+                        <Select defaultValue="Major" style={{width: "80px"}} name="major-minor-selctor" onChange={(val) => handleMajMinToggle(val)}>
+                            <Option value="Major">Major</Option>
+                            <Option value="Minor">Minor</Option>
+                        </Select>
+                        {progressionData.progQuality === "Major" && (
+                            <div className="major-selection-container">
+                                <Space size="small">
+                                    <Select defaultValue="C Major" style={{width: "100px"}} name="major-keys-selctor" onChange={(val, key) => setProgressionData((prevState) => ({...prevState, progKey: val, progKeyIndex: parseInt(key.key)}))}>
+                                        {majorKeys.map((item, i) => {
+                                            return (
+                                                <Option key={i} value={Object.keys(item)[0]}>{Object.keys(item)[0]}</Option>
+                                            )
+                                        })}
                                     </Select>
-                                }
-                            </Space>
-                        </div>)}
-                    {progressionData.progQuality === "Minor" && (
-                        <div className="minor-selection-container">
-                            <Space size="small">
-                                <Select defaultValue="C Minor" style={{width: "100px"}} name="minor-keys-selctor" onChange={(val, key) => setProgressionData((prevState) => ({...prevState, progKey: val,  progKeyIndex: parseInt(key.key)}))}>
-                                    {minorKeys.map((item, i) => {
-                                        return (
-                                            <Option key={i} value={Object.keys(item)[0]}>{Object.keys(item)[0]}</Option>
-                                        )
-                                    })}
-                                </Select>
-                                {!toggleSelectors &&
-                                    <Select  
-                                            style={{width: "150px"}} 
-                                            name="minor-progression-selctor"
-                                            placeholder="Progression"  
-                                            onChange={(val, key) => {
-                                                setProgressionData((prevState) => ({
+                                    {!toggleSelectors &&
+                                        <Select 
+                                                style={{width: "150px"}} 
+                                                name="major-progression-selctor"
+                                                placeholder="Progression" 
+                                                onChange={(val, key) => {
+                                                    setProgressionData((prevState) => ({
                                                     ...prevState, 
-                                                    progNumbers: Object.values(minorProgressions[parseInt(key.key)])[0],//pulls array value of progressions data from selected value,
+                                                    progNumbers: Object.values(majorProgressions[parseInt(key.key)])[0],//pulls array value of progressions data from selected value
                                                         }))
-                                                setToggleSelectors(false)
-                                                setToggleGetProBtn(true)
-                                            }}>
-                                        {minorProgressions.map((item, i) => {
-                                                return (
-                                                    <Option key={i} value={Object.keys(item)[0]}>{Object.keys(item)[0]}</Option>
-                                                )
-                                            })}
+                                                    setToggleSelectors(false)
+                                                    setToggleGetProBtn(true)
+                                                    }}>
+                                            {majorProgressions.map((item, i) => {
+                                                    return (
+                                                        <Option key={i} value={Object.keys(item)[0]}>{Object.keys(item)[0]}</Option>
+                                                    )
+                                                })}
+                                        </Select>
+                                    }
+                                </Space>
+                            </div>)}
+                        {progressionData.progQuality === "Minor" && (
+                            <div className="minor-selection-container">
+                                <Space size="small">
+                                    <Select defaultValue="C Minor" style={{width: "100px"}} name="minor-keys-selctor" onChange={(val, key) => setProgressionData((prevState) => ({...prevState, progKey: val,  progKeyIndex: parseInt(key.key)}))}>
+                                        {minorKeys.map((item, i) => {
+                                            return (
+                                                <Option key={i} value={Object.keys(item)[0]}>{Object.keys(item)[0]}</Option>
+                                            )
+                                        })}
                                     </Select>
-                                }
-                            </Space>
-                    </div>)}
-                    
-                </Space>
-            </div>
-            {!toggleSelectors &&
-                <div className="choose-progression-label center-items" style={{width: "100%", textAlign: "center"}}>
-                    <Typography.Paragraph type="secondary" >Or, choose your own progression below</Typography.Paragraph>
+                                    {!toggleSelectors &&
+                                        <Select  
+                                                style={{width: "150px"}} 
+                                                name="minor-progression-selctor"
+                                                placeholder="Progression"  
+                                                onChange={(val, key) => {
+                                                    setProgressionData((prevState) => ({
+                                                        ...prevState, 
+                                                        progNumbers: Object.values(minorProgressions[parseInt(key.key)])[0],//pulls array value of progressions data from selected value,
+                                                            }))
+                                                    setToggleSelectors(false)
+                                                    setToggleGetProBtn(true)
+                                                }}>
+                                            {minorProgressions.map((item, i) => {
+                                                    return (
+                                                        <Option key={i} value={Object.keys(item)[0]}>{Object.keys(item)[0]}</Option>
+                                                    )
+                                                })}
+                                        </Select>
+                                    }
+                                </Space>
+                        </div>)}
+                        
+                    </Space>
                 </div>
-            }
-            <div className="chooseProgression-container center-items" id="chooseProgression">
-            {!toggleSelectors &&
-                <Button type="primary" size="medium" onClick={() => {
-                    setToggleSelectors(true)
-                    setToggleGetProBtn(true)
-                }} >Choose Your Own</Button>
-            }
-            {toggleSelectors &&
-            <Space>
-                    {/* if choice array.length == # of selectors, append new selector limit to 8 */}
-                    {[...Array(chooseProgData.count)].map((_, index) => {
-                        return (
-                        <Select key={"selector" + index} defaultValue="" onChange={(val) => handleProgressionArray(val, index)}>
-                        {(progressionData.progQuality == "Major" ? majorNashNumbers : minorNashNumbers).map((item, i) => {
+                {!toggleSelectors &&
+                    <div className="choose-progression-label center-items" style={{width: "100%", textAlign: "center"}}>
+                        <Typography.Paragraph type="secondary" >Or, choose your own progression below</Typography.Paragraph>
+                    </div>
+                }
+                <div className="chooseProgression-container center-items" id="chooseProgression">
+                {!toggleSelectors &&
+                    <Button type="primary" size="medium" onClick={() => {
+                        setToggleSelectors(true)
+                        setToggleGetProBtn(true)
+                    }} >Choose Your Own</Button>
+                }
+                {toggleSelectors &&
+                <Space>
+                        {/* if choice array.length == # of selectors, append new selector limit to 8 */}
+                        {[...Array(chooseProgData.count)].map((_, index) => {
                             return (
-                                <Option key={i} value={item}>{item}</Option>
-                            )
-                            })}
-                    </Select>
-                    )})}
-                </Space>
-            }
-            </div>
-            {toggleGetProgBtn &&
-                <div className="get-progression-btn center-items" style={{margin: "1rem"}}>
-                    <Button type="primary" size="medium" onClick={() => handleChordData()} >Get Progression</Button>
+                            <Select key={"selector" + index} defaultValue="" onChange={(val) => handleProgressionArray(val, index)}>
+                            {(progressionData.progQuality == "Major" ? majorNashNumbers : minorNashNumbers).map((item, i) => {
+                                return (
+                                    <Option key={i} value={item}>{item}</Option>
+                                )
+                                })}
+                        </Select>
+                        )})}
+                    </Space>
+                }
                 </div>
-            }
-        </div>
+                {toggleGetProgBtn &&
+                    <div className="get-progression-btn center-items" style={{margin: "1rem"}}>
+                        <Button type="primary" size="medium" onClick={() => handleChordData()} >Get Progression</Button>
+                    </div>
+                }
+            </div>
+        </Layout>
     )
 }
 

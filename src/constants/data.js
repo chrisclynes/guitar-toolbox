@@ -44,10 +44,9 @@ const majorProgressions = [
     { "I-IV-V-I": ["I", "IV","V", "I"] },
     { "I-V-vi-iii-IV-I-IV-V": ["I", "V", "vi","iii", "IV", "I", "IV", "V"] },
     { "ii-I-V": ["ii", "I", "V"] },
-    { "ii-I-V": ["ii", "I", "V"] },
     { "I-V-vi-IV": ["I", "V", "vi", "IV"] },
     { "ii-IV-V": ["ii", "IV", "V"] },
-    { "VI-IV-V": ["VI", "IV", "V"] },
+    { "vi-IV-V": ["vi", "IV", "V"] },
 ];
 const majorNashNumbers = ["I", "ii", "iii", "IV", "V", "vi", "vii"];
 

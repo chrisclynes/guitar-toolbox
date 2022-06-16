@@ -209,7 +209,7 @@ const ChordProgressions = ({ setMenuArray }) => {
                 </div>
                 {!toggleSelectors &&
                     <div className="choose-progression-label center-items" style={{width: "100%", textAlign: "center"}}>
-                        <Typography.Paragraph type="secondary" >Or, choose your own progression below</Typography.Paragraph>
+                        <Typography.Paragraph type="secondary" >Or, make your own progression below</Typography.Paragraph>
                     </div>
                 }
                 <div className="chooseProgression-container center-items" id="chooseProgression">
@@ -217,7 +217,7 @@ const ChordProgressions = ({ setMenuArray }) => {
                     <Button type="primary" size="medium" onClick={() => {
                         setToggleSelectors(true)
                         setToggleGetProBtn(true)
-                    }} >Choose Your Own</Button>
+                    }} >Create Your Own</Button>
                 }
                 {toggleSelectors &&
                 <Space>

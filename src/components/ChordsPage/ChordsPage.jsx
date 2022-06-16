@@ -12,7 +12,7 @@ import "./ChordsPage.css";
 const { Header, Sider } = Layout;
 const { Option } = Select;
 
-const ChordsPage = () => {
+const ChordsPage = ({ setMenuArray }) => {
     const [chordData, setChordData] = useState({chordName: "A", strings: "X 0 2 2 2 0" });
     const [voicingData, setVoicingData] = useState({strings: ["X", "X", "X", "X", "X", "X"] });
     const [selectorVals, setSelectorVals] = useState({root: "A_", quality: "", alterations: ""});
@@ -20,9 +20,15 @@ const ChordsPage = () => {
     const [chordError, setChordError] = useState("");
     const [voicingError, setVoicingError] = useState("");
 
+    useEffect(() => {
+        setMenuArray(["chords"])
+    }, [])
+
     const chordKeySelectors = ["A_", "Ab_", "A%23_", "B_", "Bb_", "C_", "C%23_", "D_", "Db_", "D%23_", "E_", "Eb_", "F_", "F%23_", "G_", "Gb_", "G%23_"];
     const stringSelector = ["E", "A", "D", "G", "B", "E"];
 
+
+//----------------------Event Handlers--------------------------------------------------
     const handleChordData = async () => {
         const URL = 'https://api.uberchord.com/v1/chords/';
         const chordToCall = `${URL}${selectorVals.root}${selectorVals.quality}${selectorVals.alterations}`;
@@ -66,7 +72,7 @@ const ChordsPage = () => {
                 }
             }
     }
-
+//---------------------------COMPONENT RENDER----------------------------------------------------
     return (
         <Layout>
             

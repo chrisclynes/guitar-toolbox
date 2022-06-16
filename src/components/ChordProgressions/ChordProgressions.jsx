@@ -9,7 +9,7 @@ import "./ChordProgressions.css";
 
 const { Option } = Select;
 
-const ChordProgressions = () => {
+const ChordProgressions = ({ setMenuArray }) => {
     //---------------------------USE STATES------------------------------
 
     const [toggleSelectors, setToggleSelectors] = useState(false);
@@ -32,7 +32,9 @@ const ChordProgressions = () => {
         choiceArr: []
     });
 //---------------------------USE EFFECTS------------------------------
-
+    useEffect(() => {
+        setMenuArray(["chord-progressions"])
+    }, [])
     useEffect(() => {
         setProgressionData((prevState) => ({
             ...prevState,

@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Col } from 'antd';
 
 import ProgressBar from '../../container/ProgressBar/ProgressBar';
 import Tasks from '../../container/Tasks/Tasks';
 
-const MyDashboard = ({theme}) => {
+
+const MyDashboard = ({setMenuArray}) => {
+    useEffect(() => {
+        setMenuArray(["dashboard"])
+    }, [])
+
     return (
         <div className="dashboard-container">
             <Col span={12}>
-                <ProgressBar theme={theme} />
+                <ProgressBar />
             </Col>
             <div className='my-progress-bar center-items'>
                 {/*insert progress bar here */}

@@ -4,7 +4,10 @@ import { Layout, Typography, Space, Button, Select } from 'antd';
 import Metronome from '../../container/Metronome/Metronome';
 import './MetronomePage.css';
 
-const MetronomePage = ({metronomeInterval, isPlaying, setIsPlaying}) => {
+const MetronomePage = ({setMenuArray, metronomeInterval, isPlaying, setIsPlaying}) => {
+    useEffect(() => {
+        setMenuArray(["metronome"])
+    },[])
  
     return (
         <Layout>

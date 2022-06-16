@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useEffect }  from 'react';
 import { Typography, Col, Button} from 'antd';
 import { Link } from "react-router-dom";
 
 import "./Homepage.css"; 
+
 const Homepage = ({ setMenuArray }) => {
+    useEffect(() => {
+        setMenuArray(["home"])
+    }, [])
     return (
         <div className="homepage-container center-items">
             <div className="welcome-header">

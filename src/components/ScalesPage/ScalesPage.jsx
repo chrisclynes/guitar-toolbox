@@ -10,13 +10,17 @@ import { guitarScalesData } from '../../constants/data';
 
 const { Option } = Select;
 
-const ScalesPage = ({metronomeInterval, isPlaying, setIsPlaying}) => {
+const ScalesPage = ({setMenuArray, metronomeInterval, isPlaying, setIsPlaying}) => {
     const [scaleData, setScaleData] = useState({
         scaleFifthTitle: "Major Scale, 5th String Root",
         scaleSixthTitle: "Major Scale, 6th String Root",
         fifthRoot: images.Major5th,
         sixthRoot: images.Major6th
     });
+
+    useEffect(() => {
+        setMenuArray(["scales"])
+    },[])
 
      const scaleSelectHandler = (scale, index) => {
         setScaleData((prevState) => ({

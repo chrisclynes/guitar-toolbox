@@ -14,7 +14,6 @@ const ChordProgressions = ({ setMenuArray }) => {
 
     const [toggleSelectors, setToggleSelectors] = useState(false);
     const [toggleGetProgBtn, setToggleGetProBtn] = useState(false);
-    const [progression, setProgression] = useState("Major");
     const [progressionData, setProgressionData] = useState({
         progQuality: "Major",
         progKey: "C Major",
@@ -35,12 +34,14 @@ const ChordProgressions = ({ setMenuArray }) => {
     useEffect(() => {
         setMenuArray(["chord-progressions"])
     }, [])
+
+    //sets the main "progressionData" state's chordProgression values for api call.
     useEffect(() => {
         setProgressionData((prevState) => ({
             ...prevState,
             chordProgression: progressionData.progNumbers.map((e) => Object.values(progressionData.progQuality === "Major" ? majorKeys[progressionData.progKeyIndex] : minorKeys[progressionData.progKeyIndex])[0][e])//gets the correct chords from progression numbers input
         }))
-    }, [progressionData]);//sets the main "progressionData" state's chordProgression values for api call.
+    }, [progressionData]);
 
     useEffect(() => {
         setProgressionData((prevState) => ({
@@ -60,8 +61,10 @@ const ChordProgressions = ({ setMenuArray }) => {
                 const response = await axios.get(chordToCall)
                 const apiData = response.data[0]
                 setChordData(response.data.map((item, i) => ({
-                    title: progressionData.progNumbers[i],//provides chordData with the progression nashville number for title on card
-                    chordName: item.chordName.replace(/(%23)/g, "#").replace(/(,)/g, ''),//replace URI code with # and remove underscore
+                    //provides chordData with the progression nashville number for title on card
+                    title: progressionData.progNumbers[i],
+                    //replace URI code with # and remove underscore
+                    chordName: item.chordName.replace(/(%23)/g, "#").replace(/(,)/g, ''),
                     strings: item.strings
                     })
                 ));
@@ -82,7 +85,8 @@ const ChordProgressions = ({ setMenuArray }) => {
         }else {
             setChooseProgData((prevState) => (
                 {
-                count: prevState.count < 8 ? prevState.count + 1 : prevState.count,//appends new selector up to eight total
+                //appends new selector up to eight total
+                count: prevState.count < 8 ? prevState.count + 1 : prevState.count,
                 choiceArr: [...prevState.choiceArr, value]
                 }));
             }
@@ -157,8 +161,9 @@ const ChordProgressions = ({ setMenuArray }) => {
                                                 placeholder="Progression" 
                                                 onChange={(val, key) => {
                                                     setProgressionData((prevState) => ({
-                                                    ...prevState, 
-                                                    progNumbers: Object.values(majorProgressions[parseInt(key.key)])[0],//pulls array value of progressions data from selected value
+                                                    ...prevState,
+                                                    //pulls array value of progressions data from selected value 
+                                                    progNumbers: Object.values(majorProgressions[parseInt(key.key)])[0],
                                                         }))
                                                     setToggleSelectors(false)
                                                     setToggleGetProBtn(true)
@@ -189,8 +194,9 @@ const ChordProgressions = ({ setMenuArray }) => {
                                                 placeholder="Progression"  
                                                 onChange={(val, key) => {
                                                     setProgressionData((prevState) => ({
-                                                        ...prevState, 
-                                                        progNumbers: Object.values(minorProgressions[parseInt(key.key)])[0],//pulls array value of progressions data from selected value,
+                                                        ...prevState,
+                                                        //pulls array value of progressions data from selected value 
+                                                        progNumbers: Object.values(minorProgressions[parseInt(key.key)])[0],
                                                             }))
                                                     setToggleSelectors(false)
                                                     setToggleGetProBtn(true)

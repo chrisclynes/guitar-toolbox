@@ -14,25 +14,36 @@ const { Header, Footer, Sider, Content } = Layout;
 
 
 const App = () => {
-    const [isMobile, setIsMobile] = useState(true)
+    const [isMobile, setIsMobile] = useState(null)
     const [visible, setVisible] = useState(false);
     const [menuArray, setMenuArray] = useState(["home"]);
     const [isPlaying, setIsPlaying] = useState(false);
     //useRef setsInterval for metronome to be controlled outside of the metronome component pages
     const metronomeInterval = useRef()
 
+    const handleResize = () => {
+        if (window.innerWidth < 720) {
+            setIsMobile(true)
+        } else {
+            setIsMobile(false)
+        }
+      }
+    
+    useEffect(() => {
+        handleResize()
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [])
+
     const showDrawer = () => {
         setVisible(true);
-        setIsMobile(true)
       };
     
-      const onClose = () => {
+      const closeDrawer = () => {
         setVisible(false);
-        setIsMobile(false)
       };
 
     const handleClearMetronome = () => {
-        console.log(metronomeInterval.current)
         clearInterval(metronomeInterval.current)
         setIsPlaying(false)
     }
@@ -81,33 +92,36 @@ const App = () => {
                     {isPlaying &&
                         <Button type="danger" label="stop" size="large" onClick={() => handleClearMetronome()}>Stop Metronome</Button>
                     }
+                {isMobile &&
                     <div className="mobile-menu-btn">
-                        <Button type="icon" onClick={showDrawer}><MenuOutlined /></Button>
+                        <Button type="icon" label="menu" onClick={showDrawer}><MenuOutlined /></Button>
                     </div>
+                }
                 </Header>
-                <Drawer title="Menu" placement="right" width={"60%"} onClose={onClose} visible={visible}>
-                    <Menu>
-                        <Menu.Item key="home" icon={<HomeOutlined />} >
-                                <Link to="/" >Home</Link>
+                {isMobile &&
+                    <Drawer title="Menu" placement="right" width={"60%"} onClose={closeDrawer} visible={visible}>
+                        <Menu>
+                            <Menu.Item key="home" icon={<HomeOutlined />} >
+                                <Link to="/" onClick={() => closeDrawer()}>Home</Link>
                             </Menu.Item>
                             <Menu.Item key="dashboard" icon={<DashboardOutlined />}>
-                                <Link to="/mydashboard" >My Dashboard</Link>
+                                <Link to="/mydashboard" onClick={() => closeDrawer()}>My Dashboard</Link>
                             </Menu.Item>
-                            <p style={{fontWeight: "bold", textDecoration: "underline", margin: "3rem 1rem 2rem 1rem"}}>Training</p>
                             <Menu.Item key="chords">
-                                <Link to="/chords">Chords</Link>
+                                <Link to="/chords" onClick={() => closeDrawer()}>Chords</Link>
                             </Menu.Item>
                             <Menu.Item key="chord-progressions">
-                                <Link to="/chord-progressions">Chord Progressions</Link>
+                                <Link to="/chord-progressions" onClick={() => closeDrawer()}>Chord Progressions</Link>
                             </Menu.Item>
                             <Menu.Item key="scales">
-                                <Link to="/scales">Scales</Link>
+                                <Link to="/scales" onClick={() => closeDrawer()}>Scales</Link>
                             </Menu.Item>
                             <Menu.Item key="metronome">
-                                <Link to="/metronome">Metronome</Link>
+                                <Link to="/metronome" onClick={() => closeDrawer()}>Metronome</Link>
                             </Menu.Item>
-                    </Menu>
-                </Drawer>
+                        </Menu>
+                    </Drawer>
+                }
                     <div style={{ height: "100%", position: "relative", overflowY: "auto"}}>
                         <Content style={{paddingBottom: "60px"}}>
                             <Routes>

@@ -2,7 +2,7 @@ import React, { startTransition, useState, useEffect, useRef } from 'react';
 import { Routes, Route, Link } from "react-router-dom";
 import { Homepage, ChordsPage, MyDashboard, ChordProgressions, ScalesPage, MetronomePage } from './components';
 
-import { Layout , Typography, Menu, Button } from 'antd';
+import { Layout , Typography, Menu, Button, Drawer } from 'antd';
 
 import { HomeOutlined, DashboardOutlined } from '@ant-design/icons';
 
@@ -14,10 +14,20 @@ const { Header, Footer, Sider, Content } = Layout;
 
 
 const App = () => {
+    const [isMobile, setIsMobile] = useState()
+    const [visible, setVisible] = useState(false);
     const [menuArray, setMenuArray] = useState(["home"]);
     const [isPlaying, setIsPlaying] = useState(false);
     //useRef setsInterval for metronome to be controlled outside of the metronome component pages
     const metronomeInterval = useRef()
+
+    const showDrawer = () => {
+        setVisible(true);
+      };
+    
+      const onClose = () => {
+        setVisible(false);
+      };
 
     const handleClearMetronome = () => {
         console.log(metronomeInterval.current)
@@ -67,7 +77,31 @@ const App = () => {
                     {isPlaying &&
                         <Button type="danger" label="stop" size="large" onClick={() => handleClearMetronome()}>Stop Metronome</Button>
                     }
+                    <Button type="primary" onClick={showDrawer}>Open</Button>
                 </Header>
+                <Drawer title="Menu" placement="right" onClose={onClose} visible={visible}>
+                    <Menu>
+                        <Menu.Item key="home" icon={<HomeOutlined />} >
+                                <Link to="/" >Home</Link>
+                            </Menu.Item>
+                            <Menu.Item key="dashboard" icon={<DashboardOutlined />}>
+                                <Link to="/mydashboard" >My Dashboard</Link>
+                            </Menu.Item>
+                            <p style={{fontWeight: "bold", textDecoration: "underline", margin: "3rem 1rem 2rem 1rem"}}>Training</p>
+                            <Menu.Item key="chords">
+                                <Link to="/chords">Chords</Link>
+                            </Menu.Item>
+                            <Menu.Item key="chord-progressions">
+                                <Link to="/chord-progressions">Chord Progressions</Link>
+                            </Menu.Item>
+                            <Menu.Item key="scales">
+                                <Link to="/scales">Scales</Link>
+                            </Menu.Item>
+                            <Menu.Item key="metronome">
+                                <Link to="/metronome">Metronome</Link>
+                            </Menu.Item>
+                    </Menu>
+                </Drawer>
                     <div style={{ height: "100%", position: "relative", overflowY: "auto"}}>
                         <Content style={{paddingBottom: "60px"}}>
                             <Routes>

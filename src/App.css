@@ -49,12 +49,8 @@
     padding: 20px;
 }
 
-/* .footer {
-    background-color: var(--navBg);
-    display: flex;
-    width: 100%;
-    bottom: 0;
-    align-items: center;
-    flex-direction: column;
-    padding: 20px;
-} */
+.mobile-menu-btn {
+    position: absolute;
+    top: 0rem;
+    right: 1rem;
+}

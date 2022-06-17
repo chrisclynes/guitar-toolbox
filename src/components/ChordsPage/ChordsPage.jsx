@@ -102,7 +102,7 @@ const ChordsPage = ({ setMenuArray }) => {
                             </Select>
                         </div>
                         <div>
-                                <Input style={{ width: "100px" }} name="chord-alterations" defaultValue="" placeholder="sus2, maj7..." onChange={(val) => setSelectorVals((prevState) => ({...prevState, alterations: val.target.value}))}/>
+                                <Input style={{ width: "100px" }} name="chord-alterations" defaultValue="" placeholder="sus2, maj7..." onChange={(val) => setSelectorVals((prevState) => ({...prevState, alterations: val.target.value.toLowerCase()}))}/>
                         </div>
                         
                     </Space>

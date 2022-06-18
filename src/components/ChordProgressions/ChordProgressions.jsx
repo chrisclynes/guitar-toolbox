@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Layout, Typography, Space, Button, Select, Row, Col, List} from 'antd';
+import { Layout, Typography, Space, Button, Select, Col, List} from 'antd';
 
 import { majorKeys, minorKeys, majorProgressions, minorProgressions, majorNashNumbers, minorNashNumbers } from '../../constants/data';
 import ChordCard from '../../container/ChordCard/ChordCard';
@@ -31,6 +31,7 @@ const ChordProgressions = ({ setMenuArray }) => {
         choiceArr: []
     });
 //---------------------------USE EFFECTS------------------------------
+    //run intial mount and set the menu array value to highlight correct menu option on both menu desktop and mobile menus
     useEffect(() => {
         setMenuArray(["chord-progressions"])
     }, [])
@@ -39,7 +40,8 @@ const ChordProgressions = ({ setMenuArray }) => {
     useEffect(() => {
         setProgressionData((prevState) => ({
             ...prevState,
-            chordProgression: progressionData.progNumbers.map((e) => Object.values(progressionData.progQuality === "Major" ? majorKeys[progressionData.progKeyIndex] : minorKeys[progressionData.progKeyIndex])[0][e])//gets the correct chords from progression numbers input
+            //gets the correct chords from progression numbers input
+            chordProgression: progressionData.progNumbers.map((e) => Object.values(progressionData.progQuality === "Major" ? majorKeys[progressionData.progKeyIndex] : minorKeys[progressionData.progKeyIndex])[0][e])
         }))
     }, [progressionData]);
 
@@ -59,7 +61,6 @@ const ChordProgressions = ({ setMenuArray }) => {
         console.log(progressionData)
             try {
                 const response = await axios.get(chordToCall)
-                const apiData = response.data[0]
                 setChordData(response.data.map((item, i) => ({
                     //provides chordData with the progression nashville number for title on card
                     title: progressionData.progNumbers[i],
@@ -100,8 +101,7 @@ const ChordProgressions = ({ setMenuArray }) => {
                     progKeyIndex: 0,
                     progNumbers: val === "Major" ? ["I", "IV", "V"] : ["i", "iv", "v"],
                     chordProgression: val === "Major" ? ["C", "F", "G"] : ["Cm", "Fm", "Gm"]
-                     })
-                )
+                     }))
         setChooseProgData((prevState) => ({
                         ...prevState,
                         count: 1,
@@ -110,6 +110,13 @@ const ChordProgressions = ({ setMenuArray }) => {
         setToggleSelectors(false);
         setToggleGetProBtn(false)
             }
+
+    const handleKeysSelector = (val, key) => {
+        setProgressionData((prevState) => ({
+            ...prevState, 
+            progKey: val, progKeyIndex: parseInt(key.key)
+        }))
+    }
 
 //---------------------------COMPONENT RENDER------------------------------
 
@@ -147,7 +154,7 @@ const ChordProgressions = ({ setMenuArray }) => {
                         {progressionData.progQuality === "Major" && (
                             <div className="major-selection-container">
                                 <Space size="small">
-                                    <Select defaultValue="C Major" style={{width: "100px"}} name="major-keys-selctor" onChange={(val, key) => setProgressionData((prevState) => ({...prevState, progKey: val, progKeyIndex: parseInt(key.key)}))}>
+                                    <Select defaultValue="C Major" style={{width: "100px"}} name="major-keys-selctor" onChange={(val, key) => handleKeysSelector(val, key)}>
                                         {majorKeys.map((item, i) => {
                                             return (
                                                 <Option key={i} value={Object.keys(item)[0]}>{Object.keys(item)[0]}</Option>
@@ -180,7 +187,7 @@ const ChordProgressions = ({ setMenuArray }) => {
                         {progressionData.progQuality === "Minor" && (
                             <div className="minor-selection-container">
                                 <Space size="small">
-                                    <Select defaultValue="C Minor" style={{width: "100px"}} name="minor-keys-selctor" onChange={(val, key) => setProgressionData((prevState) => ({...prevState, progKey: val,  progKeyIndex: parseInt(key.key)}))}>
+                                    <Select defaultValue="C Minor" style={{width: "100px"}} name="minor-keys-selctor" onChange={(val, key) => handleKeysSelector(val, key)}>
                                         {minorKeys.map((item, i) => {
                                             return (
                                                 <Option key={i} value={Object.keys(item)[0]}>{Object.keys(item)[0]}</Option>
@@ -231,7 +238,7 @@ const ChordProgressions = ({ setMenuArray }) => {
                         {[...Array(chooseProgData.count)].map((_, index) => {
                             return (
                             <Select key={"selector" + index} defaultValue="" onChange={(val) => handleProgressionArray(val, index)}>
-                            {(progressionData.progQuality == "Major" ? majorNashNumbers : minorNashNumbers).map((item, i) => {
+                            {(progressionData.progQuality === "Major" ? majorNashNumbers : minorNashNumbers).map((item, i) => {
                                 return (
                                     <Option key={i} value={item}>{item}</Option>
                                 )

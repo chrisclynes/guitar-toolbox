@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Routes, Route, Link } from "react-router-dom";
 import { Homepage, ChordsPage, MyDashboard, ChordProgressions, ScalesPage, MetronomePage } from './components';
 
-import { Layout , Typography, Menu, Button, Drawer, Avatar } from 'antd';
+import { Layout , Typography, Menu, Button, Drawer } from 'antd';
 
 import { HomeOutlined, DashboardOutlined, MenuOutlined } from '@ant-design/icons';
 
@@ -68,10 +68,12 @@ const App = () => {
                         mode="inline"
                         onClick={((item) => setMenuArray([item.key]))}//set highlighted sider menu item, array will always only contain a single value.
                         >
-                        <img src={logo} alt="logo" className="guitar-logo"/>
-                        <Title level={3} style={{ margin: "0rem 1rem 1rem 1rem"}}>
+                        <div className="guitar-logo">
+                            <img src={logo} alt="logo" />
+                        </div>
+                        <div className="sider-menu-title">
                             Guitar Quest
-                        </Title>
+                        </div>
                         <Item key="home" icon={<HomeOutlined />} >
                             <Link to="/" onClick={() => handleMenuHighlight(["home"])}>
                                 Home
@@ -113,13 +115,12 @@ const App = () => {
                     {isMobile &&
                     <div className="mobile-title">
                         <img src={logoWhite} alt="logo" className="guitar-logo-white"/>
-                        <Title level={2} >Guitar Quest</Title>
-
+                        <p>Guitar Quest</p>
                     </div>   
                     }
                     {isPlaying &&
-                        <div>
-                            <Button type="danger" label="stop" size="large" onClick={() => handleClearMetronome()}>{isMobile ? "Stop" : "Stop Metronome"}</Button>
+                        <div className='mobile-stop-btn'>
+                            <Button type="danger" label="stop"  onClick={() => handleClearMetronome()}>{isMobile ? "Stop" : "Stop Metronome"}</Button>
                         </div>
                     }
                     {isMobile &&

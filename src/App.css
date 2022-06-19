@@ -1,4 +1,5 @@
 @import '~antd/dist/antd.css';
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500&family=PT+Sans+Caption&display=swap');
 
 :root{
     --text-primary:#000;
@@ -37,13 +38,32 @@
     justify-content: space-between;
 }
 
-.guitar-logo{
+.sider-menu-title {
+    font-family: 'Baloo 2', cursive;
+    font-family: 'PT Sans Caption', sans-serif;
+    margin: 2rem 1rem 2rem 1rem;
+    font-size: 1.5rem;
+}
+
+.guitar-logo img{
     max-width: 200px;
     margin:0 0 0 15px;
 }
 
+.mobile-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family: 'Baloo 2', cursive;
+    font-family: 'PT Sans Caption', sans-serif;
+    font-size: 1.5rem;
+}
+
 .guitar-logo-white {
-    max-width: 90px;
+    max-width: 60px;
+    
 }
 
 .theme-container {
@@ -57,4 +77,10 @@
     position: absolute;
     top: 0rem;
     right: 1rem;
+}
+
+.mobile-stop-btn {
+    position: absolute;
+    top: 0rem;
+    right: 5rem;
 }

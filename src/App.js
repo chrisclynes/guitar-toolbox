@@ -168,7 +168,7 @@ const App = () => {
                     <div style={{ height: "100%", position: "relative", overflowY: "auto"}}>
                         <Content style={{paddingBottom: "60px"}}>
                             <Routes>
-                                <Route path="/" element={<Homepage setMenuArray={setMenuArray}/>} />
+                                <Route path="/" element={<Homepage setMenuArray={setMenuArray} isMobile={isMobile} />} />
                                 <Route path="/mydashboard" element={<MyDashboard />} />
                                 <Route path="/chords" element={<ChordsPage />} />
                                 <Route path="/chord-progressions" element={<ChordProgressions />} />

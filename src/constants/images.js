@@ -10,6 +10,13 @@ import Mixolydian5th from '../images/Mixolydian5th.png';
 import Mixolydian6th from '../images/Mixolydian6th.png';
 import NatMinor5th from '../images/NatMinor5th.png';
 import NatMinor6th from '../images/NatMinor6th.png';
+import chordprogressionScreen from '../images/chordprogressionScreen.png';
+import metronomeScreen from '../images/metronomeScreen.png';
+import chordsearchScreen from '../images/chordsearchScreen.png';
+import scalesScreen from '../images/scalesScreen.png';
+import carousel_img1 from '../images/carousel_img1.jpg';
+import carousel_img2 from '../images/carousel_img2.jpg';
+import carousel_img3 from '../images/carousel_img3.jpg';
 
 
 
@@ -25,5 +32,12 @@ export default {
   Mixolydian5th,
   Mixolydian6th,
   NatMinor5th,
-  NatMinor6th
+  NatMinor6th,
+  chordprogressionScreen,
+  metronomeScreen,
+  chordsearchScreen,
+  scalesScreen,
+  carousel_img1,
+  carousel_img2,
+  carousel_img3
 };

@@ -118,7 +118,7 @@ const ChordProgressions = () => {
 
     return (
         <Layout>
-            <div className='progression-main-container'>
+            <div className='page-container'>
                 <div className="progresssion-cards-containers">
                     <div className="progression-title-container center-items" style={{textAlign: "center"}}>
                         <Typography.Title level={1}>Chord Progression Generator</Typography.Title>

@@ -79,8 +79,7 @@ const ChordsPage = () => {
 //---------------------------COMPONENT RENDER----------------------------------------------------
     return (
         <Layout>
-            
-            <div className="chord-main-container">
+            <div className="page-container">
                 <div className="chords-title">
                     <Title>Welcome to Chord Search</Title>
                     <h2>Your tool to mastering new chords!</h2>

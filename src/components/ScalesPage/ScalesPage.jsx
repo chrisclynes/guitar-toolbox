@@ -31,7 +31,7 @@ const ScalesPage = ({ metronomeInterval, isPlaying, setIsPlaying }) => {
      }
     return (
         <Layout>
-            <div className="chord-main-container">
+            <div className="page-container">
                 <div className="chords-title">
                     <Title>Guitar Scale Lookup</Title>
                     <h2>Learn new scales and practice with a metronome</h2>

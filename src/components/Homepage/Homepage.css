@@ -1,8 +1,12 @@
-.homepage-container {
+.page-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
+    height: 100%;
+    width: 100%;
     flex-direction: column;
-    padding: 2rem;
-    
+    padding: 2rem 0rem 4rem;
 }
 
 .welcome-header h1 {

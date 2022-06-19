@@ -36,10 +36,18 @@ const Homepage = ({ setMenuArray }) => {
             <Col span={12}>
                 <div className="hompage-content center items">
                         <Link to="/mydashboard">
-                            <Button type="primary" size="medium" style={{margin: "1rem"}} onClick={(() => setMenuArray(["dashboard"]))} >Start</Button>
+                            <Button type="primary" size="large" style={{margin: "1rem"}} onClick={(() => setMenuArray(["dashboard"]))} >Start</Button>
                         </Link>
+                        <div className="home-about-content" style={{margin: "2rem 0rem"}}>
+                            <p>Guitar Quest is a great tool for scheduling a practice routine, learning chords and chord progressions, 
+                                new scales, and practicing rhythm. 
+                                With the provided tools, you can master the art of guitar.
+                            </p>
+                            <h3>Update: We are working on a new User Profile feature to allow players to login and save their progress across devices. 
+                                More tools are also in developement!
+                            </h3>
+                        </div>
                 </div>
-                
                 <Carousel style={carouselStyle} autoplay>
                     <div style={contentStyle}>
                         <Image src={carousel_img1} />
@@ -52,7 +60,10 @@ const Homepage = ({ setMenuArray }) => {
                     </div>
                 </Carousel>
                 <div className="hompage-content center items" style={{marginTop: "2rem"}}>
-                    <p>Or, jump right in to our guitar tools!</p>
+                    <p>Or, jump right in and start practicing!</p>
+                        <Link to="/chords">
+                            <Button type="default" size="large" style={{margin: "1rem"}} onClick={(() => setMenuArray(["chords"]))} >Guitar Tools</Button>
+                        </Link>
                 </div>
 
             </Col>

@@ -1,17 +1,17 @@
-import React, { useEffect }  from 'react';
+import React from 'react';
 import { Typography, Col, Button} from 'antd';
 import { Link } from "react-router-dom";
 
 import "./Homepage.css"; 
 
+const { Title } = Typography;
+
 const Homepage = ({ setMenuArray }) => {
-    useEffect(() => {
-        setMenuArray(["home"])
-    }, [])
+
     return (
         <div className="homepage-container center-items">
             <div className="welcome-header">
-                <Typography.Title>Welcome to Guitar Quest</Typography.Title>
+                <Title>Welcome to Guitar Quest</Title>
                 <h2>the app that helps guide you on your guitar journey</h2>
             </div>
             {/*IF PROGRESS STARTED, RENDER PROGRESS HERE */}

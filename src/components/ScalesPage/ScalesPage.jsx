@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Layout, Typography, Space, Button, Select } from 'antd';
+import React, { useState } from 'react';
+import { Layout, Typography, Space, Select } from 'antd';
 
 import Metronome from '../../container/Metronome/Metronome';
 import ScaleCard from '../../container/ScaleCard/ScaleCard';
@@ -9,18 +9,16 @@ import { guitarScalesData } from '../../constants/data';
 
 
 const { Option } = Select;
+const { Title, Paragraph } = Typography;
 
-const ScalesPage = ({setMenuArray, metronomeInterval, isPlaying, setIsPlaying}) => {
+const ScalesPage = ({ metronomeInterval, isPlaying, setIsPlaying }) => {
+    //store and update scale title info and images to render
     const [scaleData, setScaleData] = useState({
         scaleFifthTitle: "Major Scale, 5th String Root",
         scaleSixthTitle: "Major Scale, 6th String Root",
         fifthRoot: images.Major5th,
         sixthRoot: images.Major6th
     });
-
-    useEffect(() => {
-        setMenuArray(["scales"])
-    },[])
 
      const scaleSelectHandler = (scale, index) => {
         setScaleData((prevState) => ({
@@ -35,7 +33,7 @@ const ScalesPage = ({setMenuArray, metronomeInterval, isPlaying, setIsPlaying}) 
         <Layout>
             <div className="chord-main-container">
                 <div className="chords-title">
-                    <Typography.Title>Guitar Scale Lookup</Typography.Title>
+                    <Title>Guitar Scale Lookup</Title>
                     <h2>Learn new scales and practice with a metronome</h2>
                 </div>
                 <div className="scales-container center-items">
@@ -43,7 +41,7 @@ const ScalesPage = ({setMenuArray, metronomeInterval, isPlaying, setIsPlaying}) 
                     <ScaleCard title={scaleData.scaleFifthTitle} image={scaleData.fifthRoot} />
                 </div>
                 <div className="scale-selector-container">
-                    <Typography.Paragraph type="secondary"  >choose a scale to start practicing</Typography.Paragraph>
+                    <Paragraph type="secondary"  >choose a scale to start practicing</Paragraph>
                     <Space>
                         <Select defaultValue="Major Scale" style={{width: "220px"}} name="scales-selctor" onChange={(val, key) => scaleSelectHandler(val, key.key)}>
                                 {guitarScalesData.map((item, i) => {

@@ -1,19 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { Layout, Typography, Space, Button, Select } from 'antd';
+import React from 'react';
+import { Layout, Typography } from 'antd';
 
 import Metronome from '../../container/Metronome/Metronome';
 import './MetronomePage.css';
 
-const MetronomePage = ({setMenuArray, metronomeInterval, isPlaying, setIsPlaying}) => {
-    useEffect(() => {
-        setMenuArray(["metronome"])
-    },[])
+const { Title } = Typography;
+
+const MetronomePage = ({ metronomeInterval, isPlaying, setIsPlaying}) => {
  
     return (
         <Layout>
             <div className="metronomePage-container">
                 <div className="metronomePage-title">
-                        <Typography.Title>Metronome</Typography.Title>
+                        <Title>Metronome</Title>
                         <h2>Work on mastering timing and groove</h2>
                     </div>
                 <div className="metronome-main-container">

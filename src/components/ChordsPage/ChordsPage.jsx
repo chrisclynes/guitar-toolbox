@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Layout , Typography, Space, Select, Input, Button } from 'antd';
 
 import ChordCard from '../../container/ChordCard/ChordCard';
@@ -9,20 +9,15 @@ import axios from 'axios';
 
 import "./ChordsPage.css";
 
-const { Header, Sider } = Layout;
 const { Option } = Select;
+const { Title, Paragraph } = Typography;
 
-const ChordsPage = ({ setMenuArray }) => {
+const ChordsPage = () => {
     const [chordData, setChordData] = useState({chordName: "A", strings: "X 0 2 2 2 0" });
     const [voicingData, setVoicingData] = useState({strings: ["X", "X", "X", "X", "X", "X"] });
     const [selectorVals, setSelectorVals] = useState({root: "A_", quality: "", alterations: ""});
-    
     const [chordError, setChordError] = useState("");
     const [voicingError, setVoicingError] = useState("");
-
-    useEffect(() => {
-        setMenuArray(["chords"])
-    }, [])
 
     const chordKeySelectors = ["A_", "Ab_", "A%23_", "B_", "Bb_", "C_", "C%23_", "D_", "Db_", "D%23_", "E_", "Eb_", "F_", "F%23_", "G_", "Gb_", "G%23_"];
     const stringSelector = ["E", "A", "D", "G", "B", "E"];
@@ -40,7 +35,8 @@ const ChordsPage = ({ setMenuArray }) => {
                 const apiData = response.data[0]
                 if(chordError !== "") setChordError("");
                 setChordData({
-                    chordName: apiData.chordName.replace(/(%23)/g, "#").replace(/(,)/g, ''),//replace URI code with # and remove underscore
+                    //replace URI code with # and remove underscore
+                    chordName: apiData.chordName.replace(/(%23)/g, "#").replace(/(,)/g, ''),
                     strings: apiData.strings
                 });
                 console.log(response.data)
@@ -61,7 +57,8 @@ const ChordsPage = ({ setMenuArray }) => {
                 const apiData = response.data[0]
                 if(voicingError !== "") setVoicingError("");
                 setChordData({
-                    chordName: apiData.chordName.replace(/(%23)/g, "#").replace(/(,)/g, ''),//replace URI code with # and remove underscore
+                    //replace URI code with # and remove underscore
+                    chordName: apiData.chordName.replace(/(%23)/g, "#").replace(/(,)/g, ''),
                     strings: apiData.strings
                 });
                 console.log(response.data)
@@ -72,18 +69,27 @@ const ChordsPage = ({ setMenuArray }) => {
                 }
             }
     }
+
+    const handleAlterationsInput = (val) => {
+        setSelectorVals((prevState) => ({
+            ...prevState, 
+            alterations: val.toLowerCase()
+        }))
+    }
 //---------------------------COMPONENT RENDER----------------------------------------------------
     return (
         <Layout>
             
             <div className="chord-main-container">
                 <div className="chords-title">
-                    <Typography.Title>Welcome to Chord Search</Typography.Title>
+                    <Title>Welcome to Chord Search</Title>
                     <h2>Your tool to mastering new chords!</h2>
                 </div>
                 <ChordCard chordName={chordData.chordName} strings={chordData.strings} />
                 <div>
-                    <Typography.Paragraph type="secondary" style={{margin: "1rem"}} >Select root note, quality, add any optional alterations</Typography.Paragraph>
+                    <Paragraph type="secondary" style={{margin: "1rem"}} >
+                        Select root note, quality, add any optional alterations
+                    </Paragraph>
                 </div>
                 <div className="chord-options-container">
                     <Space size="small">
@@ -102,7 +108,7 @@ const ChordsPage = ({ setMenuArray }) => {
                             </Select>
                         </div>
                         <div>
-                                <Input style={{ width: "100px" }} name="chord-alterations" defaultValue="" placeholder="sus2, maj7..." onChange={(val) => setSelectorVals((prevState) => ({...prevState, alterations: val.target.value.toLowerCase()}))}/>
+                                <Input style={{ width: "100px" }} name="chord-alterations" defaultValue="" placeholder="sus2, maj7..." onChange={(val) => handleAlterationsInput(val.target.value)}/>
                         </div>
                         
                     </Space>
@@ -112,8 +118,10 @@ const ChordsPage = ({ setMenuArray }) => {
                         <Button type="primary" size="medium" style={{margin: "1rem"}} onClick={() => handleChordData()} >Get Chord</Button>
                     </div>
                 </Space>
-                <Typography.Paragraph type="danger" >{chordError}</Typography.Paragraph>
-                <Typography.Paragraph type="secondary" style={{margin: "1rem"}} >Or, learn a new chord by using tab below</Typography.Paragraph>
+                <Paragraph type="danger" >{chordError}</Paragraph>
+                <Paragraph type="secondary" style={{margin: "1rem"}} >
+                    Or, learn a new chord by using tab below
+                </Paragraph>
                     <Space>
                     <div className="chord-options-two-container">
                             {stringSelector.map((string, index) => {
@@ -123,7 +131,7 @@ const ChordsPage = ({ setMenuArray }) => {
                 </Space>
                 <div>
                         <Button type="primary" size="medium" style={{margin: "1rem"}} onClick={() => handleVoicingData()} >Get Chord</Button>
-                        <Typography.Paragraph type="danger" >{voicingError}</Typography.Paragraph>
+                        <Paragraph type="danger" >{voicingError}</Paragraph>
                 </div>
             </div>
         </Layout>

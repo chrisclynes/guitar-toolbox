@@ -3,6 +3,7 @@ import { Typography, Card, Space, Button, Select, Slider} from 'antd';
 import { SoundOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
+const { Title } = Typography;
 
 //------------------Metronome Engine WebAudioAPI-----------------------
 function convertToMs (bpm, duration, type) {
@@ -11,7 +12,6 @@ function convertToMs (bpm, duration, type) {
 
 const aContext = new AudioContext();
 const clickVolume = aContext.createGain();
-var interval = null;
 let lastClick = 0;
 
 function metronomeEngine(audio, time, duration, volume) {
@@ -73,6 +73,7 @@ const Metronome = ({metronomeInterval, isPlaying, setIsPlaying}) => {
     }
   });
 
+  //clear interval if rendering a new metronome component on page change 
   useEffect(() => {
       clearInterval(metronomeInterval.current)
       setIsPlaying(false)
@@ -82,7 +83,7 @@ const Metronome = ({metronomeInterval, isPlaying, setIsPlaying}) => {
   return (
     <Card title="Metronome" style={{width: "280px", margin: "1rem"}} bodyStyle={{display: "flex", justifyContent: "center", alignItems: "center"}}>
             <Space style={{flexDirection: "column"}}>
-                <Typography.Title>{`${bpm} bpm`}</Typography.Title>
+                <Title>{`${bpm} bpm`}</Title>
                 <Slider min={30} max={240} defaultValue={bpm} style={{width: "200px"}} onChange={(val) => setBpm(val)}/>
                 {!isPlaying &&
                         <Button type="primary" label="start" size="large" onClick={() => handleStartStopClick()}>Start</Button>

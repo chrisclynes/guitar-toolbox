@@ -1,14 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Col } from 'antd';
 
 import ProgressBar from '../../container/ProgressBar/ProgressBar';
 import Tasks from '../../container/Tasks/Tasks';
 
 
-const MyDashboard = ({setMenuArray}) => {
-    useEffect(() => {
-        setMenuArray(["dashboard"])
-    }, [])
+const MyDashboard = () => {
 
     return (
         <div className="dashboard-container">

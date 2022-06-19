@@ -9,7 +9,7 @@ import "./ChordProgressions.css";
 
 const { Option } = Select;
 
-const ChordProgressions = ({ setMenuArray }) => {
+const ChordProgressions = () => {
     //---------------------------USE STATES------------------------------
 
     const [toggleSelectors, setToggleSelectors] = useState(false);
@@ -31,10 +31,6 @@ const ChordProgressions = ({ setMenuArray }) => {
         choiceArr: []
     });
 //---------------------------USE EFFECTS------------------------------
-    //run intial mount and set the menu array value to highlight correct menu option on both menu desktop and mobile menus
-    useEffect(() => {
-        setMenuArray(["chord-progressions"])
-    }, [])
 
     //sets the main "progressionData" state's chordProgression values for api call.
     useEffect(() => {

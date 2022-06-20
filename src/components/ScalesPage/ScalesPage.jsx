@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Layout, Typography, Space, Select } from 'antd';
+import { Layout, Typography, Space, Select, Divider } from 'antd';
 
 import Metronome from '../../container/Metronome/Metronome';
 import ScaleCard from '../../container/ScaleCard/ScaleCard';
@@ -32,9 +32,10 @@ const ScalesPage = ({ metronomeInterval, isPlaying, setIsPlaying, isMobile }) =>
     return (
         <Layout>
             <div className="page-container">
-                <div className="chords-title">
-                    <Title>Guitar Scale Lookup</Title>
+                <div className="scales-title header-margin">
+                    <Title>Guitar Scales</Title>
                     <h2>Learn new scales and practice with a metronome</h2>
+                    <Divider/>
                 </div>
                 {isMobile &&
                     <div className="scale-selector-container">

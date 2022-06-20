@@ -33,8 +33,8 @@ const Homepage = ({ setMenuArray, isMobile }) => {
         <Layout>
             <div className="page-container center-items"> 
                 
-                <div className="welcome-header">
-                    <Title>Welcome to Guitar Quest</Title>
+                <div className="welcome-header header-margin">
+                    <Title>Welcome to Guitar Toolbox</Title>
                     <h2>the app that helps guide you on your guitar journey</h2>
                 </div>
                 {/*IF PROGRESS STARTED, RENDER PROGRESS HERE */}
@@ -46,7 +46,7 @@ const Homepage = ({ setMenuArray, isMobile }) => {
                             </Link>
                             <Divider />
                             <div className="home-about-content" style={{margin: "2rem 0rem"}}>
-                                <p>Guitar Quest is a great tool for scheduling a practice routine, learning chords and chord progressions, 
+                                <p>Guitar Toolbox is a great tool for scheduling a practice routine, learning chords and chord progressions, 
                                     new scales, and practicing rhythm. 
                                     With the provided tools, you can master the art of guitar.
                                 </p>

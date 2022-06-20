@@ -13,7 +13,10 @@ const ChordProgressions = ({isMobile}) => {
     //---------------------------USE STATES------------------------------
 
     const [toggleSelectors, setToggleSelectors] = useState(false);
+    //set for user data selected for standard progressions
     const [toggleGetProgBtn, setToggleGetProBtn] = useState(false);
+    //set for user data selected for created progressions
+    const [toggleChoiceProgBtn, setToggleChoiceProgBtn] = useState(false);
     const [progressionData, setProgressionData] = useState({
         progQuality: "Major",
         progKey: "C Major",
@@ -30,7 +33,8 @@ const ChordProgressions = ({isMobile}) => {
         count: 1,
         choiceArr: []
     });
-    const [progTextDisplay, setProgTextDisplay] = useState('');
+    const [progTextDisplay, setProgTextDisplay] = useState('C, F, G');
+    //prevents mutiple api calls.
     const [prevChordsCalled, setPrevChordsCalled] = useState('');
 //---------------------------USE EFFECTS------------------------------
 
@@ -111,6 +115,7 @@ const ChordProgressions = ({isMobile}) => {
                     }))
         setToggleSelectors(false);
         setToggleGetProBtn(false)
+        setToggleChoiceProgBtn(false)
             }
 
     const handleKeysSelector = (val, key) => {
@@ -127,9 +132,14 @@ const ChordProgressions = ({isMobile}) => {
             <div className='page-container'>
                 <div className="progresssion-cards-containers">
                     <div className="progression-title-container center-items" style={{textAlign: "center"}}>
-                        <Typography.Title level={1}>Chord Progression Generator</Typography.Title>
-                        <h2>Choose a chord progression or create your own</h2>
-                        {!isMobile &&
+                        <div className="header-margin">
+                            <Typography.Title level={1}>Progression Generator</Typography.Title>
+                            <h2>Choose a chord progression or create your own</h2>
+                            {isMobile &&
+                                <Divider />
+                            }
+                            </div>
+                            {!isMobile &&
                         <div>
                             <Divider>
                                 <div>{progTextDisplay}</div>
@@ -177,6 +187,7 @@ const ChordProgressions = ({isMobile}) => {
                                                     progNumbers: Object.values(majorProgressions[parseInt(key.key)])[0],
                                                         }))
                                                     setToggleSelectors(false)
+                                                    setToggleChoiceProgBtn(false)
                                                     setToggleGetProBtn(true)
                                                     }}>
                                             {majorProgressions.map((item, i) => {
@@ -224,6 +235,11 @@ const ChordProgressions = ({isMobile}) => {
                         
                     </Space>
                 </div>
+                {toggleGetProgBtn &&
+                    <div className="get-progression-btn center-items" style={{margin: "1rem"}}>
+                        <Button type="primary" size="medium" onClick={() => handleChordData()} >Get Progression</Button>
+                    </div>
+                }
                 {!toggleSelectors &&
                     <div className="choose-progression-label center-items" style={{width: "100%", textAlign: "center"}}>
                         <Typography.Paragraph type="secondary" >Or, make your own progression below</Typography.Paragraph>
@@ -233,26 +249,31 @@ const ChordProgressions = ({isMobile}) => {
                 {!toggleSelectors &&
                     <Button type="primary" size="medium" onClick={() => {
                         setToggleSelectors(true)
-                        setToggleGetProBtn(true)
+                        setToggleGetProBtn(false)
                     }} >Create Your Own</Button>
                 }
                 {toggleSelectors &&
-                <Space>
-                        {/* if choice array.length == # of selectors, append new selector limit to 8 */}
-                        {[...Array(chooseProgData.count)].map((_, index) => {
-                            return (
-                            <Select key={"selector" + index} defaultValue="" onChange={(val) => handleProgressionArray(val, index)}>
-                            {(progressionData.progQuality === "Major" ? majorNashNumbers : minorNashNumbers).map((item, i) => {
+                    <Space wrap className="center-items">
+                            {/* if choice array.length == # of selectors, append new selector limit to 8 */}
+                            {[...Array(chooseProgData.count)].map((_, index) => {
                                 return (
-                                    <Option key={i} value={item}>{item}</Option>
-                                )
-                                })}
-                        </Select>
-                        )})}
+                                <Select key={"selector" + index} defaultValue="" onChange={(val) => {
+                                        handleProgressionArray(val, index)
+                                        setToggleChoiceProgBtn(true)
+                                        }
+                                    }>
+                                    {(progressionData.progQuality === "Major" ? majorNashNumbers : minorNashNumbers).map((item, i) => {
+                                        return (
+                                            <Option key={i} value={item}>{item}</Option>
+                                        )
+                                        })}
+                                </Select>
+                                )})
+                            }
                     </Space>
                 }
                 </div>
-                {toggleGetProgBtn &&
+                {toggleChoiceProgBtn &&
                     <div className="get-progression-btn center-items" style={{margin: "1rem"}}>
                         <Button type="primary" size="medium" onClick={() => handleChordData()} >Get Progression</Button>
                     </div>

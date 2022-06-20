@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Typography } from 'antd';
+import { Layout, Typography, Divider } from 'antd';
 
 import Metronome from '../../container/Metronome/Metronome';
 
@@ -10,9 +10,10 @@ const MetronomePage = ({ metronomeInterval, isPlaying, setIsPlaying}) => {
     return (
         <Layout>
             <div className="page-container">
-                <div className="metronomePage-title">
+                <div className="metronomePage-title header-margin">
                         <Title>Metronome</Title>
                         <h2>Work on mastering timing and groove</h2>
+                        <Divider />
                     </div>
                 <div className="metronome-main-container">
                     <Metronome metronomeInterval={metronomeInterval} isPlaying={isPlaying} setIsPlaying={setIsPlaying} />

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Layout , Typography, Space, Select, Input, Button } from 'antd';
+import { Layout , Typography, Space, Select, Input, Button, Divider } from 'antd';
 
 import ChordCard from '../../container/ChordCard/ChordCard';
 import VoicingOption from '../../container/VoicingOption/VoicingOption';
@@ -86,9 +86,10 @@ const ChordsPage = ({ isMobile }) => {
     return (
         <Layout>
             <div className="page-container">
-                <div className="chords-title">
-                    <Title>Welcome to Chord Search</Title>
+                <div className="chords-title header-margin">
+                    <Title>Chord Search</Title>
                     <h2>Your tool to mastering new chords!</h2>
+                    <Divider />
                 </div>
                 <ChordCard chordName={chordData.chordName} strings={chordData.strings} tones={chordData.tones} />
                 <div>

@@ -7,7 +7,6 @@ import { Layout , Typography, Menu, Button, Drawer, Divider } from 'antd';
 import { HomeOutlined, DashboardOutlined, MenuOutlined } from '@ant-design/icons';
 
 import logo from './images/guitarlogo.png';
-import logoWhite from './images/guitarlogoWhite.png';
 
 import './App.css';
 
@@ -16,7 +15,9 @@ const { Header, Footer, Sider, Content } = Layout;
 
 const App = () => {
     const [isMobile, setIsMobile] = useState(null)
+    //mobile menu drawer
     const [visible, setVisible] = useState(false);
+    //set highlighted menu option
     const [menuArray, setMenuArray] = useState([]);
     const [isPlaying, setIsPlaying] = useState(false);
     //useRef setsInterval for metronome to be controlled outside of the metronome component pages
@@ -72,7 +73,7 @@ const App = () => {
                             <img src={logo} alt="logo" />
                         </div>
                         <div className="sider-menu-title">
-                            Guitar Quest
+                            Guitar Toolbox
                         </div>
                         <Divider />
                         <Item key="home" icon={<HomeOutlined />} >
@@ -112,17 +113,16 @@ const App = () => {
             <div className="main">
                 <Layout style={{ height: "100vh", position: "relative", overflow: "hidden"}}  >
                     <Header>
+                        {isPlaying && 
+                            <div className='mobile-stop-btn'>
+                                <Button type="danger" label="stop"  onClick={() => handleClearMetronome()}>{isMobile ?  "Stop" : "Stop Metronome"}</Button>
+                            </div>
+                        }
                         {isMobile &&
                         <div className="header-container">
                             <div className="mobile-title-container">
-                                <img src={logoWhite} alt="logo" className="guitar-logo-white"/>
-                                <div className='mobile-title'>Guitar Quest</div>
-                            </div>   
-                            {isPlaying &&
-                                <div className='mobile-stop-btn'>
-                                    <Button type="danger" label="stop"  onClick={() => handleClearMetronome()}>{isMobile ? "Stop" : "Stop Metronome"}</Button>
-                                </div>
-                            }
+                                <div className='mobile-title'>Guitar Toolbox</div>
+                            </div> 
                             <div className="mobile-menu-btn">
                                 <Button type="icon" label="menu" onClick={showDrawer}><MenuOutlined /></Button>
                             </div>
@@ -185,7 +185,7 @@ const App = () => {
                         right: 0
                     }}>
                         <Title level={5} style={{ textAlign: 'center' }}>
-                            2022 Guitar Quest
+                            2022 Guitar Toolbox
                         </Title>
                     </Footer>
                 </Layout>

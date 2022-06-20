@@ -170,9 +170,9 @@ const App = () => {
                             <Routes>
                                 <Route path="/" element={<Homepage setMenuArray={setMenuArray} isMobile={isMobile} />} />
                                 <Route path="/mydashboard" element={<MyDashboard />} />
-                                <Route path="/chords" element={<ChordsPage />} />
-                                <Route path="/chord-progressions" element={<ChordProgressions />} />
-                                <Route path="/scales" element={<ScalesPage metronomeInterval={metronomeInterval} isPlaying={isPlaying} setIsPlaying={setIsPlaying}/>} />
+                                <Route path="/chords" element={<ChordsPage isMobile={isMobile}/>} />
+                                <Route path="/chord-progressions" element={<ChordProgressions isMobile={isMobile}/>} />
+                                <Route path="/scales" element={<ScalesPage metronomeInterval={metronomeInterval} isPlaying={isPlaying} setIsPlaying={setIsPlaying} isMobile={isMobile}/>} />
                                 <Route path="/metronome" element={<MetronomePage metronomeInterval={metronomeInterval} isPlaying={isPlaying} setIsPlaying={setIsPlaying} />} />
                             </Routes>
                         </Content>

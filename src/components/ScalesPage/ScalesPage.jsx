@@ -11,7 +11,7 @@ import { guitarScalesData } from '../../constants/data';
 const { Option } = Select;
 const { Title, Paragraph } = Typography;
 
-const ScalesPage = ({ metronomeInterval, isPlaying, setIsPlaying }) => {
+const ScalesPage = ({ metronomeInterval, isPlaying, setIsPlaying, isMobile }) => {
     //store and update scale title info and images to render
     const [scaleData, setScaleData] = useState({
         scaleFifthTitle: "Major Scale, 5th String Root",
@@ -36,22 +36,38 @@ const ScalesPage = ({ metronomeInterval, isPlaying, setIsPlaying }) => {
                     <Title>Guitar Scale Lookup</Title>
                     <h2>Learn new scales and practice with a metronome</h2>
                 </div>
-                <div className="scales-container center-items">
+                {isMobile &&
+                    <div className="scale-selector-container">
+                    <Paragraph type="secondary"  >choose a scale to start practicing</Paragraph>
+                        <Space>
+                            <Select defaultValue="Major Scale" style={{width: "220px"}} name="scales-selctor" onChange={(val, key) => scaleSelectHandler(val, key.key)}>
+                                    {guitarScalesData.map((item, i) => {
+                                        return (
+                                            <Option key={i} value={Object.keys(item)[0]}>{Object.keys(item)[0]}</Option>
+                                        )
+                                    })}
+                            </Select>
+                        </Space>
+                    </div>
+                }
+                <div className="scales-container center-items" style={isMobile ? {flexDirection: "column"} : {flexDirection: "row"}}>
                     <ScaleCard title={scaleData.scaleSixthTitle} image={scaleData.sixthRoot} />
                     <ScaleCard title={scaleData.scaleFifthTitle} image={scaleData.fifthRoot} />
                 </div>
-                <div className="scale-selector-container">
+                {!isMobile &&
+                    <div className="scale-selector-container">
                     <Paragraph type="secondary"  >choose a scale to start practicing</Paragraph>
-                    <Space>
-                        <Select defaultValue="Major Scale" style={{width: "220px"}} name="scales-selctor" onChange={(val, key) => scaleSelectHandler(val, key.key)}>
-                                {guitarScalesData.map((item, i) => {
-                                    return (
-                                        <Option key={i} value={Object.keys(item)[0]}>{Object.keys(item)[0]}</Option>
-                                    )
-                                })}
-                        </Select>
-                    </Space>
-                </div>
+                        <Space>
+                            <Select defaultValue="Major Scale" style={{width: "220px"}} name="scales-selctor" onChange={(val, key) => scaleSelectHandler(val, key.key)}>
+                                    {guitarScalesData.map((item, i) => {
+                                        return (
+                                            <Option key={i} value={Object.keys(item)[0]}>{Object.keys(item)[0]}</Option>
+                                        )
+                                    })}
+                            </Select>
+                        </Space>
+                    </div>
+                }
                 <Metronome metronomeInterval={metronomeInterval}  isPlaying={isPlaying} setIsPlaying={setIsPlaying} />
             </div>
         </Layout>

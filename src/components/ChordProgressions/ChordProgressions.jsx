@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Layout, Typography, Space, Button, Select, Col, List} from 'antd';
+import { Layout, Typography, Space, Button, Select, Col, Row} from 'antd';
 
 import { majorKeys, minorKeys, majorProgressions, minorProgressions, majorNashNumbers, minorNashNumbers } from '../../constants/data';
 import ChordCard from '../../container/ChordCard/ChordCard';
@@ -9,7 +9,7 @@ import "./ChordProgressions.css";
 
 const { Option } = Select;
 
-const ChordProgressions = () => {
+const ChordProgressions = ({isMobile}) => {
     //---------------------------USE STATES------------------------------
 
     const [toggleSelectors, setToggleSelectors] = useState(false);
@@ -123,21 +123,19 @@ const ChordProgressions = () => {
                     <div className="progression-title-container center-items" style={{textAlign: "center"}}>
                         <Typography.Title level={1}>Chord Progression Generator</Typography.Title>
                         <h2>Choose a chord progression or create your own</h2>
-                            <div className="progression-cards-container" style={{width: "100%"}}>
-                            <Col span={12}>
-                                <List
-                                    grid={{
-                                    gutter: 16,
-                                    md: 1, lg: 2, xl: 3, xxl: 4
-                                }}
-                                dataSource={chordData}
-                                renderItem={(item, i) => (
-                                        <List.Item>
-                                            <ChordCard key={i} title={item.title} chordName={item.chordName} strings={item.strings} /> 
-                                        </List.Item>
-                                    )}
-                                />
-                            </Col> 
+                            <div className="center-items" style={{width: "100%"}}>
+                            <Row gutter={[16, 16]}>    
+                                {chordData.map((item, i) => {
+                                    return (
+                                        <Col xs={1} sm={2} md={3} lg={4} xl={5} xxl={6} key={i}>
+                                            <ChordCard key={i} title={item.title} chordName={item.chordName} strings={item.strings} />
+                                        </Col> 
+                                    )
+                                })}
+                                        
+                                            
+                                        
+                            </Row> 
                             </div>
                     </div>
                 </div>

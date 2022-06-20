@@ -12,7 +12,7 @@ import "./ChordsPage.css";
 const { Option } = Select;
 const { Title, Paragraph } = Typography;
 
-const ChordsPage = () => {
+const ChordsPage = ({ isMobile }) => {
     const [chordData, setChordData] = useState({chordName: "A", strings: "X 0 2 2 2 0" });
     const [voicingData, setVoicingData] = useState({strings: ["X", "X", "X", "X", "X", "X"] });
     const [selectorVals, setSelectorVals] = useState({root: "A_", quality: "", alterations: ""});
@@ -124,7 +124,7 @@ const ChordsPage = () => {
                     <Space>
                     <div className="chord-options-two-container">
                             {stringSelector.map((string, index) => {
-                                return <VoicingOption setVoicingData={setVoicingData} key={index} stringKey={index} string={string}/>
+                                return <VoicingOption setVoicingData={setVoicingData} key={index} stringKey={index} string={string} isMobile={isMobile} />
                             })}
                     </div>
                 </Space>

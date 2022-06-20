@@ -5,7 +5,7 @@ const { Option } = Select;
 
 
 
-const VoicingOption = ({string, stringKey, setVoicingData}) => {
+const VoicingOption = ({string, stringKey, setVoicingData, isMobile }) => {
 
     const handleOptionData = (val) => {
         
@@ -17,7 +17,7 @@ const VoicingOption = ({string, stringKey, setVoicingData}) => {
     return (
         <div>
             <Typography.Paragraph>{string}</Typography.Paragraph>
-            <Select defaultValue="X" style={{width: "70px"}} name="chord-voicing-selector" onChange={(value) => handleOptionData(value)}>
+            <Select defaultValue="X" style={isMobile ? {width: "60px"}: {width: "70px"}} name="chord-voicing-selector" onChange={(value) => handleOptionData(value)}>
                 <Option value="X" >X</Option>
                 <Option value="0" >0</Option>
                 <Option value="1" >1</Option>

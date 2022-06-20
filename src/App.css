@@ -44,20 +44,25 @@
     margin:0 0 0 15px;
 }
 
-.mobile-title {
-    display: flex;
-    flex-direction: row;
+.mobile-title-container {
+    position: absolute;
+    top: 0rem;
+    left: 1rem;
     justify-content: center;
     align-items: center;
     color: white;
     font-family: 'Baloo 2', cursive;
     font-family: 'PT Sans Caption', sans-serif;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
+    width: 178px;
+    text-align: right;
 }
 
 .guitar-logo-white {
     max-width: 60px;
-    
+    position: absolute;
+    top: 0.3rem;
+    left: 0rem;
 }
 
 .theme-container {

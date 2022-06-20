@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Typography, Col, Button, Image, Carousel} from 'antd';
+import { Layout, Typography, Col, Button, Image, Carousel, Divider} from 'antd';
 import { Link } from "react-router-dom";
 
 import images from '../../constants/images';
@@ -44,6 +44,7 @@ const Homepage = ({ setMenuArray, isMobile }) => {
                             <Link to="/mydashboard">
                                 <Button type="primary" size="large" style={{margin: "1rem"}} onClick={(() => setMenuArray(["dashboard"]))} >Start</Button>
                             </Link>
+                            <Divider />
                             <div className="home-about-content" style={{margin: "2rem 0rem"}}>
                                 <p>Guitar Quest is a great tool for scheduling a practice routine, learning chords and chord progressions, 
                                     new scales, and practicing rhythm. 

@@ -13,7 +13,7 @@ const { Option } = Select;
 const { Title, Paragraph } = Typography;
 
 const ChordsPage = ({ isMobile }) => {
-    const [chordData, setChordData] = useState({chordName: "A", strings: "X 0 2 2 2 0" });
+    const [chordData, setChordData] = useState({chordName: "A", strings: "X 0 2 2 2 0", tones: "A, C#, E" });
     const [voicingData, setVoicingData] = useState({strings: ["X", "X", "X", "X", "X", "X"] });
     const [selectorVals, setSelectorVals] = useState({root: "A_", quality: "", alterations: ""});
     const [chordError, setChordError] = useState("");
@@ -37,7 +37,8 @@ const ChordsPage = ({ isMobile }) => {
                 setChordData({
                     //replace URI code with # and remove underscore
                     chordName: apiData.chordName.replace(/(%23)/g, "#").replace(/(,)/g, ''),
-                    strings: apiData.strings
+                    strings: apiData.strings,
+                    tones: apiData.tones
                 });
                 console.log(response.data)
             }catch (error) {
@@ -59,7 +60,8 @@ const ChordsPage = ({ isMobile }) => {
                 setChordData({
                     //replace URI code with # and remove underscore
                     chordName: apiData.chordName.replace(/(%23)/g, "#").replace(/(,)/g, ''),
-                    strings: apiData.strings
+                    strings: apiData.strings,
+                    tones: apiData.tones
                 });
                 console.log(response.data)
             }catch (error) {
@@ -84,7 +86,7 @@ const ChordsPage = ({ isMobile }) => {
                     <Title>Welcome to Chord Search</Title>
                     <h2>Your tool to mastering new chords!</h2>
                 </div>
-                <ChordCard chordName={chordData.chordName} strings={chordData.strings} />
+                <ChordCard chordName={chordData.chordName} strings={chordData.strings} tones={chordData.tones} />
                 <div>
                     <Paragraph type="secondary" style={{margin: "1rem"}} >
                         Select root note, quality, add any optional alterations
@@ -104,6 +106,7 @@ const ChordsPage = ({ isMobile }) => {
                                 <Option value="">Major</Option>
                                 <Option value="m">Minor</Option>
                                 <Option value="dim">dim</Option>
+                                <Option value="aug">aug</Option>
                             </Select>
                         </div>
                         <div>

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Routes, Route, Link } from "react-router-dom";
 import { Homepage, ChordsPage, MyDashboard, ChordProgressions, ScalesPage, MetronomePage } from './components';
 
-import { Layout , Typography, Menu, Button, Drawer } from 'antd';
+import { Layout , Typography, Menu, Button, Drawer, Divider } from 'antd';
 
 import { HomeOutlined, DashboardOutlined, MenuOutlined } from '@ant-design/icons';
 
@@ -74,6 +74,7 @@ const App = () => {
                         <div className="sider-menu-title">
                             Guitar Quest
                         </div>
+                        <Divider />
                         <Item key="home" icon={<HomeOutlined />} >
                             <Link to="/" onClick={() => handleMenuHighlight(["home"])}>
                                 Home
@@ -84,51 +85,50 @@ const App = () => {
                                 My Dashboard
                             </Link>
                         </Item>
-                        <Menu.SubMenu key="training-sub" title="Training">
-                                <Item key="chords">
-                                    <Link to="/chords" onClick={() => handleMenuHighlight(["chords"])}>
-                                        Chords
-                                    </Link>
-                                </Item>
-                                <Item key="chord-progressions">
-                                    <Link to="/chord-progressions" onClick={() => handleMenuHighlight(["chord-progressions"])}>
-                                        Chord Progressions
-                                    </Link>
-                                </Item>
-                                <Item key="scales">
-                                    <Link to="/scales"onClick={() => handleMenuHighlight(["scales"])}>
-                                        Scales
-                                    </Link>
-                                </Item>
-                                <Item key="metronome">
-                                    <Link to="/metronome" onClick={() => handleMenuHighlight(["metronome"])}>
-                                        Metronome
-                                    </Link>
-                                </Item>
-                        </Menu.SubMenu>
+                        <Divider />
+                        <Item key="chords">
+                            <Link to="/chords" onClick={() => handleMenuHighlight(["chords"])}>
+                                Chords
+                            </Link>
+                        </Item>
+                        <Item key="chord-progressions">
+                            <Link to="/chord-progressions" onClick={() => handleMenuHighlight(["chord-progressions"])}>
+                                Chord Progressions
+                            </Link>
+                        </Item>
+                        <Item key="scales">
+                            <Link to="/scales"onClick={() => handleMenuHighlight(["scales"])}>
+                                Scales
+                            </Link>
+                        </Item>
+                        <Item key="metronome">
+                            <Link to="/metronome" onClick={() => handleMenuHighlight(["metronome"])}>
+                                Metronome
+                            </Link>
+                        </Item>
                     </Menu>
                 </Sider>
             }
             <div className="main">
                 <Layout style={{ height: "100vh", position: "relative", overflow: "hidden"}}  >
-                <Header>
-                    {isMobile &&
-                    <div className="mobile-title">
-                        <img src={logoWhite} alt="logo" className="guitar-logo-white"/>
-                        <p>Guitar Quest</p>
-                    </div>   
-                    }
-                    {isPlaying &&
-                        <div className='mobile-stop-btn'>
-                            <Button type="danger" label="stop"  onClick={() => handleClearMetronome()}>{isMobile ? "Stop" : "Stop Metronome"}</Button>
+                    <Header>
+                        {isMobile &&
+                        <div className="header-container">
+                            <div className="mobile-title-container">
+                                <img src={logoWhite} alt="logo" className="guitar-logo-white"/>
+                                <div className='mobile-title'>Guitar Quest</div>
+                            </div>   
+                            {isPlaying &&
+                                <div className='mobile-stop-btn'>
+                                    <Button type="danger" label="stop"  onClick={() => handleClearMetronome()}>{isMobile ? "Stop" : "Stop Metronome"}</Button>
+                                </div>
+                            }
+                            <div className="mobile-menu-btn">
+                                <Button type="icon" label="menu" onClick={showDrawer}><MenuOutlined /></Button>
+                            </div>
                         </div>
-                    }
-                    {isMobile &&
-                        <div className="mobile-menu-btn">
-                            <Button type="icon" label="menu" onClick={showDrawer}><MenuOutlined /></Button>
-                        </div>
-                    }
-                </Header>
+                        }
+                    </Header>
                 {isMobile &&
                     <Drawer title="Menu" placement="right" width={"60%"} onClose={closeDrawer} visible={visible}>
                         <Menu>
@@ -142,6 +142,7 @@ const App = () => {
                                     My Dashboard
                                 </Link>
                             </Item>
+                            <Divider />
                             <Item key="chords">
                                 <Link to="/chords" onClick={() => handleMenuHighlight(["chords"])}>
                                     Chords

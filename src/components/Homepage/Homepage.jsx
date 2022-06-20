@@ -56,7 +56,6 @@ const Homepage = ({ setMenuArray, isMobile }) => {
                                     </h3>
                                 }
                             </div>
-                    
                     <div className="center-items" style={{width: "100%"}}>
                     <Carousel style={carouselStyle} autoplay>
                         <div style={contentStyle}>

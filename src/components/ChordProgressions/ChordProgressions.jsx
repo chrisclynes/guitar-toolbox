@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Layout, Typography, Space, Button, Select, Col, Row} from 'antd';
+import { Layout, Typography, Space, Button, Select, Col, Row, Divider} from 'antd';
 
 import { majorKeys, minorKeys, majorProgressions, minorProgressions, majorNashNumbers, minorNashNumbers } from '../../constants/data';
 import ChordCard from '../../container/ChordCard/ChordCard';
@@ -30,6 +30,8 @@ const ChordProgressions = ({isMobile}) => {
         count: 1,
         choiceArr: []
     });
+    const [progTextDisplay, setProgTextDisplay] = useState('');
+    const [prevChordsCalled, setPrevChordsCalled] = useState('');
 //---------------------------USE EFFECTS------------------------------
 
     //sets the main "progressionData" state's chordProgression values for api call.
@@ -54,6 +56,7 @@ const ChordProgressions = ({isMobile}) => {
         const chords = progressionData.chordProgression.join(",");
         const URL = 'https://api.uberchord.com/v1/chords?names=';
         const chordToCall = `${URL}${chords}`;
+        if(chords === prevChordsCalled) return
         console.log(progressionData)
             try {
                 const response = await axios.get(chordToCall)
@@ -65,6 +68,9 @@ const ChordProgressions = ({isMobile}) => {
                     strings: item.strings
                     })
                 ));
+                //set to show progression chords onscreen
+                setProgTextDisplay(progressionData.chordProgression.join(", ").replace(/(%23)/g, "#").replace(/(_)/g, ''));
+                setPrevChordsCalled(chords);
                 // console.log(response.data)
             }catch (error) {
                 console.log(error)
@@ -123,20 +129,24 @@ const ChordProgressions = ({isMobile}) => {
                     <div className="progression-title-container center-items" style={{textAlign: "center"}}>
                         <Typography.Title level={1}>Chord Progression Generator</Typography.Title>
                         <h2>Choose a chord progression or create your own</h2>
+                        {!isMobile &&
+                        <div>
+                            <Divider>
+                                <div>{progTextDisplay}</div>
+                            </Divider>
                             <div className="center-items" style={{width: "100%"}}>
-                            <Row gutter={[16, 16]}>    
-                                {chordData.map((item, i) => {
-                                    return (
-                                        <Col xs={1} sm={2} md={3} lg={4} xl={5} xxl={6} key={i}>
-                                            <ChordCard key={i} title={item.title} chordName={item.chordName} strings={item.strings} />
-                                        </Col> 
-                                    )
-                                })}
-                                        
-                                            
-                                        
-                            </Row> 
+                                <Row gutter={[16, 16]}>    
+                                    {chordData.map((item, i) => {
+                                        return (
+                                            <Col  key={i}>
+                                                <ChordCard key={i} title={item.title} chordName={item.chordName} strings={item.strings} />
+                                            </Col> 
+                                        )
+                                    })}    
+                                </Row>
                             </div>
+                        </div>
+                        }       
                     </div>
                 </div>
                 <div className="progression-selectors-container center-items" style={{margin: "1rem"}}>
@@ -247,6 +257,23 @@ const ChordProgressions = ({isMobile}) => {
                         <Button type="primary" size="medium" onClick={() => handleChordData()} >Get Progression</Button>
                     </div>
                 }
+                {isMobile &&
+                //on mobile view switch layout of cards to 1 column, dynamic wraping
+                <div>
+                    <Divider>
+                        <div>{progTextDisplay}</div>
+                    </Divider>
+                    <div className="center-items" style={{width: "100%", flexDirection: "column"}}>
+                            {chordData.map((item, i) => {
+                                return (
+                                    <Col flex="none" key={i}>
+                                        <ChordCard key={i} title={item.title} chordName={item.chordName} strings={item.strings} />
+                                    </Col> 
+                                )
+                            })}      
+                    </div>
+                    </div>
+                }   
             </div>
         </Layout>
     )

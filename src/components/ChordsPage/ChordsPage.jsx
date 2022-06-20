@@ -18,6 +18,8 @@ const ChordsPage = ({ isMobile }) => {
     const [selectorVals, setSelectorVals] = useState({root: "A_", quality: "", alterations: ""});
     const [chordError, setChordError] = useState("");
     const [voicingError, setVoicingError] = useState("");
+    //prevents mutiple api calls on unchanged data.
+    const [prevChordCalled, setPrevChordCalled] = useState('');
 
     const chordKeySelectors = ["A_", "Ab_", "A%23_", "B_", "Bb_", "C_", "C%23_", "D_", "Db_", "D%23_", "E_", "Eb_", "F_", "F%23_", "G_", "Gb_", "G%23_"];
     const stringSelector = ["E", "A", "D", "G", "B", "E"];
@@ -27,8 +29,8 @@ const ChordsPage = ({ isMobile }) => {
     const handleChordData = async () => {
         const URL = 'https://api.uberchord.com/v1/chords/';
         const chordToCall = `${URL}${selectorVals.root}${selectorVals.quality}${selectorVals.alterations}`;
-
-       console.log(selectorVals.root)
+        if(chordToCall === prevChordCalled) return
+       console.log(selectorVals.root) 
 
             try {
                 const response = await axios.get(chordToCall)
@@ -40,6 +42,7 @@ const ChordsPage = ({ isMobile }) => {
                     strings: apiData.strings,
                     tones: apiData.tones
                 });
+                setPrevChordCalled(chordToCall);
                 console.log(response.data)
             }catch (error) {
                 console.log(error)
@@ -52,7 +55,7 @@ const ChordsPage = ({ isMobile }) => {
     const handleVoicingData = async () => {
         const URL = 'https://api.uberchord.com/v1/chords?voicing=';
         const chordToCall = `${URL}${voicingData.strings.join("-")}`;
-
+        if(chordToCall === prevChordCalled) return
             try {
                 const response = await axios.get(chordToCall)
                 const apiData = response.data[0]
@@ -63,6 +66,7 @@ const ChordsPage = ({ isMobile }) => {
                     strings: apiData.strings,
                     tones: apiData.tones
                 });
+                setPrevChordCalled(chordToCall);
                 console.log(response.data)
             }catch (error) {
                 console.log(error)

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Routes, Route, Link } from "react-router-dom";
 import { Homepage, ChordsPage, MyDashboard, ChordProgressions, ScalesPage, MetronomePage } from './components';
+import ScrollToTop from './services/ScrollToTop.js';
 
 import { Layout , Typography, Menu, Button, Drawer, Divider } from 'antd';
 
@@ -60,6 +61,7 @@ const App = () => {
 
     return (
         <div className="app">
+            <ScrollToTop />
             {!isMobile &&
                 <Sider theme='light' >
                     <Menu 
@@ -166,7 +168,7 @@ const App = () => {
                         </Menu>
                     </Drawer>
                 }
-                    <div style={{ height: "100%", position: "relative", overflowY: "auto"}}>
+                    <div className="main-view" style={{ height: "100%", position: "relative", overflowY: "auto"}}>
                         <Content style={{paddingBottom: "60px"}}>
                             <Routes>
                                 <Route path="/" element={<Homepage setMenuArray={setMenuArray} isMobile={isMobile} />} />

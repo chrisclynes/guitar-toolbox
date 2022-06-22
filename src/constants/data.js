@@ -57,6 +57,11 @@ const minorProgressions = [
     { "i-VI-VII": ["i", "VI","VII"] },
     { "i-ii-VII-v-i": ["i", "ii", "VII","v", "i"] },
     { "i-VI-III-VII": ["i", "VI", "III", "VII"] },
+    { "i-iv-VII": ["i", "iv", "VII"] },
+    { "i-VII-VI-VII": ["i", "VII", "VI", "VII"] },
+    { "i-III-VII-VI": ["i", "III", "VII", "VI"] },
+    { "i-v-iv-VII": ["i", "v", "iv", "VII"] },
+    { "i-v-VII-iv": ["i", "v", "VII", "iv"] },
 ];
 const minorNashNumbers = ["i", "ii", "III", "iv", "v", "VI", "VII"];
 

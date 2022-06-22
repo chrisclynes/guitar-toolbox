@@ -29,9 +29,7 @@ const ChordsPage = ({ isMobile }) => {
     const handleChordData = async () => {
         const URL = 'https://api.uberchord.com/v1/chords/';
         const chordToCall = `${URL}${selectorVals.root}${selectorVals.quality}${selectorVals.alterations}`;
-        if(chordToCall === prevChordCalled) return
-       console.log(selectorVals.root) 
-
+        if(chordToCall === prevChordCalled) return 
             try {
                 const response = await axios.get(chordToCall)
                 const apiData = response.data[0]
@@ -43,7 +41,7 @@ const ChordsPage = ({ isMobile }) => {
                     tones: apiData.tones
                 });
                 setPrevChordCalled(chordToCall);
-                console.log(response.data)
+                // console.log(response.data)
             }catch (error) {
                 console.log(error)
                 if(error){
@@ -67,7 +65,7 @@ const ChordsPage = ({ isMobile }) => {
                     tones: apiData.tones
                 });
                 setPrevChordCalled(chordToCall);
-                console.log(response.data)
+                // console.log(response.data)
             }catch (error) {
                 console.log(error)
                 if(error){

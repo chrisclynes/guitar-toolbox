@@ -27,7 +27,7 @@
     flex: 2; 
     position: relative;
     overflow-y: auto;
-    overflow-x: hidden;
+    
     display: flex;
     justify-content: space-between;
 }

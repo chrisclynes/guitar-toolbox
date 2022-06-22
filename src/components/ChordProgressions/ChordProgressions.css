@@ -2,3 +2,7 @@
     flex-direction: column;
     width: 100%;
 }
+
+.progression-choice-wrapper {
+    margin: 0.5rem;
+}

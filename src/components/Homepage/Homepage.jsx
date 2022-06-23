@@ -41,7 +41,7 @@ const Homepage = ({ setMenuArray, isMobile }) => {
                 <Content>
                 <Col span={16} offset={4}>
                     <div className="hompage-content center items">
-                            <Link to="/mydashboard">
+                            <Link to="/signup">
                                 <Button type="primary" size="large" style={{margin: "1rem"}} onClick={(() => setMenuArray(["dashboard"]))} >Start</Button>
                             </Link>
                             <Divider />

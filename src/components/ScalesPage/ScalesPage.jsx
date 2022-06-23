@@ -7,6 +7,7 @@ import ScaleCard from '../../container/ScaleCard/ScaleCard';
 import images from '../../constants/images';
 import { guitarScalesData } from '../../constants/data';
 
+import "./ScalesPage.css";
 
 const { Option } = Select;
 const { Title, Paragraph } = Typography;
@@ -51,7 +52,7 @@ const ScalesPage = ({ metronomeInterval, isPlaying, setIsPlaying, isMobile }) =>
                         </Space>
                     </div>
                 }
-                <div className="scales-container center-items" style={isMobile ? {flexDirection: "column"} : {flexDirection: "row"}}>
+                <div className="scales-container center-items">
                     <ScaleCard title={scaleData.scaleSixthTitle} image={scaleData.sixthRoot} />
                     <ScaleCard title={scaleData.scaleFifthTitle} image={scaleData.fifthRoot} />
                 </div>

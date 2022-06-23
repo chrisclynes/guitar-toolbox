@@ -5,7 +5,6 @@ export default function ScrollToTop() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    console.log("triggered")
     //capture div with content that is scrollable and reset to top
     document.querySelector(".main-view").scrollTo(0,0);
   }, [pathname]);

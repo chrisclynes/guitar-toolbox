@@ -14,7 +14,7 @@ const ChordProgressions = ({isMobile}) => {
 
     const [toggleSelectors, setToggleSelectors] = useState(false);
     //set for user data selected for standard progressions
-    const [toggleGetProgBtn, setToggleGetProBtn] = useState(false);
+    const [toggleGetProgBtn, setToggleGetProgBtn] = useState(false);
     //set for user data selected for created progressions
     const [toggleChoiceProgBtn, setToggleChoiceProgBtn] = useState(false);
     const [progressionData, setProgressionData] = useState({
@@ -72,7 +72,7 @@ const ChordProgressions = ({isMobile}) => {
                     strings: item.strings
                     })
                 ));
-                //set to show progression chords onscreen
+                //set to show progression chords onscreen in readable format
                 setProgTextDisplay(progressionData.chordProgression.join(", ").replace(/(%23)/g, "#").replace(/(_)/g, ''));
                 setPrevChordsCalled(chords);
                 // console.log(response.data)
@@ -114,7 +114,7 @@ const ChordProgressions = ({isMobile}) => {
                         choiceArr: []
                     }))
         setToggleSelectors(false);
-        setToggleGetProBtn(false)
+        setToggleGetProgBtn(false)
         setToggleChoiceProgBtn(false)
             }
 
@@ -188,7 +188,7 @@ const ChordProgressions = ({isMobile}) => {
                                                         }))
                                                     setToggleSelectors(false)
                                                     setToggleChoiceProgBtn(false)
-                                                    setToggleGetProBtn(true)
+                                                    setToggleGetProgBtn(true)
                                                     }}>
                                             {majorProgressions.map((item, i) => {
                                                     return (
@@ -221,7 +221,7 @@ const ChordProgressions = ({isMobile}) => {
                                                         progNumbers: Object.values(minorProgressions[parseInt(key.key)])[0],
                                                             }))
                                                     setToggleSelectors(false)
-                                                    setToggleGetProBtn(true)
+                                                    setToggleGetProgBtn(true)
                                                 }}>
                                             {minorProgressions.map((item, i) => {
                                                     return (
@@ -249,7 +249,7 @@ const ChordProgressions = ({isMobile}) => {
                 {!toggleSelectors &&
                     <Button type="primary" size="medium" onClick={() => {
                         setToggleSelectors(true)
-                        setToggleGetProBtn(false)
+                        setToggleGetProgBtn(false)
                     }} >Create Your Own</Button>
                 }
                 {toggleSelectors &&

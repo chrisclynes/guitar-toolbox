@@ -67,11 +67,11 @@ const Metronome = ({metronomeInterval, isPlaying, setIsPlaying}) => {
 
     //clears metronomeInterval based on state change, have to use a use Effect for this, otherwise it will continue playing
     useEffect(() => {
-    if (isPlaying) {
-        clearInterval(metronomeInterval.current);
-      metronomeInterval.current = setInterval(timer, step / 4);
-    }
-  });
+      if (isPlaying) {
+          clearInterval(metronomeInterval.current);
+        metronomeInterval.current = setInterval(timer, step / 4);
+      }
+    });
 
   //clear interval if rendering a new metronome component on page change 
   useEffect(() => {

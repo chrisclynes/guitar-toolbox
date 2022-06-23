@@ -1,5 +1,6 @@
 import React from 'react';
-import { Layout, Card, Form, Input, Checkbox, Button } from 'antd';
+import { Link } from "react-router-dom";
+import { Card, Form, Input, Button } from 'antd';
 
    
 const Signup = ({}) => {
@@ -56,7 +57,9 @@ const Signup = ({}) => {
                     </Form.Item>
                     </Form>  
             </Card>
-            <div >Already have an account? Log in</div>
+            <Link to="/login" >
+                Already have an account? Log in
+            </Link>
         </div>
     )
 }

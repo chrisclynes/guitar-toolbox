@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Routes, Route, Link } from "react-router-dom";
-import { Homepage, ChordsPage, MyDashboard, ChordProgressions, ScalesPage, MetronomePage, Signup } from './components';
+import { Homepage, ChordsPage, MyDashboard, ChordProgressions, ScalesPage, MetronomePage, Signup, Login } from './components';
 import ScrollToTop from './services/ScrollToTop.js';
 
 import { Layout , Typography, Menu, Button, Drawer, Divider } from 'antd';
@@ -174,6 +174,7 @@ const App = () => {
                                 <Route path="/" element={<Homepage setMenuArray={setMenuArray} isMobile={isMobile} />} />
                                 <Route path="/mydashboard" element={<MyDashboard />} />
                                 <Route path="/signup" element={<Signup />} />
+                                <Route path="/login" element={<Login />} />
                                 <Route path="/chords" element={<ChordsPage isMobile={isMobile}/>} />
                                 <Route path="/chord-progressions" element={<ChordProgressions isMobile={isMobile}/>} />
                                 <Route path="/scales" element={<ScalesPage metronomeInterval={metronomeInterval} isPlaying={isPlaying} setIsPlaying={setIsPlaying} isMobile={isMobile}/>} />

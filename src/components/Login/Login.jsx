@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import { Layout, Card, Form, Input, Checkbox, Button } from 'antd';
 
    
@@ -14,7 +15,7 @@ const Login = ({}) => {
  
     return (
         <div className="page-container">
-            <Card title="Sign Up" style={{width: "300px", margin: "1rem"}} bodyStyle={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+            <Card title="Log In" style={{width: "300px", margin: "1rem"}} bodyStyle={{display: "flex", justifyContent: "center", alignItems: "center"}}>
                 <Form name="sign-up" labelCol={{span: 8,}} wrapperCol={{span: 16,}}initialValues={{remember: true,}}
                     onFinish={onFinish}
                     onFinishFailed={onFinishFailed}
@@ -66,7 +67,9 @@ const Login = ({}) => {
                     </Form.Item>
                     </Form>
             </Card>
-            <div >Dont have an account? Sign up!</div>
+            <Link to="/signup" >
+                <div >Dont have an account? Sign up!</div>
+            </Link>
         </div>
     )
 }

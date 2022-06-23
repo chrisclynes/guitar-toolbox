@@ -2,7 +2,7 @@ import React from 'react';
 import { Layout, Card, Form, Input, Checkbox, Button } from 'antd';
 
    
-const Signup = ({}) => {
+const Login = ({}) => {
 
     const onFinish = (values) => {
         console.log('Success:', values);
@@ -45,6 +45,16 @@ const Signup = ({}) => {
                         <Input.Password />
                     </Form.Item>
                     <Form.Item
+                        name="remember"
+                        valuePropName="checked"
+                        wrapperCol={{
+                        offset: 0,
+                        span: 24,
+                        }}
+                    >
+                        <Checkbox>Remember me</Checkbox>
+                    </Form.Item>
+                    <Form.Item
                         wrapperCol={{
                         offset: 0,
                         span: 24,
@@ -54,11 +64,11 @@ const Signup = ({}) => {
                         Sign Up
                         </Button>
                     </Form.Item>
-                    </Form>  
+                    </Form>
             </Card>
-            <div >Already have an account? Log in</div>
+            <div >Dont have an account? Sign up!</div>
         </div>
     )
 }
 
-export default Signup;
+export default Login;

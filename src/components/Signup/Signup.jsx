@@ -1,24 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from "react-router-dom";
-import { Card, Form, Input, Button } from 'antd';
+import { Card, Form, Input, Button, Alert } from 'antd';
+import { useAuth } from '../../contexts/AuthContext';
 
    
 const Signup = ({}) => {
+    const { signup, currentUser } = useAuth();
+    const [error, setError] = useState('');
+    const [success, setSucess] = useState(false)
+    const [loading, setLoading] = useState(false);
+    
 
-    const onFinish = (values) => {
-        console.log('Success:', values);
+    const onFinish = async (values) => {
+        if(values.password.length < 6){
+            setError('Passwords must be at least 6 characters');
+            return
+        }
+        try {
+            setError('');
+            setLoading(true);
+            await signup(values.email, values.password)
+            setSucess(true);
+        }catch {
+            setError('Account could not be created');
+        }
+        setLoading(false);
       };
     
       const onFinishFailed = (errorInfo) => {
-        console.log('Failed:', errorInfo);
+        setSucess(false);
+        setError("information entered is incorrect");
       };
  
+      
     return (
         <div className="page-container">
-            <Card title="Sign Up" style={{width: "300px", margin: "1rem"}} bodyStyle={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-                <Form name="sign-up" labelCol={{span: 8,}} wrapperCol={{span: 16,}}initialValues={{remember: true,}}
+            <Card title="Sign Up" style={{maxWidth: "350px", margin: "1rem"}} bodyStyle={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+                <Form name="signup" labelCol={{span: 8,}} wrapperCol={{span: 16,}}initialValues={{remember: true,}}
                     onFinish={onFinish}
                     onFinishFailed={onFinishFailed}
+                    onChange={() => setError('')}
                     autoComplete="off"
                     >
                     <Form.Item
@@ -26,8 +47,9 @@ const Signup = ({}) => {
                         name="email"
                         rules={[
                         {
+                            type: 'email',
                             required: true,
-                            message: 'Please input an email address!',
+                            message: 'Please enter a valid email address!',
                         },
                         ]}
                     >
@@ -46,20 +68,46 @@ const Signup = ({}) => {
                         <Input.Password />
                     </Form.Item>
                     <Form.Item
+                        label="Confirm"
+                        name="confirm"
+                        dependencies={['password']}
+                        hasFeedback
+                        rules={[
+                        {
+                            required: true,
+                            message: 'Please confirm your password!',
+                        },
+                        ({ getFieldValue }) => ({
+                            validator(_, value) {
+                              if (!value || getFieldValue('password') === value) {
+                                return Promise.resolve();
+                              }
+                
+                              return Promise.reject(new Error('The two passwords that you entered do not match!'));
+                            },
+                          }),
+                        ]}
+                    >
+                        <Input.Password placeholder="confirm password"/>
+                    </Form.Item>
+                    <Form.Item
                         wrapperCol={{
                         offset: 0,
                         span: 24,
                         }}
                     >
-                        <Button type="primary" htmlType="submit">
+                        <Button disabled={loading} type="primary" htmlType="submit">
                         Sign Up
                         </Button>
                     </Form.Item>
-                    </Form>  
+                    {error && <Alert message={error} type="error" />}
+                    {success && <Alert message="Success" type="success" />}
+                </Form>  
             </Card>
             <Link to="/login" >
                 Already have an account? Log in
             </Link>
+            <h3>{JSON.stringify(currentUser && currentUser.email)}</h3>
         </div>
     )
 }

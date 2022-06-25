@@ -3,6 +3,7 @@ import { Routes, Route, Link } from "react-router-dom";
 import { Homepage, ChordsPage, MyDashboard, ChordProgressions, ScalesPage, MetronomePage, Signup, Login } from './components';
 import ScrollToTop from './services/ScrollToTop.js';
 import { useAuth } from './contexts/AuthContext';
+import PrivateRoute from './components/PrivateRoute';
 
 import { Layout , Typography, Menu, Button, Drawer, Divider, Avatar } from 'antd';
 
@@ -119,6 +120,13 @@ const App = () => {
             <div className="main">
                 <Layout style={{ height: "100vh", position: "relative", overflow: "hidden"}}  >
                     <Header>
+                    {!currentUser && !isMobile &&
+                        <div className='user-avatar'>
+                            <Link to="/login">
+                                <Button type="default" size="large" >Log In</Button>
+                            </Link>
+                        </div>
+                    }
                     {currentUser && !isMobile && 
                         <div className='user-avatar'>
                              <Link to="/mydashboard" onClick={() => handleMenuHighlight(["dashboard"])}>
@@ -151,6 +159,13 @@ const App = () => {
                                     Home
                                 </Link>
                             </Item>
+                            {!currentUser &&
+                                <Item key="login" >
+                                    <Link to="/login" onClick={() => handleMenuHighlight([""])}>
+                                        Log In
+                                    </Link>
+                                </Item>
+                            }
                             {currentUser &&
                                 <Item key="dashboard" icon={<DashboardOutlined />}>
                                     <Link to="/mydashboard" onClick={() => handleMenuHighlight(["dashboard"])}>
@@ -186,7 +201,14 @@ const App = () => {
                         <Content style={{paddingBottom: "60px"}}>
                             <Routes>
                                 <Route path="/" element={<Homepage setMenuArray={setMenuArray} isMobile={isMobile} />} />
-                                <Route path="/mydashboard" element={<MyDashboard />} />
+                                <Route 
+                                    path="/mydashboard" 
+                                    element={
+                                        <PrivateRoute>
+                                            <MyDashboard />
+                                        </PrivateRoute>
+                                        } 
+                                    />
                                 <Route path="/signup" element={<Signup />} />
                                 <Route path="/login" element={<Login />} />
                                 <Route path="/chords" element={<ChordsPage isMobile={isMobile}/>} />

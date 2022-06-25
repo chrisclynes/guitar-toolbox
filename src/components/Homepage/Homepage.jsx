@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Typography, Col, Button, Image, Carousel, Divider, Card} from 'antd';
+import { Layout, Typography, Col, Button, Image, Carousel, Divider, Card } from 'antd';
 import { Link } from "react-router-dom";
 
 import images from '../../constants/images';
@@ -45,9 +45,9 @@ const Homepage = ({ setMenuArray, isMobile }) => {
                             <h3>
                                 To create practice segments/routines and track your progress, sign up today!
                             </h3>
-                            <Link to="/signup">
-                                <Button type="primary" size="large" style={{margin: "1rem"}} onClick={(() => setMenuArray(["dashboard"]))} >Get Started</Button>
-                            </Link>
+                                <Link to="/signup">
+                                    <Button type="primary" style={{margin: "1rem"}} size="large" >Get Started</Button>
+                                </Link>
                             </Card>
                             <Divider />
                             <div className="home-about-content" style={{margin: "2rem 0rem"}}>

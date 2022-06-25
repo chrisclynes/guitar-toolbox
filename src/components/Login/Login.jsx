@@ -85,7 +85,12 @@ const Login = ({}) => {
                             Log In
                         </Button>
                     </Form.Item>
-                    {error && <Alert message={error} type="error" />}
+                    {error && 
+                        <Alert message={error} type="error" />
+                    }
+                    <Link to="/forgot-password" >
+                                <div style={{textDecoration: "underline"}}>Forgot password?</div>
+                            </Link>
                     </Form>
             </Card>
             <Link to="/signup" >

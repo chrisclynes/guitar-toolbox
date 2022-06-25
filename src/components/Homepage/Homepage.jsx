@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Typography, Col, Button, Image, Carousel, Divider} from 'antd';
+import { Layout, Typography, Col, Button, Image, Carousel, Divider, Card} from 'antd';
 import { Link } from "react-router-dom";
 
 import images from '../../constants/images';
@@ -41,17 +41,24 @@ const Homepage = ({ setMenuArray, isMobile }) => {
                 <Content>
                 <Col span={16} offset={4}>
                     <div className="hompage-content center items">
+                        <Card>
+                            <h3>
+                                To create practice segments/routines and track your progress, sign up today!
+                            </h3>
                             <Link to="/signup">
-                                <Button type="primary" size="large" style={{margin: "1rem"}} onClick={(() => setMenuArray(["dashboard"]))} >Start</Button>
+                                <Button type="primary" size="large" style={{margin: "1rem"}} onClick={(() => setMenuArray(["dashboard"]))} >Get Started</Button>
                             </Link>
+                            </Card>
                             <Divider />
                             <div className="home-about-content" style={{margin: "2rem 0rem"}}>
-                                <p>Guitar Toolbox is a great tool for scheduling a practice routine, learning chords and chord progressions, 
+                                <p>
+                                    Guitar Toolbox is a great tool for scheduling a practice routine, learning chords and chord progressions, 
                                     new scales, and practicing rhythm. 
                                     With the provided tools, you can master the art of guitar.
                                 </p>
                                 {!isMobile && 
-                                    <h3>Update: We are working on a new User Profile feature to allow players to login and save their progress across devices. 
+                                    <h3>
+                                        Update: We are working on a new User Profile feature to allow players to login and save their progress across devices. 
                                         More tools are also in developement!
                                     </h3>
                                 }

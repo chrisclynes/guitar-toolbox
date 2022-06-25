@@ -5,7 +5,7 @@ import { useAuth } from '../../contexts/AuthContext';
 
    
 const Signup = ({}) => {
-    const { signup, currentUser } = useAuth();
+    const { signup } = useAuth();
     const [error, setError] = useState('');
     const [success, setSucess] = useState(false)
     const [loading, setLoading] = useState(false);
@@ -107,7 +107,6 @@ const Signup = ({}) => {
             <Link to="/login" >
                 Already have an account? Log in
             </Link>
-            <h3>{JSON.stringify(currentUser && currentUser.email)}</h3>
         </div>
     )
 }

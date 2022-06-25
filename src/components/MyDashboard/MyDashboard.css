@@ -1,5 +1,16 @@
 .dashboard-container {
     flex-direction: column;
-    background-color: aquamarine;
 }
 
+.user-wrapper {
+    width: 100%;
+    display: flex;
+    position: relative;
+}
+
+.user-options {
+    position: absolute;
+    top: 0;
+    right: 1rem;
+    text-align: end;
+}

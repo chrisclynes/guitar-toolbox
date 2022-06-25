@@ -71,10 +71,16 @@
     right: 1rem;
 }
 
-.mobile-stop-btn {
+.metro-stop-btn {
     position: absolute;
     top: 0rem;
     right: 5rem;
+}
+
+.user-avatar {
+    position: absolute;
+    top: 0rem;
+    right: 1rem;
 }
 
 /* Global */

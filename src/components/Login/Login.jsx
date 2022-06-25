@@ -1,24 +1,44 @@
-import React from 'react';
-import { Link } from "react-router-dom";
-import { Card, Form, Input, Checkbox, Button } from 'antd';
+import React, { useState } from 'react';
+import { Link, useNavigate } from "react-router-dom";
+import { Card, Form, Input, Button, Alert, Checkbox } from 'antd';
+import { useAuth } from '../../contexts/AuthContext';
 
    
 const Login = ({}) => {
+    const { login } = useAuth();
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
+    
 
-    const onFinish = (values) => {
-        console.log('Success:', values);
+    const onFinish = async (values) => {
+        if(values.password.length < 6){
+            setError('Passwords must be at least 6 characters');
+            return
+        }
+        try {
+            setError('');
+            setLoading(true);
+            await login(values.email, values.password)
+            //if successful route user to dashboard
+            navigate("/mydashboard");
+        }catch {
+            setError("Email or password incorrect");
+        }
+        setLoading(false);
       };
     
-      const onFinishFailed = (errorInfo) => {
-        console.log('Failed:', errorInfo);
+      const onFinishFailed = () => {
+        setError('Failed to log in');
       };
- 
+
     return (
         <div className="page-container">
             <Card title="Log In" style={{maxWidth: "350px", margin: "1rem"}} bodyStyle={{display: "flex", justifyContent: "center", alignItems: "center"}}>
                 <Form name="login" labelCol={{span: 8,}} wrapperCol={{span: 16,}}initialValues={{remember: true,}}
                     onFinish={onFinish}
                     onFinishFailed={onFinishFailed}
+                    onChange={() => setError('')}
                     autoComplete="off"
                     >
                     <Form.Item
@@ -61,10 +81,11 @@ const Login = ({}) => {
                         span: 24,
                         }}
                     >
-                        <Button type="primary" htmlType="submit">
-                        Log In
+                        <Button disabled={loading} type="primary" htmlType="submit">
+                            Log In
                         </Button>
                     </Form.Item>
+                    {error && <Alert message={error} type="error" />}
                     </Form>
             </Card>
             <Link to="/signup" >

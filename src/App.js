@@ -2,10 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Routes, Route, Link } from "react-router-dom";
 import { Homepage, ChordsPage, MyDashboard, ChordProgressions, ScalesPage, MetronomePage, Signup, Login } from './components';
 import ScrollToTop from './services/ScrollToTop.js';
+import { useAuth } from './contexts/AuthContext';
 
-import { Layout , Typography, Menu, Button, Drawer, Divider } from 'antd';
+import { Layout , Typography, Menu, Button, Drawer, Divider, Avatar } from 'antd';
 
-import { HomeOutlined, DashboardOutlined, MenuOutlined } from '@ant-design/icons';
+import { HomeOutlined, DashboardOutlined, MenuOutlined, UserOutlined } from '@ant-design/icons';
 
 import logo from './images/guitarlogo.png';
 
@@ -15,14 +16,15 @@ const { Header, Footer, Sider, Content } = Layout;
 
 
 const App = () => {
-    const [isMobile, setIsMobile] = useState(null)
+    const [isMobile, setIsMobile] = useState(null);
     //mobile menu drawer
     const [visible, setVisible] = useState(false);
     //set highlighted menu option
     const [menuArray, setMenuArray] = useState([]);
     const [isPlaying, setIsPlaying] = useState(false);
     //useRef setsInterval for metronome to be controlled outside of the metronome component pages
-    const metronomeInterval = useRef()
+    const metronomeInterval = useRef();
+    const { currentUser } = useAuth();
 
     const handleResize = () => {
         if (window.innerWidth < 720) {
@@ -83,11 +85,13 @@ const App = () => {
                                 Home
                             </Link>
                         </Item>
-                        <Item key="dashboard" icon={<DashboardOutlined />}>
-                            <Link to="/mydashboard" onClick={() => handleMenuHighlight(["dashboard"])}>
-                                My Dashboard
-                            </Link>
-                        </Item>
+                        {currentUser &&
+                            <Item key="dashboard" icon={<DashboardOutlined />}>
+                                <Link to="/mydashboard" onClick={() => handleMenuHighlight(["dashboard"])}>
+                                    My Dashboard
+                                </Link>
+                            </Item>
+                        }
                         <Divider />
                         <Item key="chords">
                             <Link to="/chords" onClick={() => handleMenuHighlight(["chords"])}>
@@ -115,8 +119,15 @@ const App = () => {
             <div className="main">
                 <Layout style={{ height: "100vh", position: "relative", overflow: "hidden"}}  >
                     <Header>
+                    {currentUser && !isMobile && 
+                        <div className='user-avatar'>
+                             <Link to="/mydashboard" onClick={() => handleMenuHighlight(["dashboard"])}>
+                                <Avatar icon={<UserOutlined />} />
+                             </Link>
+                        </div>
+                    }
                         {isPlaying && 
-                            <div className='mobile-stop-btn'>
+                            <div className='metro-stop-btn'>
                                 <Button type="danger" label="stop"  onClick={() => handleClearMetronome()}>{isMobile ?  "Stop" : "Stop Metronome"}</Button>
                             </div>
                         }
@@ -134,16 +145,19 @@ const App = () => {
                 {isMobile &&
                     <Drawer title="Menu" placement="right" width={"60%"} onClose={closeDrawer} visible={visible}>
                         <Menu>
+                            {currentUser && currentUser.email}
                             <Item key="home" icon={<HomeOutlined />} >
                                 <Link to="/" onClick={() => handleMenuHighlight(["home"])}>
                                     Home
                                 </Link>
                             </Item>
-                            <Item key="dashboard" icon={<DashboardOutlined />}>
-                                <Link to="/mydashboard" onClick={() => handleMenuHighlight(["dashboard"])}>
-                                    My Dashboard
-                                </Link>
-                            </Item>
+                            {currentUser &&
+                                <Item key="dashboard" icon={<DashboardOutlined />}>
+                                    <Link to="/mydashboard" onClick={() => handleMenuHighlight(["dashboard"])}>
+                                        My Dashboard
+                                    </Link>
+                                </Item>
+                            }
                             <Divider />
                             <Item key="chords">
                                 <Link to="/chords" onClick={() => handleMenuHighlight(["chords"])}>

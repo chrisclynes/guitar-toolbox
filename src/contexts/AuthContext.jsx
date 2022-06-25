@@ -22,6 +22,11 @@ export function AuthProvider({ children }) {
         return auth.signOut()
     }
 
+    const resetPassword = (email) => {
+        //firebase method to reset users pass by sending them an email
+        return auth.sendPasswordResetEmail(email)
+    }
+
     useEffect(() => {
         //run on mount, firebase builtin method, set user login state, unsubscribe on unmount of component, set state back to null
         const unsubscribe = auth.onAuthStateChanged(user => {
@@ -38,7 +43,8 @@ export function AuthProvider({ children }) {
         currentUser,
         login,
         logout,
-        signup
+        signup,
+        resetPassword
     }
 
   return (

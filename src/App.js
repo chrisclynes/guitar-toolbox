@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Routes, Route, Link } from "react-router-dom";
-import { Homepage, ChordsPage, MyDashboard, ChordProgressions, ScalesPage, MetronomePage, Signup, Login } from './components';
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import { Homepage, ChordsPage, MyDashboard, ChordProgressions, ScalesPage, MetronomePage, Signup, Login, ForgotPassword } from './components';
 import ScrollToTop from './services/ScrollToTop.js';
 import { useAuth } from './contexts/AuthContext';
 import PrivateRoute from './components/PrivateRoute';
@@ -15,7 +15,6 @@ import './App.css';
 
 const { Header, Footer, Sider, Content } = Layout;
 
-
 const App = () => {
     const [isMobile, setIsMobile] = useState(null);
     //mobile menu drawer
@@ -25,7 +24,8 @@ const App = () => {
     const [isPlaying, setIsPlaying] = useState(false);
     //useRef setsInterval for metronome to be controlled outside of the metronome component pages
     const metronomeInterval = useRef();
-    const { currentUser } = useAuth();
+    const { currentUser, logout } = useAuth();
+    const navigate = useNavigate();
 
     const handleResize = () => {
         if (window.innerWidth < 720) {
@@ -57,6 +57,16 @@ const App = () => {
     const handleMenuHighlight = (val) => {
         if(visible) closeDrawer();
         setMenuArray(val)
+    }
+
+    const handleLogout = async () => {
+        try {
+            await logout();
+                handleMenuHighlight(["dashboard"]);
+                navigate("/");
+        } catch {
+            console.log("failed to logout")
+        }
     }
 
     const { Item } = Menu;
@@ -120,30 +130,37 @@ const App = () => {
             <div className="main">
                 <Layout style={{ height: "100vh", position: "relative", overflow: "hidden"}}  >
                     <Header>
-                    {!currentUser && !isMobile &&
-                        <div className='user-avatar'>
-                            <Link to="/login">
-                                <Button type="default" size="large" >Log In</Button>
-                            </Link>
+                        <div className="header-btn-container">
+                            {isPlaying && !isMobile &&
+                                    <div className='metro-stop-btn'>
+                                        <Button type="danger" label="stop" onClick={() => handleClearMetronome()}>Stop</Button>
+                                    </div>
+                                }
+                            {!currentUser && !isMobile &&
+                                <div className='user-avatar'>
+                                    <Link to="/login">
+                                        <Button type="default" >Log In</Button>
+                                    </Link>
+                                </div>
+                            }
+                            {currentUser && !isMobile && 
+                                <div className='user-avatar'>
+                                    <Link to="/mydashboard" onClick={() => handleMenuHighlight(["dashboard"])}>
+                                        <Avatar icon={<UserOutlined />} />
+                                    </Link>
+                                </div>
+                            }
                         </div>
-                    }
-                    {currentUser && !isMobile && 
-                        <div className='user-avatar'>
-                             <Link to="/mydashboard" onClick={() => handleMenuHighlight(["dashboard"])}>
-                                <Avatar icon={<UserOutlined />} />
-                             </Link>
-                        </div>
-                    }
-                        {isPlaying && 
-                            <div className='metro-stop-btn'>
-                                <Button type="danger" label="stop"  onClick={() => handleClearMetronome()}>{isMobile ?  "Stop" : "Stop Metronome"}</Button>
-                            </div>
-                        }
                         {isMobile &&
                         <div className="header-container">
                             <div className="mobile-title-container">
                                 <div className='mobile-title'>Guitar Toolbox</div>
                             </div> 
+                            {isPlaying &&
+                                <div className='mobile-metro-stop-btn'>
+                                        <Button type="danger" label="stop" onClick={() => handleClearMetronome()}>Stop</Button>
+                                </div>
+                            }
                             <div className="mobile-menu-btn">
                                 <Button type="icon" label="menu" onClick={showDrawer}><MenuOutlined /></Button>
                             </div>
@@ -153,7 +170,6 @@ const App = () => {
                 {isMobile &&
                     <Drawer title="Menu" placement="right" width={"60%"} onClose={closeDrawer} visible={visible}>
                         <Menu>
-                            {currentUser && currentUser.email}
                             <Item key="home" icon={<HomeOutlined />} >
                                 <Link to="/" onClick={() => handleMenuHighlight(["home"])}>
                                     Home
@@ -167,11 +183,16 @@ const App = () => {
                                 </Item>
                             }
                             {currentUser &&
-                                <Item key="dashboard" icon={<DashboardOutlined />}>
-                                    <Link to="/mydashboard" onClick={() => handleMenuHighlight(["dashboard"])}>
-                                        My Dashboard
-                                    </Link>
-                                </Item>
+                                <>
+                                    <Item key="dashboard" icon={<DashboardOutlined />}>
+                                        <Link to="/mydashboard" onClick={() => handleMenuHighlight(["dashboard"])}>
+                                            My Dashboard
+                                        </Link>
+                                    </Item>
+                                    <Item key="logout" onClick={() => handleLogout()}>
+                                           Log Out
+                                    </Item>
+                                </>
                             }
                             <Divider />
                             <Item key="chords">
@@ -205,12 +226,13 @@ const App = () => {
                                     path="/mydashboard" 
                                     element={
                                         <PrivateRoute>
-                                            <MyDashboard />
+                                            <MyDashboard isMobile={isMobile}/>
                                         </PrivateRoute>
                                         } 
                                     />
-                                <Route path="/signup" element={<Signup />} />
-                                <Route path="/login" element={<Login />} />
+                                <Route path="/signup" element={<Signup setMenuArray={setMenuArray} />} />
+                                <Route path="/login" element={<Login setMenuArray={setMenuArray} />} />
+                                <Route path="/forgot-password" element={<ForgotPassword setMenuArray={setMenuArray}/>} />
                                 <Route path="/chords" element={<ChordsPage isMobile={isMobile}/>} />
                                 <Route path="/chord-progressions" element={<ChordProgressions isMobile={isMobile}/>} />
                                 <Route path="/scales" element={<ScalesPage metronomeInterval={metronomeInterval} isPlaying={isPlaying} setIsPlaying={setIsPlaying} isMobile={isMobile}/>} />

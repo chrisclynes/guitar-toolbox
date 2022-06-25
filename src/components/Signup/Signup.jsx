@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Card, Form, Input, Button, Alert } from 'antd';
 import { useAuth } from '../../contexts/AuthContext';
 
    
-const Signup = ({}) => {
+const Signup = ({ setMenuArray }) => {
     const { signup } = useAuth();
     const [error, setError] = useState('');
     const [success, setSucess] = useState(false)
     const [loading, setLoading] = useState(false);
+
+    const navigate = useNavigate();
     
 
     const onFinish = async (values) => {
@@ -21,6 +23,8 @@ const Signup = ({}) => {
             setLoading(true);
             await signup(values.email, values.password)
             setSucess(true);
+            setMenuArray(["dashboard"]);
+            setTimeout(() => navigate("/mydashboard"), 1500);
         }catch {
             setError('Account could not be created');
         }

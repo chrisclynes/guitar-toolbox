@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Col, Button, Affix } from 'antd';
+import { Col, Button } from 'antd';
 import { useNavigate } from "react-router-dom";
 import { useAuth } from '../../contexts/AuthContext';
 
@@ -8,9 +8,8 @@ import Tasks from '../../container/Tasks/Tasks';
 
 import "./MyDashboard.css";
 
-const MyDashboard = () => {
+const MyDashboard = ({ isMobile }) => {
     const { currentUser, logout } = useAuth();
-    const [error, setError] = useState('');
     const navigate = useNavigate();
 
     const handleLogout = async () => {
@@ -19,8 +18,7 @@ const MyDashboard = () => {
             await logout();
                 navigate("/");
         } catch {
-            console.log("failed")
-            setError('Log out failed');
+            console.log("logout failed")
         }
     }
 
@@ -29,9 +27,11 @@ const MyDashboard = () => {
             <div className="user-wrapper">
                 <div className="user-options">
                     <h3> Welcome {currentUser.email}!</h3>
+                    {!isMobile &&
                         <Button type="primary" onClick={handleLogout}>
                             Log out
                         </Button>
+                    }
                 </div>
             </div>
             <div className='my-progress-bar center-items'>

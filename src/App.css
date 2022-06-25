@@ -65,23 +65,25 @@
     padding: 20px;
 }
 
+.header-btn-container {
+    display: flex;
+    justify-content: end;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: right;
+    margin-right: 0;
+}
 .mobile-menu-btn {
     position: absolute;
     top: 0rem;
     right: 1rem;
 }
 
-.metro-stop-btn {
+.mobile-metro-stop-btn {
     position: absolute;
     top: 0rem;
     right: 5rem;
-}
-
-.user-avatar {
-    position: absolute;
-    top: 0rem;
-    right: 1rem;
-}
+} 
 
 /* Global */
 .page-container {

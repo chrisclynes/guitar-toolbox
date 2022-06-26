@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
-import { Homepage, ChordsPage, MyDashboard, ChordProgressions, ScalesPage, MetronomePage, Signup, Login, ForgotPassword } from './components';
+import { Homepage, ChordsPage, MyDashboard, ChordProgressions, ScalesPage, MetronomePage, Signup, Login, ForgotPassword, UpdateProfile } from './components';
 import ScrollToTop from './services/ScrollToTop.js';
 import { useAuth } from './contexts/AuthContext';
 import PrivateRoute from './components/PrivateRoute';
@@ -229,7 +229,15 @@ const App = () => {
                                             <MyDashboard isMobile={isMobile}/>
                                         </PrivateRoute>
                                         } 
-                                    />
+                                />
+                                <Route 
+                                    path="/update-profile" 
+                                    element={
+                                        <PrivateRoute>
+                                            <UpdateProfile isMobile={isMobile}/>
+                                        </PrivateRoute>
+                                        } 
+                                />
                                 <Route path="/signup" element={<Signup setMenuArray={setMenuArray} />} />
                                 <Route path="/login" element={<Login setMenuArray={setMenuArray} />} />
                                 <Route path="/forgot-password" element={<ForgotPassword setMenuArray={setMenuArray}/>} />

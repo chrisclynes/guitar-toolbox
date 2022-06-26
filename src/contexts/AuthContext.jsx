@@ -27,6 +27,14 @@ export function AuthProvider({ children }) {
         return auth.sendPasswordResetEmail(email)
     }
 
+    const updateEmail = (email) => {
+        return currentUser.updateEmail(email)
+    }
+
+    const updatePassword = (password) => {
+        return currentUser.updatePassword(password)
+    }
+
     useEffect(() => {
         //run on mount, firebase builtin method, set user login state, unsubscribe on unmount of component, set state back to null
         const unsubscribe = auth.onAuthStateChanged(user => {
@@ -44,7 +52,9 @@ export function AuthProvider({ children }) {
         login,
         logout,
         signup,
-        resetPassword
+        resetPassword,
+        updateEmail,
+        updatePassword
     }
 
   return (

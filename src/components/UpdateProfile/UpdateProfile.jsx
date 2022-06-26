@@ -4,7 +4,7 @@ import { Card, Form, Input, Button, Alert } from 'antd';
 import { useAuth } from '../../contexts/AuthContext';
 
 const UpdateProfile = ({ metronomeInterval, isPlaying, setIsPlaying}) => {
-    const { signup, currentUser } = useAuth();
+    const { currentUser, updateEmail, updatePassword } = useAuth();
     const [error, setError] = useState('');
     const [success, setSucess] = useState(false)
     const [loading, setLoading] = useState(false);
@@ -12,31 +12,42 @@ const UpdateProfile = ({ metronomeInterval, isPlaying, setIsPlaying}) => {
     const navigate = useNavigate();
     
 
-    const onFinish = async (values) => {
-        if(values.password.length < 6){
+    const onFinish = (values) => {
+        if(values.password && values.password.length < 6){
+            setSucess(false);
             setError('Passwords must be at least 6 characters');
             return
         }
-        try {
-            setError('');
-            setLoading(true);
-            await signup(values.email, values.password)
-            setSucess(true);
-            setTimeout(() => navigate("/mydashboard"), 1500);
-        }catch {
-            setError('Account could not be created');
+
+        const promises = []
+        setLoading(true);
+        setError("");
+
+        if (values.email !== currentUser.email) {
+            promises.push(updateEmail(values.email))
         }
-        setLoading(false);
-      };
+        if (values.password) {
+            promises.push(updatePassword(values.password))
+        }
+
+        Promise.all(promises).then(() => {
+            setSucess(true);
+        }).catch(() => {
+            setSucess(false)
+            setError("Failed to update profile information, logout and try again")
+        }).finally(() => {
+            setLoading(false);
+        })
+    }
     
       const onFinishFailed = (errorInfo) => {
         setSucess(false);
         setError("information entered is incorrect");
-      };
+      }
 
     return (
         <div className="page-container">
-            <Card title="Update Profile" style={{maxWidth: "350px", margin: "1rem"}} bodyStyle={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+            <Card title="Profile" style={{maxWidth: "350px", margin: "1rem"}} bodyStyle={{display: "flex", justifyContent: "center", alignItems: "center"}}>
                 <Form name="login" labelCol={{span: 8,}} wrapperCol={{span: 16,}}initialValues={{remember: true,}}
                     onFinish={onFinish}
                     onFinishFailed={onFinishFailed}
@@ -46,26 +57,37 @@ const UpdateProfile = ({ metronomeInterval, isPlaying, setIsPlaying}) => {
                     <Form.Item
                         label="Email"
                         name="email"
-                        defaultValue={currentUser.email}
+                        initialValue={currentUser.email}
                         rules={[
                         {
-                            required: false,
+                            required: true,
                         },
                         ]}
                     >
                         <Input />
                     </Form.Item>
+                    {/* <Form.Item
+                        label="Username"
+                        name="username"
+                        // initialValue={currentUser.username}
+                        rules={[
+                        {
+                            required: true,
+                        },
+                        ]}
+                    >
+                        <Input />
+                    </Form.Item> */}
                     <Form.Item
                         label="Password"
                         name="password"
-                        placeholder="Leave blank to keep the same"
                         rules={[
                         {
                             required: false,
                         },
                         ]}
                     >
-                    <Input.Password />
+                    <Input.Password placeholder="Leave blank to keep current"/>
                     </Form.Item>
                     <Form.Item
                         label="Confirm"
@@ -74,8 +96,8 @@ const UpdateProfile = ({ metronomeInterval, isPlaying, setIsPlaying}) => {
                         hasFeedback
                         rules={[
                         {
-                            required: true,
-                            message: 'Leave blank to keep the same',
+                            required: false,
+                            message: 'Leave blank to keep current',
                         },
                         ({ getFieldValue }) => ({
                             validator(_, value) {
@@ -97,19 +119,19 @@ const UpdateProfile = ({ metronomeInterval, isPlaying, setIsPlaying}) => {
                         }}
                     >
                         <Button disabled={loading} type="primary" htmlType="submit">
-                            Log In
+                            Update Profile
                         </Button>
                     </Form.Item>
                     {error && 
                         <Alert message={error} type="error" />
                     }
-                    <Link to="/forgot-password" >
-                                <div style={{textDecoration: "underline"}}>Forgot password?</div>
-                            </Link>
+                    {success && 
+                        <Alert message="Account has been updated" type="success" />
+                    }
                     </Form>
             </Card>
-            <Link to="/signup" >
-                <div >Dont have an account? Sign up!</div>
+            <Link to="/mydashboard" >
+                <div >Cancel</div>
             </Link>
         </div>
     )

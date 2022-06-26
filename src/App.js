@@ -145,7 +145,7 @@ const App = () => {
                             }
                             {currentUser && !isMobile && 
                                 <div className='user-avatar'>
-                                    <Link to="/mydashboard" onClick={() => handleMenuHighlight(["dashboard"])}>
+                                    <Link to="/update-profile" onClick={() => handleMenuHighlight([""])}>
                                         <Avatar icon={<UserOutlined />} />
                                     </Link>
                                 </div>
@@ -176,11 +176,11 @@ const App = () => {
                                 </Link>
                             </Item>
                             {!currentUser &&
-                                <Item key="login" >
-                                    <Link to="/login" onClick={() => handleMenuHighlight([""])}>
-                                        Log In
-                                    </Link>
-                                </Item>
+                                    <Item key="login" >
+                                        <Link to="/login" onClick={() => handleMenuHighlight([""])}>
+                                            Log In
+                                        </Link>
+                                    </Item>
                             }
                             {currentUser &&
                                 <>
@@ -191,6 +191,11 @@ const App = () => {
                                     </Item>
                                     <Item key="logout" onClick={() => handleLogout()}>
                                            Log Out
+                                    </Item>
+                                    <Item key="profile" >
+                                        <Link to="/update-profile" onClick={() => handleMenuHighlight([""])}>
+                                            My Profile
+                                        </Link>
                                     </Item>
                                 </>
                             }

@@ -10,7 +10,7 @@ const VoicingOption = ({string, stringKey, setVoicingData, isMobile }) => {
     const handleOptionData = (val) => {
         
         setVoicingData(prevState => ({ 
-            strings: prevState.strings.map((el, i) => i == stringKey? el = val: el)//sets the index of state array to option input value
+            strings: prevState.strings.map((el, i) => i === stringKey? el = val: el)//sets the index of state array to option input value
          }))   
     }
 

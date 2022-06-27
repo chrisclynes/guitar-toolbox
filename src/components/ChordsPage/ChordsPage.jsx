@@ -108,8 +108,6 @@ const ChordsPage = ({ isMobile }) => {
                             <Select defaultValue="" style={{width: "80px"}} label="Quality" name="chord-quality-selector" onChange={(val) => setSelectorVals((prevState) => ({...prevState, quality: val}))}>
                                 <Option value="">Major</Option>
                                 <Option value="m">Minor</Option>
-                                <Option value="dim">dim</Option>
-                                <Option value="aug">aug</Option>
                             </Select>
                         </div>
                         <div>

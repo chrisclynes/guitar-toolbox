@@ -12,7 +12,6 @@ const { carousel_img1, carousel_img2, carousel_img3 } = images;
 const { Title } = Typography;
 const { Content } = Layout;
 
-
 const Homepage = ({ setMenuArray, isMobile }) => {
 
     const contentStyle = {

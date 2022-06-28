@@ -1,13 +1,18 @@
 import React from 'react';
 import { Table, Button } from 'antd';
+import { db } from '../../firebase';
+import { collection, doc, getDoc } from 'firebase/firestore';
+
+// const docRef = doc(db, "UserData")
+// const data = await getDoc(docRef)
 
 const columns = [
   {
-    title: 'Task',
+    title: 'Practice',
     dataIndex: 'task',
   },
   {
-    title: 'Time (in minutes)',
+    title: 'Time (min)',
     dataIndex: 'time',
   },
   {
@@ -22,7 +27,7 @@ for (let i = 0; i < 16; i++) {
     key: i,
     task: `Strumming ${i}`,
     time: 10,
-    description: `Learn a 2/4 strumming pattern ${i}`,
+    description: `Learn a 2/4 strumming pattern  and do some other stuff${i}`,
   });
 }
 
@@ -58,14 +63,14 @@ class Tasks extends React.Component {
     return (
       <div>
         <div style={{ margin: "1rem" }}>
-          <Button type="primary" onClick={this.start} disabled={!hasSelected} loading={loading}>
-            Reload
+          <Button type="default" onClick={() => {}}>
+            Add Practice
           </Button>
           <span style={{ marginLeft: 8 }}>
             {hasSelected ? `Selected ${selectedRowKeys.length} items` : ''}
           </span>
         </div>
-        <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
+        <Table  columns={columns} dataSource={data} />
       </div>
     );
   }

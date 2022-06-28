@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
-import { auth } from '../firebase';
+import { auth, db } from '../firebase';
+import { collection, doc, setDoc } from 'firebase/firestore';
 
 const AuthContext = React.createContext();
 
@@ -9,7 +10,16 @@ export function AuthProvider({ children }) {
 
     const signup = (email, password) => {
         //firebase method to create a user, returns a promise
-        return auth.createUserWithEmailAndPassword(email, password)
+        return auth.createUserWithEmailAndPassword(email, password).then((value) => {
+            setDoc(doc(db, "UserData", value.user.uid), {tasks: {
+                "id" : 0,
+                "email" : value.user.email,
+                "task" : "Major Scale",
+                "time" : 10, 
+                "Description" : "Practice alternate picking using the major scale"  
+                }           
+            }) 
+        });
     }
 
     const login = (email, password) => {

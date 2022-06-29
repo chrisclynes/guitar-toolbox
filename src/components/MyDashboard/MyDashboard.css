@@ -14,3 +14,9 @@
     right: 1rem;
     text-align: end;
 }
+
+.my-progress-bar {
+    margin-top: 1rem; 
+    max-width: 1000px;
+    background-color: white;
+}

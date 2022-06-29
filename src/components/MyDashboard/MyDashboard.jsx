@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Col, Button, Typography, Modal, Card, Space } from 'antd';
+import { Col, Row, Typography, Modal, Layout } from 'antd';
 import { useNavigate } from "react-router-dom";
 import { useAuth } from '../../contexts/AuthContext';
 import { db } from '../../firebase';
@@ -94,43 +94,39 @@ const MyDashboard = ({ isMobile }) => {
         }
     }
     
-
     return (
-        <div className="dashboard-container">
-            <div className="user-wrapper" style={{flexDirection: "column"}}>
-                <div className="user-options">
-                    <h3> Welcome {userData?.username}!</h3>
+        <Layout>
+            <div className="dashboard-container">
+                <div className="user-wrapper center-items" style={{flexDirection: "column"}}>
+                    <div className="user-options">
+                        <h3> Welcome {userData?.username}!</h3>
+                    </div>
+                    <Typography.Title level={2} style={{padding: "1.5rem 0rem 0rem 0rem"}} >My Stats</Typography.Title>
+                    <div className='my-progress-bar center-items' style={isMobile ? {padding: "0"} : {padding: "0 2rem"}}>
+                        <Row>
+                        <Col span={12} >
+                            <ProgressBar title="Tasks Completed" item={userData?.tasksCompleted} isMobile={isMobile}/>
+                        </Col>
+                        <Col span={12} >
+                            <ProgressBar title="Time Practiced" item={`${userData?.totalTaskTimeMins} mins`} isMobile={isMobile}/>
+                        </Col>
+                        </Row>
+                    </div> 
                 </div>
-                
-                <div className='my-progress-bar center-items' >
-                    <Space>
-                        <Card >
-                            <Col span={12}>
-                                <ProgressBar title="Tasks Completed" item={userData?.tasksCompleted}/>
-                            </Col>
-                        </Card>
-                        <Card >
-                            <Col span={12}>
-                                <ProgressBar title="Total Practice Time" item={`${userData?.totalTaskTimeMins} mins`}/>
-                            </Col>
-                        </Card> 
-                    </Space> 
-                </div> 
-               
-            </div>
-            <div className="main-content-container" style={{margin: "1rem"}}>
-                <div className="task-container">
-                <Typography.Title level={2} style={{padding: "1.5rem 0.5rem 0rem 0.5rem"}} >Practice/Routines</Typography.Title>
-                <Tasks 
-                    routineData={routineData} 
-                    isMobile={isMobile}  
-                    handleAddPractice={handleAddPractice} 
-                    handleDelete={handleDelete} 
-                    handleComplete={handleComplete}
-                    />
+                <div className="main-content-container" style={{margin: "1rem"}}>
+                    <div className="task-container">
+                    <Typography.Title level={2} style={{padding: "1.5rem 0.5rem 0rem 0.5rem"}} >Practice/Routines</Typography.Title>
+                    <Tasks 
+                        routineData={routineData} 
+                        isMobile={isMobile}  
+                        handleAddPractice={handleAddPractice} 
+                        handleDelete={handleDelete} 
+                        handleComplete={handleComplete}
+                        />
+                    </div>
                 </div>
             </div>
-        </div>
+        </Layout>
     )
 }
 

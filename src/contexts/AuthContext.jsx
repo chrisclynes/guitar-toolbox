@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { auth, db } from '../firebase';
-import {  doc, serverTimestamp, updateDoc, setDoc, arrayUnion } from 'firebase/firestore';
+import {  doc, serverTimestamp, updateDoc, setDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
 
 const AuthContext = React.createContext();
 
@@ -53,8 +53,7 @@ export function AuthProvider({ children }) {
 
     const addPractice = async (values) => {
         const tasksRef = doc(db, "UserData", currentUser.uid)
-        try {
-            await updateDoc(tasksRef, {
+        updateDoc(tasksRef, {
                 tasks: arrayUnion(
                     {
                         id: values.id,
@@ -63,11 +62,21 @@ export function AuthProvider({ children }) {
                         description: values.description,
                         },
                 )
-            })  
-        }catch {
-            console.log('error updating data')
-        }
-               
+            })      
+    }
+
+   const removePractice = async (values) => {
+        const tasksRef = doc(db, "UserData", currentUser.uid)
+        updateDoc(tasksRef, {
+                tasks: arrayRemove(
+                    {
+                        id: values.id,
+                        task: values.task,
+                        time: values.time, 
+                        description: values.description,
+                        },
+                )
+            })         
     }
 
     useEffect(() => {
@@ -90,7 +99,8 @@ export function AuthProvider({ children }) {
         resetPassword,
         updateEmail,
         updatePassword,
-        addPractice
+        addPractice,
+        removePractice
     }
 
   return (

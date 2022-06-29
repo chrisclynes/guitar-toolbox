@@ -1,38 +1,8 @@
 import React from 'react';
 import { Table, Button } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
+import { useAuth } from '../../contexts/AuthContext';
 
-const handleDelete = (record) => {
-console.log(record.id)
-}
-const columns = [
-  {
-    key: '1',
-    title: 'Practice',
-    dataIndex: 'task',
-  },
-  {
-    key: '2',
-    title: 'Time (min)',
-    dataIndex: 'time',
-  },
-  {
-    key: '3',
-    title: 'Description',
-    dataIndex: 'description',
-  },
-  {
-    key: '4',
-    title: '',
-    render:(record) => {
-      return (
-      <>
-         <DeleteOutlined style={{color: "red"}} onClick={() => handleDelete(record)}/>
-      </>
-      )
-    }
-  },
-];
 
 
 class Tasks extends React.Component {
@@ -64,6 +34,34 @@ class Tasks extends React.Component {
       onChange: this.onSelectChange,
     };
     const hasSelected = selectedRowKeys.length > 0;
+    const columns = [
+      {
+        key: '1',
+        title: 'Practice',
+        dataIndex: 'task',
+      },
+      {
+        key: '2',
+        title: 'Time (min)',
+        dataIndex: 'time',
+      },
+      {
+        key: '3',
+        title: 'Description',
+        dataIndex: 'description',
+      },
+      {
+        key: '4',
+        title: '',
+        render:(record) => {
+          return (
+          <>
+             <DeleteOutlined style={{color: "red"}} onClick={() => this.props.handleDelete(record)}/>
+          </>
+          )
+        }
+      },
+    ];
     return (
       <div>
         <div style={{ margin: "1rem" }}>

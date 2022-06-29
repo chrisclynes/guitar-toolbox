@@ -1,35 +1,40 @@
 import React from 'react';
 import { Table, Button } from 'antd';
-import { db } from '../../firebase';
-import { collection, doc, getDoc } from 'firebase/firestore';
+import { DeleteOutlined } from '@ant-design/icons';
 
-// const docRef = doc(db, "UserData")
-// const data = await getDoc(docRef)
 
+const handleDelete = (record) => {
+console.log(record.id)
+}
 const columns = [
   {
+    key: '1',
     title: 'Practice',
     dataIndex: 'task',
   },
   {
+    key: '2',
     title: 'Time (min)',
     dataIndex: 'time',
   },
   {
+    key: '3',
     title: 'Description',
     dataIndex: 'description',
   },
+  {
+    key: '4',
+    title: '',
+    render:(record) => {
+      return (
+      <>
+         <DeleteOutlined style={{color: "red"}} onClick={() => handleDelete(record)}/>
+      </>
+      )
+    }
+  },
 ];
 
-const data = [];
-for (let i = 0; i < 16; i++) {
-  data.push({
-    key: i,
-    task: `Strumming ${i}`,
-    time: 10,
-    description: `Learn a 2/4 strumming pattern  and do some other stuff${i}`,
-  });
-}
 
 class Tasks extends React.Component {
   state = {
@@ -63,14 +68,14 @@ class Tasks extends React.Component {
     return (
       <div>
         <div style={{ margin: "1rem" }}>
-          <Button type="default" onClick={() => {}}>
+          <Button type="default" onClick={this.props.handleAddPractice}>
             Add Practice
           </Button>
           <span style={{ marginLeft: 8 }}>
             {hasSelected ? `Selected ${selectedRowKeys.length} items` : ''}
           </span>
         </div>
-        <Table  columns={columns} dataSource={data} />
+        <Table  columns={columns} dataSource={this.props.routineData} />
       </div>
     );
   }

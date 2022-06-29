@@ -34,33 +34,28 @@ const Homepage = ({ setMenuArray, isMobile }) => {
                 
                 <div className="welcome-header header-margin">
                     <Title>Welcome to Guitar Toolbox</Title>
-                    <h2>the app that helps guide you on your guitar journey</h2>
                 </div>
                 {/*IF PROGRESS STARTED, RENDER PROGRESS HERE */}
                 <Content>
                 <Col span={16} offset={4}>
-                    <div className="hompage-content center items">
-                        <Card>
-                            <h3>
-                                To create practice segments/routines and track your progress, sign up today!
-                            </h3>
+                    <div className="hompage-content">
+                        <div className="center-items" style={{width: "100%"}}>
+                            <Card style={{maxWidth: "500px"}}>
+                                <h3>
+                                    To create practice segments/routines and track your progress, sign up today!
+                                </h3>
                                 <Link to="/signup">
                                     <Button type="primary" style={{margin: "1rem"}} size="large" >Get Started</Button>
                                 </Link>
                             </Card>
+                            </div>
                             <Divider />
                             <div className="home-about-content" style={{margin: "2rem 0rem"}}>
                                 <p>
-                                    Guitar Toolbox is a great tool for scheduling a practice routine, learning chords and chord progressions, 
+                                    Guitar Toolbox is a great for creating practice routines, learning chords and chord progressions, 
                                     new scales, and practicing rhythm. 
                                     With the provided tools, you can master the art of guitar.
                                 </p>
-                                {!isMobile && 
-                                    <h3>
-                                        Update: We are working on a new User Profile feature to allow players to login and save their progress across devices. 
-                                        More tools are also in developement!
-                                    </h3>
-                                }
                             </div>
                     <div className="center-items" style={{width: "100%"}}>
                     <Carousel style={carouselStyle} autoplay>

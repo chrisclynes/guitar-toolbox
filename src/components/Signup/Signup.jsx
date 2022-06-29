@@ -18,10 +18,14 @@ const Signup = ({ setMenuArray }) => {
             setError('Passwords must be at least 6 characters');
             return
         }
+        if(values.username.length > 20){
+            setError('Username is too long');
+            return
+        }
         try {
             setError('');
             setLoading(true);
-            await signup(values.email, values.password)
+            await signup(values.email, values.password, values.username);
             setSucess(true);
             setMenuArray(["dashboard"]);
             setTimeout(() => navigate("/mydashboard"), 1500);
@@ -54,6 +58,18 @@ const Signup = ({ setMenuArray }) => {
                             type: 'email',
                             required: true,
                             message: 'Please enter a valid email address!',
+                        },
+                        ]}
+                    >
+                        <Input />
+                    </Form.Item>
+                    <Form.Item
+                        label="Username"
+                        name="username"
+                        rules={[
+                        {
+                            required: true,
+                            message: 'Please create a username!',
                         },
                         ]}
                     >

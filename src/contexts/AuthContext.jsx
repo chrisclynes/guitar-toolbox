@@ -15,6 +15,8 @@ export function AuthProvider({ children }) {
                 user: {
                     username: username,
                     email: email,
+                    tasksCompleted: 0,
+                    totalTaskTimeMins: 0
                 },
                 tasks: [
                     {
@@ -65,6 +67,15 @@ export function AuthProvider({ children }) {
             })      
     }
 
+    const updatePractice = async (values) => {
+        console.log(values)
+        const tasksRef = doc(db, "UserData", currentUser.uid)
+        updateDoc(tasksRef, {
+                "user.tasksCompleted": values.tasksCompleted,
+                "user.totalTaskTimeMins": values.totalTaskTimeMins 
+        })      
+    }
+
    const removePractice = async (values) => {
         const tasksRef = doc(db, "UserData", currentUser.uid)
         updateDoc(tasksRef, {
@@ -100,7 +111,8 @@ export function AuthProvider({ children }) {
         updateEmail,
         updatePassword,
         addPractice,
-        removePractice
+        removePractice,
+        updatePractice
     }
 
   return (

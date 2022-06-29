@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Col, Button, Typography, Modal } from 'antd';
+import { Col, Button, Typography, Modal, Card, Space } from 'antd';
 import { useNavigate } from "react-router-dom";
-import { useAuth, currentUser } from '../../contexts/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 import { db } from '../../firebase';
-import { collection, doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 
 import ProgressBar from '../../container/ProgressBar/ProgressBar';
 import Tasks from '../../container/Tasks/Tasks';
@@ -13,8 +13,8 @@ import "./MyDashboard.css";
 
 const MyDashboard = ({ isMobile }) => {
     const [routineData, setRoutineData] = useState();
-    const [username, setUsername] = useState();
-    const { currentUser, logout, addPractice, removePractice } = useAuth();
+    const [userData, setUserData] = useState();
+    const { currentUser, logout, addPractice, removePractice, updatePractice } = useAuth();
     const navigate = useNavigate();
     
     const handleAddPractice = async () => {
@@ -50,12 +50,17 @@ const MyDashboard = ({ isMobile }) => {
     } 
 
     const handleComplete = (values) => {
-        //prompt user to confirm to delete practice
+        //prompt user to confirm to complete practice
         Modal.confirm({
             title:"Nice job! Press ok to move on to the next practice segment",
             onOk: async () => {
                 try {
-                    await removePractice(values)
+                    await updatePractice(
+                        {
+                            tasksCompleted: userData.tasksCompleted + 1,
+                            totalTaskTimeMins: userData.totalTaskTimeMins + values.time
+                        }
+                    ).then(removePractice(values))
                 }catch {
                     console.log('error updating data')
                 } 
@@ -69,7 +74,7 @@ const MyDashboard = ({ isMobile }) => {
         try {
             const docSnap = await getDoc(docRef);
             setRoutineData(docSnap.data().tasks);
-            setUsername(docSnap.data().user.username);
+            setUserData(docSnap.data().user);
           } catch (e) {
             console.log("Error getting cached document:", e);
           }
@@ -81,7 +86,6 @@ const MyDashboard = ({ isMobile }) => {
     }, [], [routineData])
 
     const handleLogout = async () => {
-
         try {
             await logout();
                 navigate("/");
@@ -89,23 +93,30 @@ const MyDashboard = ({ isMobile }) => {
             console.log("logout failed")
         }
     }
+    
 
     return (
         <div className="dashboard-container">
-            <div className="user-wrapper">
+            <div className="user-wrapper" style={{flexDirection: "column"}}>
                 <div className="user-options">
-                    <h3> Welcome {username}!</h3>
-                    {!isMobile &&
-                        <Button type="primary" onClick={handleLogout}>
-                            Log out
-                        </Button>
-                    }
+                    <h3> Welcome {userData?.username}!</h3>
                 </div>
-            </div>
-            <div className='my-progress-bar center-items'>
-                <Col span={12}>
-                    <ProgressBar />
-                </Col>
+                
+                <div className='my-progress-bar center-items' >
+                    <Space>
+                        <Card >
+                            <Col span={12}>
+                                <ProgressBar title="Tasks Completed" item={userData?.tasksCompleted}/>
+                            </Col>
+                        </Card>
+                        <Card >
+                            <Col span={12}>
+                                <ProgressBar title="Total Practice Time" item={`${userData?.totalTaskTimeMins} mins`}/>
+                            </Col>
+                        </Card> 
+                    </Space> 
+                </div> 
+               
             </div>
             <div className="main-content-container" style={{margin: "1rem"}}>
                 <div className="task-container">

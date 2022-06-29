@@ -67,7 +67,7 @@ class Tasks extends React.Component {
     return (
       <div>
         <div style={{ margin: "1rem" }}>
-          <Button type="default" disabled ={this.props.routineData.length > 20} onClick={this.props.handleAddPractice}>
+          <Button type="default" disabled ={this.props.routineData?.length > 20} onClick={this.props.handleAddPractice}>
             Add Practice
           </Button>
           <span style={{ marginLeft: 8 }}>

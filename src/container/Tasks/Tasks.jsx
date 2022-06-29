@@ -1,9 +1,6 @@
 import React from 'react';
 import { Table, Button } from 'antd';
-import { DeleteOutlined } from '@ant-design/icons';
-import { useAuth } from '../../contexts/AuthContext';
-
-
+import { DeleteOutlined, CheckOutlined } from '@ant-design/icons';
 
 class Tasks extends React.Component {
   state = {
@@ -56,7 +53,8 @@ class Tasks extends React.Component {
         render:(record) => {
           return (
           <>
-             <DeleteOutlined style={{color: "red"}} onClick={() => this.props.handleDelete(record)}/>
+            <CheckOutlined style={{color: "green", marginRight: "1rem"}} onClick={() => this.props.handleComplete(record)}/>
+            <DeleteOutlined style={{color: "red"}} onClick={() => this.props.handleDelete(record)}/>
           </>
           )
         }

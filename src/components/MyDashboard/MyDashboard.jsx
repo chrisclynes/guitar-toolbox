@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Col, Button, Typography } from 'antd';
+import { Col, Button, Typography, Modal } from 'antd';
 import { useNavigate } from "react-router-dom";
 import { useAuth, currentUser } from '../../contexts/AuthContext';
 import { db } from '../../firebase';
@@ -32,13 +32,36 @@ const MyDashboard = ({ isMobile }) => {
         getFirestoreData()  
       }
 
-      const handleDelete = async (values) => {
-        try {
-            await removePractice(values)
-        }catch {
-            console.log('error updating data')
-        } 
-        getFirestoreData()
+    const handleDelete = (values) => {
+        //prompt user to confirm to delete practice
+        Modal.confirm({
+            title:"Are you sure you want to delete this practice?",
+            okText:"Yes",
+            ofType: "danger",
+            onOk: async () => {
+                try {
+                    await removePractice(values)
+                }catch {
+                    console.log('error updating data')
+                } 
+                getFirestoreData()
+            }
+        }) 
+    } 
+
+    const handleComplete = (values) => {
+        //prompt user to confirm to delete practice
+        Modal.confirm({
+            title:"Nice job! Press ok to move on to the next practice segment",
+            onOk: async () => {
+                try {
+                    await removePractice(values)
+                }catch {
+                    console.log('error updating data')
+                } 
+                getFirestoreData()
+            }
+        }) 
     } 
 
     const getFirestoreData = async () => { 
@@ -86,8 +109,14 @@ const MyDashboard = ({ isMobile }) => {
             </div>
             <div className="main-content-container" style={{margin: "1rem"}}>
                 <div className="task-container">
-                <Typography.Title level={2} style={{padding: "1.5rem 0.5rem 0rem 0.5rem"}} >Practice Routines</Typography.Title>
-                <Tasks routineData={routineData} isMobile={isMobile}  handleAddPractice={handleAddPractice} handleDelete={handleDelete} />
+                <Typography.Title level={2} style={{padding: "1.5rem 0.5rem 0rem 0.5rem"}} >Practice/Routines</Typography.Title>
+                <Tasks 
+                    routineData={routineData} 
+                    isMobile={isMobile}  
+                    handleAddPractice={handleAddPractice} 
+                    handleDelete={handleDelete} 
+                    handleComplete={handleComplete}
+                    />
                 </div>
             </div>
         </div>

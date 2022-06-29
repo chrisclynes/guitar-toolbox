@@ -52,22 +52,22 @@ export function AuthProvider({ children }) {
     }
 
     const addPractice = (values) => {
-        console.log(values)
-        // updateDoc(doc(db, "UserData", currentUser.uid).tasks, 
-        //     [...
-        //         {
-        //         id: values.id,
-        //         task: values.task,
-        //         time: values.time, 
-        //         description: values.description,
-        //         },
-        //         ]
         
-        //     )         
+        updateDoc(doc(db, "UserData", currentUser.uid).tasks, 
+            
+                {
+                id: values.id,
+                task: values.task,
+                time: values.time, 
+                description: values.description,
+                },
+                
+        
+            )         
     }
 
     useEffect(() => {
-        //run on mount, firebase builtin method, set user login state, unsubscribe on unmount of component, set state back to null
+        //run on mount, firebase built-in method, set user login state, unsubscribe on unmount of component, set state back to null
         const unsubscribe = auth.onAuthStateChanged(user => {
             //on load set current user and switch loading to false
             setCurrentUser(user);

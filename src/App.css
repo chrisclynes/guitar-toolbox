@@ -67,11 +67,12 @@
 
 .header-btn-container {
     display: flex;
-    justify-content: end;
+    justify-content: right;
     flex-direction: row;
     gap: 1rem;
     align-items: right;
     margin-right: 0;
+    transform: translateX(2rem);
 }
 .mobile-menu-btn {
     position: absolute;

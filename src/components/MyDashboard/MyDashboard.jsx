@@ -19,10 +19,9 @@ const MyDashboard = ({ isMobile }) => {
     
     const handleAddPractice = async () => {
         const d = {
-            id: 6,
-            task: "Minor pentytu",
-            time: 15, 
-            description: "work on minor scale",
+            id: 7,
+            task: "Minor pentatonicscale7",
+            time: 55, 
             }
          try {
              await addPractice(d)
@@ -102,13 +101,17 @@ const MyDashboard = ({ isMobile }) => {
                         <h3> Welcome {userData?.username}!</h3>
                     </div>
                     <Typography.Title level={2} style={{padding: "1.5rem 0rem 0rem 0rem"}} >My Stats</Typography.Title>
-                    <div className='my-progress-bar center-items' style={isMobile ? {padding: "0"} : {padding: "0 2rem"}}>
+                    <div className='my-progress-bar center-items' style={isMobile ? {padding: "1rem 0"} : {padding: "0 2rem"}}>
                         <Row>
                         <Col span={12} >
                             <ProgressBar title="Tasks Completed" item={userData?.tasksCompleted} isMobile={isMobile}/>
                         </Col>
                         <Col span={12} >
-                            <ProgressBar title="Time Practiced" item={`${userData?.totalTaskTimeMins} mins`} isMobile={isMobile}/>
+                            <ProgressBar title="Time Practiced" item={
+                                userData?.totalTaskTimeMins < 60 ? `${userData?.totalTaskTimeMins} mins` : `${Math.round((userData?.totalTaskTimeMins / 60)*10)/10} hrs`
+                                } 
+                                isMobile={isMobile}
+                            />
                         </Col>
                         </Row>
                     </div> 

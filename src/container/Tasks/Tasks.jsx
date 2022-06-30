@@ -36,20 +36,18 @@ class Tasks extends React.Component {
         key: '1',
         title: 'Practice',
         dataIndex: 'task',
+  
       },
       {
         key: '2',
         title: 'Time (min)',
         dataIndex: 'time',
+        
       },
       {
         key: '3',
-        title: 'Description',
-        dataIndex: 'description',
-      },
-      {
-        key: '4',
         title: '',
+        width: '15%',
         render:(record) => {
           return (
           <>

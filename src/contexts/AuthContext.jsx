@@ -23,7 +23,6 @@ export function AuthProvider({ children }) {
                     id: 0,
                     task: "Major Scale",
                     time: 10, 
-                    description: "Practice alternate picking using the major scale",
                     },
                 ]           
             }) 
@@ -61,7 +60,6 @@ export function AuthProvider({ children }) {
                         id: values.id,
                         task: values.task,
                         time: values.time, 
-                        description: values.description,
                         },
                 )
             })      
@@ -84,7 +82,6 @@ export function AuthProvider({ children }) {
                         id: values.id,
                         task: values.task,
                         time: values.time, 
-                        description: values.description,
                         },
                 )
             })         

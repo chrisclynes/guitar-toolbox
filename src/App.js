@@ -16,6 +16,7 @@ import './App.css';
 const { Header, Footer, Sider, Content } = Layout;
 
 const App = () => {
+    const [userData, setUserData] = useState();
     const [isMobile, setIsMobile] = useState(null);
     //mobile menu drawer
     const [visible, setVisible] = useState(false);
@@ -63,6 +64,7 @@ const App = () => {
         try {
             await logout();
                 handleMenuHighlight(["dashboard"]);
+                setUserData(null);
                 navigate("/");
         } catch {
             console.log("failed to logout")
@@ -231,7 +233,7 @@ const App = () => {
                                     path="/mydashboard" 
                                     element={
                                             <PrivateRoute>
-                                                <MyDashboard isMobile={isMobile} />
+                                                <MyDashboard isMobile={isMobile} userData={userData} setUserData={setUserData}/>
                                             </PrivateRoute>
                                         } 
                                 />
@@ -239,7 +241,7 @@ const App = () => {
                                     path="/update-profile" 
                                     element={
                                             <PrivateRoute>
-                                                <UpdateProfile isMobile={isMobile}/>
+                                                <UpdateProfile isMobile={isMobile} handleLogout={handleLogout} />
                                             </PrivateRoute>
                                         } 
                                 />

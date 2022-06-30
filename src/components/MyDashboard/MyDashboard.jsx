@@ -10,9 +10,8 @@ import Tasks from '../../container/Tasks/Tasks';
 import "./MyDashboard.css";
 
 
-const MyDashboard = ({ isMobile }) => {
-    const [routineData, setRoutineData] = useState();
-    const [userData, setUserData] = useState();
+const MyDashboard = ({ isMobile, userData, setUserData }) => {
+    const [practiceData, setPracticeData] = useState();
     const [isEditing, setIsEditing] = useState(false);
     const [addPracticeData, setAddPracticeData] = useState();
     const { currentUser, addPractice, removePractice, updatePractice } = useAuth();
@@ -24,8 +23,8 @@ const MyDashboard = ({ isMobile }) => {
 
     const handleAdd = async () => {
         const d = {
-            id: 7,
-            task: "Minor pentatonicscale7",
+            id: 5,
+            task: "Minor pentatonicscale5",
             time: 55, 
             }
          try {
@@ -77,7 +76,7 @@ const MyDashboard = ({ isMobile }) => {
         const docRef = doc(db, "UserData", currentUser.uid);
         try {
             const docSnap = await getDoc(docRef);
-            setRoutineData(docSnap.data().tasks);
+            setPracticeData(docSnap.data().tasks);
             setUserData(docSnap.data().user);
           } catch (e) {
             console.log("Error getting cached document:", e);
@@ -126,9 +125,10 @@ const MyDashboard = ({ isMobile }) => {
                         setIsEditing(false);
                     }}
                     onOk={() => {
+                        handleAdd();
                         setIsEditing(false);
+                        
                     }}
-
                 >
                     <Input placeholder='add practice description'/>
                    
@@ -145,7 +145,7 @@ const MyDashboard = ({ isMobile }) => {
                     <div className="task-container" style={isMobile ? {width: "100%"} : {width: "90%"}}>
                     <Typography.Title level={2} style={{padding: "1.5rem 0.5rem 0rem 0.5rem"}} >Practice/Routines</Typography.Title>
                     <Tasks 
-                        routineData={routineData} 
+                        practiceData={practiceData} 
                         isMobile={isMobile}  
                         handleAddPractice={handleAddPractice} 
                         handleDelete={handleDelete} 

@@ -77,14 +77,14 @@ class Tasks extends React.Component {
     return (
       <div>
         <div style={{ margin: "1rem" }}>
-          <Button type="default" disabled ={this.props.routineData?.length > 20} onClick={this.props.handleAddPractice}>
+          <Button type="default" disabled ={this.props.practiceData?.length > 20} onClick={this.props.handleAddPractice}>
             Add Practice
           </Button>
           <span style={{ marginLeft: 8 }}>
             {hasSelected ? `Selected ${selectedRowKeys.length} items` : ''}
           </span>
         </div>
-        <Table  columns={columns} dataSource={this.props.routineData} />
+        <Table  columns={columns} dataSource={this.props.practiceData} />
       </div>
     );
   }

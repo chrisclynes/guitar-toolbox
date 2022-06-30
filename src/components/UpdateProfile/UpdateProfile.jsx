@@ -3,8 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { Card, Form, Input, Button, Alert } from 'antd';
 import { useAuth } from '../../contexts/AuthContext';
 
-const UpdateProfile = ({ metronomeInterval, isPlaying, setIsPlaying}) => {
-    const { currentUser, updateEmail, updatePassword, logout } = useAuth();
+const UpdateProfile = ({handleLogout}) => {
+    const { currentUser, updateEmail, updatePassword } = useAuth();
     const [error, setError] = useState('');
     const [success, setSucess] = useState(false)
     const [loading, setLoading] = useState(false);
@@ -44,16 +44,6 @@ const UpdateProfile = ({ metronomeInterval, isPlaying, setIsPlaying}) => {
         setSucess(false);
         setError("information entered is incorrect");
       }
-
-      const handleLogout = async () => {
-
-        try {
-            await logout();
-                navigate("/");
-        } catch {
-            console.log("logout failed")
-        }
-    }
 
     return (
         <div className="page-container">

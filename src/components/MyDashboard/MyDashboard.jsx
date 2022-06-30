@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Col, Row, Typography, Modal, Layout } from 'antd';
-import { useNavigate } from "react-router-dom";
+import { Col, Row, Typography, Modal, Input, Layout, Select } from 'antd';
 import { useAuth } from '../../contexts/AuthContext';
 import { db } from '../../firebase';
 import { doc, getDoc } from 'firebase/firestore';
@@ -14,10 +13,16 @@ import "./MyDashboard.css";
 const MyDashboard = ({ isMobile }) => {
     const [routineData, setRoutineData] = useState();
     const [userData, setUserData] = useState();
-    const { currentUser, logout, addPractice, removePractice, updatePractice } = useAuth();
-    const navigate = useNavigate();
+    const [isEditing, setIsEditing] = useState(false);
+    const [addPracticeData, setAddPracticeData] = useState();
+    const { currentUser, addPractice, removePractice, updatePractice } = useAuth();
     
-    const handleAddPractice = async () => {
+    const handleAddPractice = (record) => {
+        setIsEditing(true)
+      
+      }
+
+    const handleAdd = async () => {
         const d = {
             id: 7,
             task: "Minor pentatonicscale7",
@@ -29,7 +34,7 @@ const MyDashboard = ({ isMobile }) => {
              console.log('error updating data')
          } 
         getFirestoreData()  
-      }
+    }
 
     const handleDelete = (values) => {
         //prompt user to confirm to delete practice
@@ -82,15 +87,12 @@ const MyDashboard = ({ isMobile }) => {
 
     useEffect(() => {
         getFirestoreData()
-    }, [], [routineData])
+    }, [])
 
-    const handleLogout = async () => {
-        try {
-            await logout();
-                navigate("/");
-        } catch {
-            console.log("logout failed")
-        }
+    //used for rendering select option in add practice Modal
+    const timeOptions = [];
+    for(let i=5; i<=60; i+=5){
+        timeOptions.push(i);
     }
     
     return (
@@ -116,8 +118,31 @@ const MyDashboard = ({ isMobile }) => {
                         </Row>
                     </div> 
                 </div>
-                <div className="main-content-container" style={{margin: "1rem"}}>
-                    <div className="task-container">
+                <Modal
+                    title="Add Practice"
+                    visible={isEditing}
+                    okText="Add"
+                    onCancel={() => {
+                        setIsEditing(false);
+                    }}
+                    onOk={() => {
+                        setIsEditing(false);
+                    }}
+
+                >
+                    <Input placeholder='add practice description'/>
+                   
+                    <Select title="Time" placeholder='time in minutes'>
+                        {timeOptions.map((item, i) => {
+                            return (
+                                <Select.Option key={i} value={item}>{item}</Select.Option> 
+                                )
+                            })   
+                        }
+                    </Select>
+                </Modal>
+                <div className="main-content-container center-items" style={{margin: "1rem"}}>
+                    <div className="task-container" style={isMobile ? {width: "100%"} : {width: "90%"}}>
                     <Typography.Title level={2} style={{padding: "1.5rem 0.5rem 0rem 0.5rem"}} >Practice/Routines</Typography.Title>
                     <Tasks 
                         routineData={routineData} 

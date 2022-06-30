@@ -57,9 +57,11 @@ const UpdateProfile = ({ metronomeInterval, isPlaying, setIsPlaying}) => {
 
     return (
         <div className="page-container">
-            <Button type="primary" onClick={handleLogout}>
-                Log out
-            </Button>
+            <div style={{position: 'absolute', top: '1rem', right: '1rem'}}>
+                <Button type="primary" onClick={handleLogout}>
+                    Log out
+                </Button>
+            </div>
             <Card title="Profile" style={{maxWidth: "350px", margin: "1rem"}} bodyStyle={{display: "flex", justifyContent: "center", alignItems: "center"}}>
                 <Form name="login" labelCol={{span: 8,}} wrapperCol={{span: 16,}}initialValues={{remember: true,}}
                     onFinish={onFinish}

@@ -21,7 +21,7 @@ export function AuthProvider({ children }) {
                 tasks: [
                     {
                     id: 0,
-                    task: "Major Scale",
+                    task: "Practice alternate picking using the major scale",
                     time: 10, 
                     },
                 ]           

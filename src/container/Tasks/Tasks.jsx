@@ -36,23 +36,39 @@ class Tasks extends React.Component {
         key: '1',
         title: 'Practice',
         dataIndex: 'task',
-  
+        width: '70%'
       },
       {
         key: '2',
         title: 'Time (min)',
         dataIndex: 'time',
+        width: '10%',
+        align: 'center'
         
       },
       {
         key: '3',
         title: '',
-        width: '15%',
+        width: '20%',
+        align: 'center',
+        fixed: true,
         render:(record) => {
           return (
           <>
-            <CheckOutlined style={{color: "green", marginRight: "1rem"}} onClick={() => this.props.handleComplete(record)}/>
-            <DeleteOutlined style={{color: "red"}} onClick={() => this.props.handleDelete(record)}/>
+            <CheckOutlined style={
+                this.props.isMobile ? 
+                {color: "green", margin: "1rem"} :
+                {color: "green", margin: "0 1rem"}
+              } 
+              onClick={() => this.props.handleComplete(record)}
+            />
+            <DeleteOutlined style={
+                this.props.isMobile ? 
+                {color: "tomato", margin: "1rem"} :
+                {color: "tomato", margin: "0 1rem"}
+              } 
+              onClick={() => this.props.handleDelete(record)}
+            />
           </>
           )
         }

@@ -230,26 +230,53 @@ const App = () => {
                                 <Route 
                                     path="/mydashboard" 
                                     element={
-                                        <PrivateRoute>
-                                            <MyDashboard isMobile={isMobile}/>
-                                        </PrivateRoute>
+                                            <PrivateRoute>
+                                                <MyDashboard isMobile={isMobile} />
+                                            </PrivateRoute>
                                         } 
                                 />
                                 <Route 
                                     path="/update-profile" 
                                     element={
-                                        <PrivateRoute>
-                                            <UpdateProfile isMobile={isMobile}/>
-                                        </PrivateRoute>
+                                            <PrivateRoute>
+                                                <UpdateProfile isMobile={isMobile}/>
+                                            </PrivateRoute>
                                         } 
                                 />
-                                <Route path="/signup" element={<Signup setMenuArray={setMenuArray} />} />
-                                <Route path="/login" element={<Login setMenuArray={setMenuArray} />} />
-                                <Route path="/forgot-password" element={<ForgotPassword setMenuArray={setMenuArray}/>} />
-                                <Route path="/chords" element={<ChordsPage isMobile={isMobile}/>} />
-                                <Route path="/chord-progressions" element={<ChordProgressions isMobile={isMobile}/>} />
-                                <Route path="/scales" element={<ScalesPage metronomeInterval={metronomeInterval} isPlaying={isPlaying} setIsPlaying={setIsPlaying} isMobile={isMobile}/>} />
-                                <Route path="/metronome" element={<MetronomePage metronomeInterval={metronomeInterval} isPlaying={isPlaying} setIsPlaying={setIsPlaying} />} />
+                                <Route path="/signup" element={
+                                        <Signup setMenuArray={setMenuArray} />
+                                    } 
+                                />
+                                <Route path="/login" element={
+                                        <Login setMenuArray={setMenuArray} />
+                                     } 
+                                />
+                                <Route path="/forgot-password" element={
+                                        <ForgotPassword setMenuArray={setMenuArray}/>
+                                    } 
+                                />
+                                <Route path="/chords" element={
+                                        <ChordsPage isMobile={isMobile}/>
+                                    } 
+                                />
+                                <Route path="/chord-progressions" element={
+                                        <ChordProgressions isMobile={isMobile}/>
+                                    } 
+                                />
+                                <Route path="/scales" element={
+                                        <ScalesPage metronomeInterval={metronomeInterval} 
+                                        isPlaying={isPlaying} setIsPlaying={setIsPlaying} 
+                                        isMobile={isMobile}/>
+                                    } 
+                                />
+                                <Route path="/metronome" element={
+                                        <MetronomePage 
+                                            metronomeInterval={metronomeInterval} 
+                                            isPlaying={isPlaying} 
+                                            setIsPlaying={setIsPlaying} 
+                                        />
+                                    } 
+                                />
                             </Routes>
                         </Content>
                         </div>

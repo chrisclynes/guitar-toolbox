@@ -111,7 +111,7 @@ const ChordsPage = ({ isMobile }) => {
                             </Select>
                         </div>
                         <div>
-                                <Input style={{ width: "100px" }} name="chord-alterations" defaultValue="" placeholder="sus2, maj7..." onChange={(val) => handleAlterationsInput(val.target.value)}/>
+                                <Input style={{ width: "100px" }} name="chord-alterations" defaultValue="" placeholder="sus2, maj7..." onChange={(e) => handleAlterationsInput(e.target.value)}/>
                         </div>
                         
                     </Space>

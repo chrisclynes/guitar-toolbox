@@ -16,22 +16,18 @@ const MyDashboard = ({ isMobile, userData, setUserData }) => {
     const [addPracticeData, setAddPracticeData] = useState();
     const { currentUser, addPractice, removePractice, updatePractice } = useAuth();
     
-    const handleAddPractice = (record) => {
+    const handleAddPractice = () => {
         setIsEditing(true)
-        
-        
-        
-      
       }
 
-    const handleAdd = async () => {
-        const d = {
+    const handleAdd = async (values) => {
+        const dataToAdd = {
             id: 5,
-            task: "Minor pentatonicscale5",
-            time: 55, 
+            task: values.practice,
+            time: values.time, 
             }
          try {
-             await addPractice(d)
+             await addPractice(dataToAdd)
          }catch {
              console.log('error updating data')
          } 
@@ -104,15 +100,25 @@ const MyDashboard = ({ isMobile, userData, setUserData }) => {
                     <div className="user-options">
                         <h3> Welcome {userData?.username}!</h3>
                     </div>
-                    <Typography.Title level={2} style={{padding: "1.5rem 0rem 0rem 0rem"}} >My Stats</Typography.Title>
-                    <div className='my-progress-bar center-items' style={isMobile ? {padding: "1rem 0"} : {padding: "0 2rem"}}>
+                    <Typography.Title 
+                        level={2} 
+                        style={{padding: "1.5rem 0rem 0rem 0rem"}} >
+                        My Stats
+                    </Typography.Title>
+                    <div 
+                        className='my-progress-bar center-items' 
+                        style={isMobile ? {padding: "1rem 0"} : {padding: "0 2rem"}}>
                         <Row>
                         <Col span={12} >
-                            <ProgressBar title="Tasks Completed" item={userData?.tasksCompleted} isMobile={isMobile}/>
+                            <ProgressBar title="Tasks Completed" 
+                                item={userData?.tasksCompleted} 
+                                isMobile={isMobile}/>
                         </Col>
                         <Col span={12} >
                             <ProgressBar title="Time Practiced" item={
-                                userData?.totalTaskTimeMins < 60 ? `${userData?.totalTaskTimeMins} mins` : `${Math.round((userData?.totalTaskTimeMins / 60)*10)/10} hrs`
+                                userData?.totalTaskTimeMins < 60 ?
+                                `${userData?.totalTaskTimeMins} mins` : 
+                                `${Math.round((userData?.totalTaskTimeMins / 60)*10)/10} hrs`
                                 } 
                                 isMobile={isMobile}
                             />
@@ -128,19 +134,25 @@ const MyDashboard = ({ isMobile, userData, setUserData }) => {
                         setIsEditing(false);
                     }}
                     onOk={() => {
-                        handleAdd();
+                        if(addPracticeData.practice.length === 0){
+                            return
+                        }
+                        handleAdd(addPracticeData);
                         setIsEditing(false);
-                        console.log(addPracticeData);
                     }}
                 >
                     <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
                         <div style={{width: "80%"}}>
                             <Typography.Paragraph>Practice Description</Typography.Paragraph>
-                            <Input placeholder='add practice description' onChange={(val) => {
+                            <Input 
+                                placeholder='add practice description'
+                                required='true'
+                                maxLength={100}
+                                onChange={(e) => {  
                                 setAddPracticeData((prev) => {
                                     return (
                                         {...prev,
-                                            practice: val
+                                            practice: e.target.value
                                         }
                                     )
                                 })
@@ -148,7 +160,9 @@ const MyDashboard = ({ isMobile, userData, setUserData }) => {
                         </div>
                         <div style={{width: "15%"}}>
                             <Typography.Paragraph>Minutes</Typography.Paragraph>
-                            <Select title="Time" onChange={(val) => {
+                            <Select 
+                                title="Time" 
+                                onChange={(val) => {
                                 setAddPracticeData((prev) => {
                                     return (
                                         {...prev,
@@ -169,7 +183,11 @@ const MyDashboard = ({ isMobile, userData, setUserData }) => {
                 </Modal>
                 <div className="main-content-container center-items" style={{margin: "1rem"}}>
                     <div className="task-container" style={isMobile ? {width: "100%"} : {width: "90%"}}>
-                    <Typography.Title level={2} style={{padding: "1.5rem 0.5rem 0rem 0.5rem"}} >Practice/Routines</Typography.Title>
+                    <Typography.Title 
+                        level={2} 
+                        style={{padding: "1.5rem 0.5rem 0rem 0.5rem"}}>
+                            Practice/Routines
+                        </Typography.Title>
                     <Tasks 
                         practiceData={practiceData} 
                         isMobile={isMobile}  

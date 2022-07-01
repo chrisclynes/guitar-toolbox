@@ -3,6 +3,7 @@ import { Col, Row, Typography, Modal, Input, Layout, Select } from 'antd';
 import { useAuth } from '../../contexts/AuthContext';
 import { db } from '../../firebase';
 import { doc, getDoc } from 'firebase/firestore';
+import { nanoid } from 'nanoid';
 
 import ProgressBar from '../../container/ProgressBar/ProgressBar';
 import Tasks from '../../container/Tasks/Tasks';
@@ -22,7 +23,7 @@ const MyDashboard = ({ isMobile, userData, setUserData }) => {
 
     const handleAdd = async (values) => {
         const dataToAdd = {
-            id: 5,
+            id: nanoid(),
             task: values.practice,
             time: values.time, 
             }
@@ -146,7 +147,6 @@ const MyDashboard = ({ isMobile, userData, setUserData }) => {
                             <Typography.Paragraph>Practice Description</Typography.Paragraph>
                             <Input 
                                 placeholder='add practice description'
-                                required='true'
                                 maxLength={100}
                                 onChange={(e) => {  
                                 setAddPracticeData((prev) => {

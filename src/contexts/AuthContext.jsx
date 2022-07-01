@@ -20,10 +20,15 @@ export function AuthProvider({ children }) {
                 },
                 tasks: [
                     {
-                    id: 0,
-                    task: "Practice alternate picking using the major scale",
-                    time: 10, 
+                        id: 12340,
+                        task: "Practice alternate picking using the major scale",
+                        time: 15, 
                     },
+                    {
+                        id: 43210,
+                        task: "Learn a major chord progression in I-vi-IV-V",
+                        time: 20, 
+                        },
                 ]           
             }) 
         });

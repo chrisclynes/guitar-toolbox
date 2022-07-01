@@ -1,13 +1,37 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
-import { Homepage, ChordsPage, MyDashboard, ChordProgressions, ScalesPage, MetronomePage, Signup, Login, ForgotPassword, UpdateProfile } from './components';
+import { 
+    Homepage, 
+    ChordsPage,
+    MyDashboard, 
+    ChordProgressions, 
+    ScalesPage, 
+    MetronomePage, 
+    Signup, 
+    Login, 
+    ForgotPassword, 
+    UpdateProfile 
+    } from './components';
 import ScrollToTop from './services/ScrollToTop.js';
 import { useAuth } from './contexts/AuthContext';
 import PrivateRoute from './components/PrivateRoute';
 
-import { Layout , Typography, Menu, Button, Drawer, Divider, Avatar } from 'antd';
+import { 
+    Layout, 
+    Typography, 
+    Menu, 
+    Button, 
+    Drawer, 
+    Divider, 
+    Avatar 
+    } from 'antd';
 
-import { HomeOutlined, DashboardOutlined, MenuOutlined, UserOutlined } from '@ant-design/icons';
+import { 
+    HomeOutlined, 
+    DashboardOutlined, 
+    MenuOutlined, 
+    UserOutlined 
+    } from '@ant-design/icons';
 
 import logo from './images/guitarlogo.png';
 
@@ -84,7 +108,8 @@ const App = () => {
                         selectedKeys={menuArray}
                         defaultSelectedKeys={["home"]}
                         mode="inline"
-                        onClick={((item) => setMenuArray([item.key]))}//set highlighted sider menu item, array will always only contain a single value.
+                        //set highlighted sider menu item, array will always only contain a single value
+                        onClick={((item) => setMenuArray([item.key]))}
                         >
                         <div className="guitar-logo">
                             <img src={logo} alt="logo" />
@@ -94,35 +119,47 @@ const App = () => {
                         </div>
                         <Divider />
                         <Item key="home" icon={<HomeOutlined />} >
-                            <Link to="/" onClick={() => handleMenuHighlight(["home"])}>
+                            <Link 
+                                to="/" 
+                                onClick={() => handleMenuHighlight(["home"])}>
                                 Home
                             </Link>
                         </Item>
                         {currentUser &&
                             <Item key="dashboard" icon={<DashboardOutlined />}>
-                                <Link to="/mydashboard" onClick={() => handleMenuHighlight(["dashboard"])}>
+                                <Link 
+                                    to="/mydashboard" 
+                                    onClick={() => handleMenuHighlight(["dashboard"])}>
                                     My Dashboard
                                 </Link>
                             </Item>
                         }
                         <Divider />
                         <Item key="chords">
-                            <Link to="/chords" onClick={() => handleMenuHighlight(["chords"])}>
+                            <Link 
+                                to="/chords" 
+                                onClick={() => handleMenuHighlight(["chords"])}>
                                 Chords
                             </Link>
                         </Item>
                         <Item key="chord-progressions">
-                            <Link to="/chord-progressions" onClick={() => handleMenuHighlight(["chord-progressions"])}>
+                            <Link 
+                                to="/chord-progressions" 
+                                onClick={() => handleMenuHighlight(["chord-progressions"])}>
                                 Chord Progressions
                             </Link>
                         </Item>
                         <Item key="scales">
-                            <Link to="/scales"onClick={() => handleMenuHighlight(["scales"])}>
+                            <Link 
+                                to="/scales"
+                                onClick={() => handleMenuHighlight(["scales"])}>
                                 Scales
                             </Link>
                         </Item>
                         <Item key="metronome">
-                            <Link to="/metronome" onClick={() => handleMenuHighlight(["metronome"])}>
+                            <Link 
+                                to="/metronome" 
+                                onClick={() => handleMenuHighlight(["metronome"])}>
                                 Metronome
                             </Link>
                         </Item>
@@ -135,7 +172,12 @@ const App = () => {
                         <div className="header-btn-container">
                             {isPlaying && !isMobile &&
                                     <div className='metro-stop-btn'>
-                                        <Button type="danger" label="stop" onClick={() => handleClearMetronome()}>Stop</Button>
+                                        <Button 
+                                            type="danger" 
+                                            label="stop" 
+                                            onClick={() => handleClearMetronome()}>
+                                                Stop
+                                        </Button>
                                     </div>
                                 }
                             {!currentUser && !isMobile &&
@@ -160,80 +202,120 @@ const App = () => {
                             </div> 
                             {isPlaying &&
                                 <div className='mobile-metro-stop-btn'>
-                                        <Button type="danger" label="stop" onClick={() => handleClearMetronome()}>Stop</Button>
+                                        <Button 
+                                            type="danger" 
+                                            label="stop" 
+                                            onClick={() => handleClearMetronome()}>
+                                                Stop
+                                        </Button>
                                 </div>
                             }
                             <div className="mobile-menu-btn">
-                                <Button type="icon" label="menu" onClick={showDrawer}><MenuOutlined /></Button>
+                                <Button 
+                                    type="icon" 
+                                    label="menu" 
+                                    onClick={showDrawer}>
+                                        <MenuOutlined />
+                                </Button>
                             </div>
                         </div>
                         }
                     </Header>
                 {isMobile &&
-                    <Drawer title="Menu" placement="right" width={"60%"} onClose={closeDrawer} visible={visible}>
-                        <Menu>
-                            <Item key="home" icon={<HomeOutlined />} >
-                                <Link to="/" onClick={() => handleMenuHighlight(["home"])}>
-                                    Home
-                                </Link>
-                            </Item>
-                            {!currentUser &&
-                                    <Item key="login" >
-                                        <Link to="/login" onClick={() => handleMenuHighlight([""])}>
-                                            Log In
-                                        </Link>
-                                    </Item>
-                            }
-                            {currentUser &&
-                                <>
-                                    <Item key="dashboard" icon={<DashboardOutlined />}>
-                                        <Link to="/mydashboard" onClick={() => handleMenuHighlight(["dashboard"])}>
-                                            My Dashboard
-                                        </Link>
-                                    </Item>
-                                    <Item key="logout" onClick={() => handleLogout()}>
-                                           Log Out
-                                    </Item>
-                                    <Item key="profile" >
-                                        <Link to="/update-profile" onClick={() => handleMenuHighlight([""])}>
-                                            My Profile
-                                        </Link>
-                                    </Item>
-                                </>
-                            }
-                            <Divider />
-                            <Item key="chords">
-                                <Link to="/chords" onClick={() => handleMenuHighlight(["chords"])}>
-                                    Chords
-                                </Link>
-                            </Item>
-                            <Item key="chord-progressions">
-                                <Link to="/chord-progressions" onClick={() => handleMenuHighlight(["chord-progressions"])}>
-                                    Chord Progressions
-                                </Link>
-                            </Item>
-                            <Item key="scales">
-                                <Link to="/scales" onClick={() => handleMenuHighlight(["scales"])}>
-                                    Scales
-                                </Link>
-                            </Item>
-                            <Item key="metronome">
-                                <Link to="/metronome" onClick={() => handleMenuHighlight(["metronome"])}>
-                                    Metronome
-                                </Link>
-                            </Item>
-                        </Menu>
+                    <Drawer 
+                        title="Menu" 
+                        placement="right" 
+                        width={"60%"} 
+                        onClose={closeDrawer} 
+                        visible={visible}>
+                            <Menu>
+                                <Item key="home" icon={<HomeOutlined />} >
+                                    <Link 
+                                        to="/" 
+                                        onClick={() => handleMenuHighlight(["home"])}>
+                                        Home
+                                    </Link>
+                                </Item>
+                                {!currentUser &&
+                                        <Item key="login" >
+                                            <Link 
+                                                to="/login" 
+                                                onClick={() => handleMenuHighlight([""])}>
+                                                Log In
+                                            </Link>
+                                        </Item>
+                                }
+                                {currentUser &&
+                                    <>
+                                        <Item key="dashboard" icon={<DashboardOutlined />}>
+                                            <Link 
+                                                to="/mydashboard" 
+                                                onClick={() => handleMenuHighlight(["dashboard"])}>
+                                                My Dashboard
+                                            </Link>
+                                        </Item>
+                                        <Item key="logout" onClick={() => handleLogout()}>
+                                            Log Out
+                                        </Item>
+                                        <Item key="profile" >
+                                            <Link 
+                                                to="/update-profile" 
+                                                onClick={() => handleMenuHighlight([""])}>
+                                                My Profile
+                                            </Link>
+                                        </Item>
+                                    </>
+                                }
+                                <Divider />
+                                <Item key="chords">
+                                    <Link 
+                                        to="/chords" 
+                                        onClick={() => handleMenuHighlight(["chords"])}>
+                                        Chords
+                                    </Link>
+                                </Item>
+                                <Item key="chord-progressions">
+                                    <Link 
+                                        to="/chord-progressions" 
+                                        onClick={() => handleMenuHighlight(["chord-progressions"])}>
+                                        Chord Progressions
+                                    </Link>
+                                </Item>
+                                <Item key="scales">
+                                    <Link 
+                                        to="/scales" 
+                                        onClick={() => handleMenuHighlight(["scales"])}>
+                                        Scales
+                                    </Link>
+                                </Item>
+                                <Item key="metronome">
+                                    <Link 
+                                        to="/metronome" 
+                                        onClick={() => handleMenuHighlight(["metronome"])}>
+                                        Metronome
+                                    </Link>
+                                </Item>
+                            </Menu>
                     </Drawer>
                 }
-                    <div className="main-view" style={{ height: "100%", position: "relative", overflowY: "auto"}}>
+                    <div 
+                        className="main-view" 
+                        style={{ height: "100%", position: "relative", overflowY: "auto"}}>
                         <Content style={{paddingBottom: "60px"}}>
                             <Routes>
-                                <Route path="/" element={<Homepage setMenuArray={setMenuArray} isMobile={isMobile} />} />
+                                <Route 
+                                    path="/" 
+                                    element={<Homepage setMenuArray={setMenuArray} isMobile={isMobile} />} 
+                                />
                                 <Route 
                                     path="/mydashboard" 
                                     element={
                                             <PrivateRoute>
-                                                <MyDashboard isMobile={isMobile} userData={userData} setUserData={setUserData}/>
+                                                <MyDashboard 
+                                                    isMobile={isMobile} 
+                                                    userData={userData} 
+                                                    setUserData={setUserData}
+                                                />
                                             </PrivateRoute>
                                         } 
                                 />
@@ -241,7 +323,10 @@ const App = () => {
                                     path="/update-profile" 
                                     element={
                                             <PrivateRoute>
-                                                <UpdateProfile isMobile={isMobile} handleLogout={handleLogout} />
+                                                <UpdateProfile 
+                                                    isMobile={isMobile} 
+                                                    handleLogout={handleLogout} 
+                                                />
                                             </PrivateRoute>
                                         } 
                                 />

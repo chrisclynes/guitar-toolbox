@@ -1,14 +1,24 @@
 import React, { useState } from 'react';
-import { Layout , Typography, Space, Select, Input, Button, Divider } from 'antd';
-
+import { 
+    Layout, 
+    Typography, 
+    Space, 
+    Select, 
+    Input,
+    Image, 
+    Button, 
+    Divider,
+    Modal 
+    } from 'antd';
+import { InfoCircleOutlined } from '@ant-design/icons';
 import ChordCard from '../../container/ChordCard/ChordCard';
 import VoicingOption from '../../container/VoicingOption/VoicingOption';
-
-
 import axios from 'axios';
 
+import images from '../../constants/images';
 import "./ChordsPage.css";
 
+const { example_search } = images;
 const { Option } = Select;
 const { Title, Paragraph } = Typography;
 
@@ -80,6 +90,52 @@ const ChordsPage = ({ isMobile }) => {
             alterations: val.toLowerCase()
         }))
     }
+
+    const handleChordInfo = () => {
+        info()
+    }
+
+    const info = () => {
+        Modal.info({
+          title: 'How to Serach for Chords',
+          content: (
+            <div>
+              <Divider />
+              <div>
+                    Select your basic options first, 
+                    then add additional chord information in the input box.
+                </div>
+                <br/>
+                <div>
+                    You can chain additional chord infomation together.
+                </div>
+            <br/>
+              <Typography.Title level={5}>
+                Examples:
+              </Typography.Title>
+              <div style={{paddingLeft: "2rem"}}>
+                <ul>
+                    <li>7</li>
+                    <li>dim</li>
+                    <li>aug</li>
+                    <li>7b5</li>
+                    <li>713</li>
+                    <li>maj79(add11)</li>
+                </ul>
+              </div>
+              <Image src={example_search} alt="search example" />
+              <br/>
+              <div>
+                If a match is not found, 
+                it will try to find a similar chord.
+              </div>
+              <br/>
+              <div>Chords tones will be displayed beneath the chord</div>
+            </div>
+          ),
+          onOk() {},
+        });
+      };
 //---------------------------COMPONENT RENDER----------------------------------------------------
     return (
         <Layout>
@@ -89,7 +145,10 @@ const ChordsPage = ({ isMobile }) => {
                     <h2>Your tool to mastering new chords!</h2>
                     <Divider />
                 </div>
-                <ChordCard chordName={chordData.chordName} strings={chordData.strings} tones={chordData.tones} />
+                <ChordCard 
+                    chordName={chordData.chordName} 
+                    strings={chordData.strings} 
+                    tones={chordData.tones} />
                 <div>
                     <Paragraph type="secondary" style={{margin: "1rem"}} >
                         Select root note, quality, add any optional alterations
@@ -98,27 +157,58 @@ const ChordsPage = ({ isMobile }) => {
                 <div className="chord-options-container">
                     <Space size="small">
                         <div>
-                            <Select style={{width: "80px"}} defaultValue="A" name="chord-root-selector" onChange={(val) => setSelectorVals((prevState) => ({...prevState, root: val}))}>
-                                {chordKeySelectors.map((item, i) => {
-                                    return <Option key={i} value={item}>{item.replace(/(%23)/g, "#").replace(/(_)/g, '')}</Option>
-                                    })}
+                            <Select 
+                                style={{width: "80px"}} 
+                                defaultValue="A" 
+                                name="chord-root-selector" 
+                                onChange={(val) => setSelectorVals((prevState) => ({...prevState, root: val}))}>
+                                    {chordKeySelectors.map((item, i) => {
+                                        return <Option key={i} value={item}>{item
+                                                .replace(/(%23)/g, "#")
+                                                .replace(/(_)/g, '')}
+                                            </Option>
+                                        })}
                             </Select>
                         </div>
                         <div>
-                            <Select defaultValue="" style={{width: "80px"}} label="Quality" name="chord-quality-selector" onChange={(val) => setSelectorVals((prevState) => ({...prevState, quality: val}))}>
-                                <Option value="">Major</Option>
-                                <Option value="m">Minor</Option>
+                            <Select 
+                                defaultValue="" 
+                                style={{width: "80px"}} 
+                                label="Quality" 
+                                name="chord-quality-selector" 
+                                onChange={(val) => setSelectorVals((prevState) => ({...prevState, quality: val}))}>
+                                    <Option value="">Major</Option>
+                                    <Option value="m">Minor</Option>
                             </Select>
                         </div>
                         <div>
-                                <Input style={{ width: "100px" }} name="chord-alterations" defaultValue="" placeholder="sus2, maj7..." onChange={(e) => handleAlterationsInput(e.target.value)}/>
+                                <Input 
+                                    style={{ width: "100px" }} 
+                                    name="chord-alterations" 
+                                    defaultValue="" 
+                                    placeholder="sus2, maj7..." 
+                                    onChange={(e) => handleAlterationsInput(e.target.value)}
+                                />
                         </div>
-                        
+                        <div>
+                        <Button 
+                            type="default" 
+                            size="medium" 
+                            onClick={() => handleChordInfo()} >
+                                <InfoCircleOutlined />
+                        </Button>
+                    </div> 
                     </Space>
                 </div>
                 <Space>
                     <div>
-                        <Button type="primary" size="medium" style={{margin: "1rem"}} onClick={() => handleChordData()} >Get Chord</Button>
+                        <Button 
+                            type="primary" 
+                            size="medium" 
+                            style={{margin: "1rem"}} 
+                            onClick={() => handleChordData()} >
+                                Get Chord
+                        </Button>
                     </div>
                 </Space>
                 <Paragraph type="danger" >{chordError}</Paragraph>
@@ -128,13 +218,27 @@ const ChordsPage = ({ isMobile }) => {
                     <Space>
                     <div className="chord-options-two-container">
                             {stringSelector.map((string, index) => {
-                                return <VoicingOption setVoicingData={setVoicingData} key={index} stringKey={index} string={string} isMobile={isMobile} />
+                                return <VoicingOption 
+                                    setVoicingData={setVoicingData} 
+                                    key={index} 
+                                    stringKey={index} 
+                                    string={string} 
+                                    isMobile={isMobile} 
+                                    />
                             })}
                     </div>
                 </Space>
                 <div>
-                        <Button type="primary" size="medium" style={{margin: "1rem"}} onClick={() => handleVoicingData()} >Get Chord</Button>
-                        <Paragraph type="danger" >{voicingError}</Paragraph>
+                        <Button 
+                            type="primary" 
+                            size="medium" 
+                            style={{margin: "1rem"}} 
+                            onClick={() => handleVoicingData()} >
+                                Get Chord
+                            </Button>
+                        <Paragraph type="danger" >
+                            {voicingError}
+                        </Paragraph>
                 </div>
             </div>
         </Layout>

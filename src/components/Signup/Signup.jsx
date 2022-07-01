@@ -43,7 +43,10 @@ const Signup = ({ setMenuArray }) => {
       
     return (
         <div className="page-container">
-            <Card title="Sign Up" style={{maxWidth: "350px", margin: "1rem"}} bodyStyle={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+            <Card 
+                title="Sign Up" 
+                style={{maxWidth: "350px", margin: "1rem"}} 
+                bodyStyle={{display: "flex", justifyContent: "center", alignItems: "center"}}>
                 <Form name="signup" labelCol={{span: 8,}} wrapperCol={{span: 16,}}initialValues={{remember: true,}}
                     onFinish={onFinish}
                     onFinishFailed={onFinishFailed}
@@ -116,8 +119,11 @@ const Signup = ({ setMenuArray }) => {
                         span: 24,
                         }}
                     >
-                        <Button disabled={loading} type="primary" htmlType="submit">
-                        Sign Up
+                        <Button 
+                            disabled={loading} 
+                            type="primary" 
+                            htmlType="submit">
+                                Sign Up
                         </Button>
                     </Form.Item>
                     {error && <Alert message={error} type="error" />}

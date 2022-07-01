@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { auth, db } from '../firebase';
-import {  doc, serverTimestamp, updateDoc, setDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
+import {  doc, updateDoc, setDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
 
 const AuthContext = React.createContext();
 
@@ -92,7 +92,8 @@ export function AuthProvider({ children }) {
     }
 
     useEffect(() => {
-        //run on mount, firebase built-in method, set user login state, unsubscribe on unmount of component, set state back to null
+        //run on mount, firebase built-in method, set user login state, 
+        //unsubscribe on unmount of component, set state back to null
         const unsubscribe = auth.onAuthStateChanged(user => {
             //on load set current user and switch loading to false
             setCurrentUser(user);

@@ -65,7 +65,8 @@ const Metronome = ({metronomeInterval, isPlaying, setIsPlaying}) => {
         }
     }
 
-    //clears metronomeInterval based on state change, have to use a use Effect for this, otherwise it will continue playing
+    //clears metronomeInterval based on state change, 
+    //have to use a use Effect for this, otherwise it will continue playing
     useEffect(() => {
       if (isPlaying) {
           clearInterval(metronomeInterval.current);
@@ -81,15 +82,35 @@ const Metronome = ({metronomeInterval, isPlaying, setIsPlaying}) => {
 
   
   return (
-    <Card title="Metronome" style={{width: "280px", margin: "1rem"}} bodyStyle={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+    <Card 
+      title="Metronome" 
+      style={{width: "280px", margin: "1rem"}} 
+      bodyStyle={{display: "flex", justifyContent: "center", alignItems: "center"}}>
             <Space style={{flexDirection: "column"}}>
                 <Title>{`${bpm} bpm`}</Title>
-                <Slider min={30} max={240} defaultValue={bpm} style={{width: "200px"}} onChange={(val) => setBpm(val)}/>
+                <Slider 
+                  min={30} 
+                  max={240} 
+                  defaultValue={bpm} 
+                  style={{width: "200px"}} 
+                  onChange={(val) => setBpm(val)}/>
                 {!isPlaying &&
-                        <Button type="primary" label="start" size="large" onClick={() => handleStartStopClick()}>Start</Button>
+                        <Button 
+                          type="primary" 
+                          label="start" 
+                          size="large" 
+                          onClick={() => handleStartStopClick()}>
+                            Start
+                        </Button>
                     }
                     {isPlaying &&
-                        <Button type="danger" label="stop" size="large" onClick={() => handleStartStopClick()}>Stop</Button>
+                        <Button 
+                          type="danger" 
+                          label="stop" 
+                          size="large" 
+                          onClick={() => handleStartStopClick()}>
+                            Stop
+                          </Button>
                     }
                 <div className="metronome-options-constainer" style={{marginTop: "2rem"}}>
                     <Space>
@@ -109,7 +130,12 @@ const Metronome = ({metronomeInterval, isPlaying, setIsPlaying}) => {
                 </div>
                 <div className="metronome-volume center-items" style={{flexDirection: "row"}}>
                     <SoundOutlined />
-                    <Slider min={0} max={100} defaultValue={volume} style={{width: "100px"}} onChange={(val) => setVolume(val)}/>
+                    <Slider 
+                      min={0} 
+                      max={100} 
+                      defaultValue={volume} 
+                      style={{width: "100px"}} 
+                      onChange={(val) => setVolume(val)}/>
                 </div>
             </Space>
     </Card>

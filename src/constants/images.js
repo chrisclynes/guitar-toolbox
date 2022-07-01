@@ -17,6 +17,7 @@ import scalesScreen from '../images/scalesScreen.png';
 import carousel_img1 from '../images/carousel_img1.jpg';
 import carousel_img2 from '../images/carousel_img2.jpg';
 import carousel_img3 from '../images/carousel_img3.jpg';
+import example_search from '../images/example_search.png'
 
 
 
@@ -39,5 +40,6 @@ export default {
   scalesScreen,
   carousel_img1,
   carousel_img2,
-  carousel_img3
+  carousel_img3,
+  example_search
 };

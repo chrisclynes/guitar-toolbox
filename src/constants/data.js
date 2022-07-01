@@ -87,4 +87,12 @@ const guitarScalesData = [
     }}
 ];
 
-export { majorKeys, minorKeys, majorProgressions, minorProgressions, minorNashNumbers, majorNashNumbers, guitarScalesData };
+export { 
+    majorKeys, 
+    minorKeys, 
+    majorProgressions, 
+    minorProgressions, 
+    minorNashNumbers, 
+    majorNashNumbers, 
+    guitarScalesData 
+    };

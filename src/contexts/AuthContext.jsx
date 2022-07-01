@@ -66,7 +66,6 @@ export function AuthProvider({ children }) {
     }
 
     const updatePractice = async (values) => {
-        console.log(values)
         const tasksRef = doc(db, "UserData", currentUser.uid)
         updateDoc(tasksRef, {
                 "user.tasksCompleted": values.tasksCompleted,

@@ -18,6 +18,9 @@ const MyDashboard = ({ isMobile, userData, setUserData }) => {
     
     const handleAddPractice = (record) => {
         setIsEditing(true)
+        
+        
+        
       
       }
 
@@ -124,22 +127,46 @@ const MyDashboard = ({ isMobile, userData, setUserData }) => {
                     onCancel={() => {
                         setIsEditing(false);
                     }}
-                    onOk={() => {
+                    onOk={(record) => {
                         handleAdd();
                         setIsEditing(false);
+                        console.log(addPracticeData)
                         
                     }}
                 >
-                    <Input placeholder='add practice description'/>
-                   
-                    <Select title="Time" placeholder='time in minutes'>
-                        {timeOptions.map((item, i) => {
-                            return (
-                                <Select.Option key={i} value={item}>{item}</Select.Option> 
-                                )
-                            })   
-                        }
-                    </Select>
+                    <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
+                        <div style={{width: "80%"}}>
+                            <Typography.Paragraph>Practice Description</Typography.Paragraph>
+                            <Input placeholder='add practice description' onChange={(e) => {
+                                setAddPracticeData((prev) => {
+                                    return (
+                                        {...prev,
+                                        practice: e.target.value
+                                    }
+                                    )
+                                })
+                            }}/>
+                        </div>
+                        <div style={{width: "15%"}}>
+                            <Typography.Paragraph>Minutes</Typography.Paragraph>
+                            <Select title="Time" onChange={(e) => {
+                                setAddPracticeData((prev) => {
+                                    return (
+                                        {...prev,
+                                        time: e.target.value
+                                    }
+                                    )
+                                })
+                            }}>
+                                {timeOptions.map((item, i) => {
+                                    return (
+                                        <Select.Option key={i} value={item}>{item}</Select.Option> 
+                                        )
+                                    })   
+                                }
+                            </Select>
+                        </div>
+                    </div>
                 </Modal>
                 <div className="main-content-container center-items" style={{margin: "1rem"}}>
                     <div className="task-container" style={isMobile ? {width: "100%"} : {width: "90%"}}>

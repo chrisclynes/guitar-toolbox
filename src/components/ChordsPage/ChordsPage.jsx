@@ -91,10 +91,6 @@ const ChordsPage = ({ isMobile }) => {
         }))
     }
 
-    const handleChordInfo = () => {
-        info()
-    }
-
     const info = () => {
         Modal.info({
           title: 'How to Serach for Chords',
@@ -136,7 +132,7 @@ const ChordsPage = ({ isMobile }) => {
           onOk() {},
         });
       };
-//---------------------------COMPONENT RENDER----------------------------------------------------
+//---------------------------COMPONENT RENDER---------------------------------
     return (
         <Layout>
             <div className="page-container">
@@ -194,7 +190,7 @@ const ChordsPage = ({ isMobile }) => {
                         <Button 
                             type="default" 
                             size="medium" 
-                            onClick={() => handleChordInfo()} >
+                            onClick={() => info()} >
                                 <InfoCircleOutlined />
                         </Button>
                     </div> 

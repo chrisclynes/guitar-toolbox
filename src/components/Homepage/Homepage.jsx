@@ -27,7 +27,7 @@ const Homepage = ({ setMenuArray, isMobile }) => {
         height:'330px',
         background:'black',
     }
-
+//---------------------------COMPONENT RENDER---------------------------------
     return (
         <Layout>
             <div className="page-container center-items" style={{overflowX: "hidden"}}> 

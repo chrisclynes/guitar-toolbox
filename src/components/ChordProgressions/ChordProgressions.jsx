@@ -43,7 +43,9 @@ const ChordProgressions = ({isMobile}) => {
         setProgressionData((prevState) => ({
             ...prevState,
             //gets the correct chords from progression numbers input
-            chordProgression: progressionData.progNumbers.map((e) => Object.values(progressionData.progQuality === "Major" ? majorKeys[progressionData.progKeyIndex] : minorKeys[progressionData.progKeyIndex])[0][e])
+            chordProgression: progressionData.progNumbers.map((e) => Object.values(progressionData.progQuality === "Major" ?
+             majorKeys[progressionData.progKeyIndex] : 
+             minorKeys[progressionData.progKeyIndex])[0][e])
         }))
     }, [progressionData]);
 
@@ -134,7 +136,9 @@ const ChordProgressions = ({isMobile}) => {
                     <div className="progression-title-container center-items" style={{textAlign: "center"}}>
                         <div className="header-margin">
                             <Typography.Title level={1}>Progression Generator</Typography.Title>
-                            <h2>Choose a chord progression or create your own</h2>
+                            <h2>
+                                Choose a chord progression or create your own
+                            </h2>
                             {isMobile &&
                                 <Divider />
                             }
@@ -149,7 +153,11 @@ const ChordProgressions = ({isMobile}) => {
                                     {chordData.map((item, i) => {
                                         return (
                                             <Col  key={i}>
-                                                <ChordCard key={i} title={item.title} chordName={item.chordName} strings={item.strings} />
+                                                <ChordCard 
+                                                    key={i} 
+                                                    title={item.title} 
+                                                    chordName={item.chordName} 
+                                                    strings={item.strings} />
                                             </Col> 
                                         )
                                     })}    
@@ -161,19 +169,34 @@ const ChordProgressions = ({isMobile}) => {
                 </div>
                 <div className="progression-selectors-container center-items" style={{margin: "1rem"}}>
                 <Space size="small">
-                        <Select defaultValue="Major" style={{width: "80px"}} name="major-minor-selctor" onChange={(val) => handleMajMinToggle(val)}>
-                            <Option value="Major">Major</Option>
-                            <Option value="Minor">Minor</Option>
+                        <Select 
+                            defaultValue="Major" style={{width: "80px"}} 
+                            name="major-minor-selctor" 
+                            onChange={(val) => handleMajMinToggle(val)}>
+                                <Option value="Major">
+                                    Major
+                                </Option>
+                                <Option value="Minor">
+                                    Minor
+                                </Option>
                         </Select>
                         {progressionData.progQuality === "Major" && (
                             <div className="major-selection-container">
                                 <Space size="small">
-                                    <Select defaultValue="C Major" style={{width: "100px"}} name="major-keys-selctor" onChange={(val, key) => handleKeysSelector(val, key)}>
-                                        {majorKeys.map((item, i) => {
-                                            return (
-                                                <Option key={i} value={Object.keys(item)[0]}>{Object.keys(item)[0]}</Option>
-                                            )
-                                        })}
+                                    <Select 
+                                        defaultValue="C Major" 
+                                        style={{width: "100px"}} 
+                                        name="major-keys-selctor" 
+                                        onChange={(val, key) => handleKeysSelector(val, key)}>
+                                            {majorKeys.map((item, i) => {
+                                                return (
+                                                    <Option 
+                                                        key={i} 
+                                                        value={Object.keys(item)[0]}>
+                                                            {Object.keys(item)[0]}
+                                                    </Option>
+                                                )
+                                            })}
                                     </Select>
                                     {!toggleSelectors &&
                                         <Select 
@@ -192,7 +215,11 @@ const ChordProgressions = ({isMobile}) => {
                                                     }}>
                                             {majorProgressions.map((item, i) => {
                                                     return (
-                                                        <Option key={i} value={Object.keys(item)[0]}>{Object.keys(item)[0]}</Option>
+                                                        <Option 
+                                                            key={i} 
+                                                            value={Object.keys(item)[0]}>
+                                                                {Object.keys(item)[0]}
+                                                        </Option>
                                                     )
                                                 })}
                                         </Select>
@@ -202,10 +229,18 @@ const ChordProgressions = ({isMobile}) => {
                         {progressionData.progQuality === "Minor" && (
                             <div className="minor-selection-container">
                                 <Space size="small">
-                                    <Select defaultValue="C Minor" style={{width: "100px"}} name="minor-keys-selctor" onChange={(val, key) => handleKeysSelector(val, key)}>
+                                    <Select 
+                                        defaultValue="C Minor" 
+                                        style={{width: "100px"}} 
+                                        name="minor-keys-selctor" 
+                                        onChange={(val, key) => handleKeysSelector(val, key)}>
                                         {minorKeys.map((item, i) => {
                                             return (
-                                                <Option key={i} value={Object.keys(item)[0]}>{Object.keys(item)[0]}</Option>
+                                                <Option 
+                                                    key={i} 
+                                                    value={Object.keys(item)[0]}>
+                                                        {Object.keys(item)[0]}
+                                                </Option>
                                             )
                                         })}
                                     </Select>
@@ -225,7 +260,11 @@ const ChordProgressions = ({isMobile}) => {
                                                 }}>
                                             {minorProgressions.map((item, i) => {
                                                     return (
-                                                        <Option key={i} value={Object.keys(item)[0]}>{Object.keys(item)[0]}</Option>
+                                                        <Option 
+                                                            key={i} 
+                                                            value={Object.keys(item)[0]}>
+                                                                {Object.keys(item)[0]}
+                                                        </Option>
                                                     )
                                                 })}
                                         </Select>
@@ -237,12 +276,19 @@ const ChordProgressions = ({isMobile}) => {
                 </div>
                 {toggleGetProgBtn &&
                     <div className="get-progression-btn center-items" style={{margin: "1rem"}}>
-                        <Button type="primary" size="medium" onClick={() => handleChordData()} >Get Progression</Button>
+                        <Button 
+                            type="primary" 
+                            size="medium" 
+                            onClick={() => handleChordData()} >
+                                Get Progression
+                        </Button>
                     </div>
                 }
                 {!toggleSelectors &&
                     <div className="choose-progression-label center-items" style={{width: "100%", textAlign: "center"}}>
-                        <Typography.Paragraph type="secondary" >Or, make your own progression below</Typography.Paragraph>
+                        <Typography.Paragraph type="secondary" >
+                            Or, make your own progression below
+                        </Typography.Paragraph>
                     </div>
                 }
                 <div className="chooseProgression-container center-items" id="chooseProgression">
@@ -275,7 +321,12 @@ const ChordProgressions = ({isMobile}) => {
                 </div>
                 {toggleChoiceProgBtn &&
                     <div className="get-progression-btn center-items" style={{margin: "1rem"}}>
-                        <Button type="primary" size="medium" onClick={() => handleChordData()} >Get Progression</Button>
+                        <Button 
+                            type="primary" 
+                            size="medium" 
+                            onClick={() => handleChordData()} >
+                                Get Progression
+                        </Button>
                     </div>
                 }
                 {isMobile &&
@@ -288,7 +339,11 @@ const ChordProgressions = ({isMobile}) => {
                             {chordData.map((item, i) => {
                                 return (
                                     <Col flex="none" key={i}>
-                                        <ChordCard key={i} title={item.title} chordName={item.chordName} strings={item.strings} />
+                                        <ChordCard 
+                                            key={i} 
+                                            title={item.title} 
+                                            chordName={item.chordName} 
+                                            strings={item.strings} />
                                     </Col> 
                                 )
                             })}      

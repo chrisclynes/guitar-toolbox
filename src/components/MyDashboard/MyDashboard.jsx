@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Col, Row, Typography, Modal, Input, Layout, Select } from 'antd';
+import { 
+    Col, 
+    Row, 
+    Typography, 
+    Modal, 
+    Input, 
+    Layout, 
+    Select, 
+    Divider 
+    } from 'antd';
 import { useAuth } from '../../contexts/AuthContext';
 import { db } from '../../firebase';
 import { doc, getDoc } from 'firebase/firestore';
@@ -11,7 +20,7 @@ import Tasks from '../../container/Tasks/Tasks';
 import "./MyDashboard.css";
 
 
-const MyDashboard = ({ isMobile, userData, setUserData }) => {
+const MyDashboard = ({ isMobile, userData, setUserData,  }) => {
     const [practiceData, setPracticeData] = useState();
     const [isEditing, setIsEditing] = useState(false);
     const [addPracticeData, setAddPracticeData] = useState();
@@ -93,7 +102,33 @@ const MyDashboard = ({ isMobile, userData, setUserData }) => {
     for(let i=5; i<=60; i+=5){
         timeOptions.push(i);
     }
-    
+
+    const info = () => {
+        Modal.info({
+          title: 'Practice/Routines',
+          content: (
+            <div>
+              <Divider />
+              <div>
+                    Use this tool to keep your guitar practice organized.
+                </div>
+                <br/>
+                <div>
+                    Allocate time to work on these task and help track your progress.
+                </div>
+                <br/>
+              <div>
+                You can use this tool to create routines, set practice segments, or simply as notes to work on specific songs, solos...
+              </div>
+              <br/>
+              <div>Once you complete a task, press the green checkmark to track your progress</div>
+            </div>
+          ),
+          onOk() {},
+        });
+      };
+
+ //---------------------------COMPONENT RENDER---------------------------------   
     return (
         <Layout>
             <div className="dashboard-container" style={{overflowX: "hidden"}} >
@@ -194,6 +229,7 @@ const MyDashboard = ({ isMobile, userData, setUserData }) => {
                         handleAddPractice={handleAddPractice} 
                         handleDelete={handleDelete} 
                         handleComplete={handleComplete}
+                        info={info}
                         />
                     </div>
                 </div>

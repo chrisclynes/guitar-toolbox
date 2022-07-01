@@ -1,6 +1,10 @@
 import React from 'react';
 import { Table, Button } from 'antd';
-import { DeleteOutlined, CheckOutlined } from '@ant-design/icons';
+import { 
+  DeleteOutlined, 
+  CheckOutlined, 
+  InfoCircleOutlined 
+  } from '@ant-design/icons';
 
 class Tasks extends React.Component {
   state = {
@@ -29,6 +33,7 @@ class Tasks extends React.Component {
     //   selectedRowKeys,
     //   onChange: this.onSelectChange,
     // };
+    
     const hasSelected = selectedRowKeys.length > 0;
     const columns = [
       {
@@ -80,6 +85,12 @@ class Tasks extends React.Component {
             disabled ={this.props.practiceData?.length > 20} 
             onClick={this.props.handleAddPractice}>
               Add Practice
+          </Button>
+          <Button 
+              type="default" 
+              size="medium" 
+              onClick={() => this.props.info()} >
+                  <InfoCircleOutlined />
           </Button>
           <span style={{ marginLeft: 8 }}>
             {hasSelected ? `Selected ${selectedRowKeys.length} items` : ''}

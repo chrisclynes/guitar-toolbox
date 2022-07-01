@@ -30,7 +30,7 @@ const Homepage = ({ setMenuArray, isMobile }) => {
 
     return (
         <Layout>
-            <div className="page-container center-items"> 
+            <div className="page-container center-items" style={{overflowX: "hidden"}}> 
                 
                 <div className="welcome-header header-margin">
                     <Title>Welcome to Guitar Toolbox</Title>
@@ -57,7 +57,7 @@ const Homepage = ({ setMenuArray, isMobile }) => {
                                     With the provided tools, you can master the art of guitar.
                                 </p>
                             </div>
-                    <div className="center-items" style={{width: "100%"}}>
+                    <div className="center-items" style={isMobile ? {width: "100%"} : {width: "100%"}}>
                     <Carousel style={carouselStyle} autoplay>
                         <div style={contentStyle}>
                             <Image src={carousel_img1} />

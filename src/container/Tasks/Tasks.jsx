@@ -50,7 +50,6 @@ class Tasks extends React.Component {
         title: '',
         width: '20%',
         align: 'center',
-        fixed: true,
         render:(record) => {
           return (
           <>

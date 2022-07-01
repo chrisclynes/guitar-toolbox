@@ -99,7 +99,7 @@ const MyDashboard = ({ isMobile, userData, setUserData }) => {
     
     return (
         <Layout>
-            <div className="dashboard-container">
+            <div className="dashboard-container" style={{overflowX: "hidden"}} >
                 <div className="user-wrapper center-items" style={{flexDirection: "column"}}>
                     <div className="user-options">
                         <h3> Welcome {userData?.username}!</h3>
@@ -127,34 +127,33 @@ const MyDashboard = ({ isMobile, userData, setUserData }) => {
                     onCancel={() => {
                         setIsEditing(false);
                     }}
-                    onOk={(record) => {
+                    onOk={() => {
                         handleAdd();
                         setIsEditing(false);
-                        console.log(addPracticeData)
-                        
+                        console.log(addPracticeData);
                     }}
                 >
                     <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
                         <div style={{width: "80%"}}>
                             <Typography.Paragraph>Practice Description</Typography.Paragraph>
-                            <Input placeholder='add practice description' onChange={(e) => {
+                            <Input placeholder='add practice description' onChange={(val) => {
                                 setAddPracticeData((prev) => {
                                     return (
                                         {...prev,
-                                        practice: e.target.value
-                                    }
+                                            practice: val
+                                        }
                                     )
                                 })
                             }}/>
                         </div>
                         <div style={{width: "15%"}}>
                             <Typography.Paragraph>Minutes</Typography.Paragraph>
-                            <Select title="Time" onChange={(e) => {
+                            <Select title="Time" onChange={(val) => {
                                 setAddPracticeData((prev) => {
                                     return (
                                         {...prev,
-                                        time: e.target.value
-                                    }
+                                            time: val
+                                        }
                                     )
                                 })
                             }}>

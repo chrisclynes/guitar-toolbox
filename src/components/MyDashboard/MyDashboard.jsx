@@ -29,17 +29,18 @@ const MyDashboard = ({ isMobile, userData, practiceData, setFirestoreCall }) => 
       }
 
     const handleAdd = async (values) => {
+        console.log("add")
         const dataToAdd = {
-            id: nanoid(),
+            key: nanoid(),
             task: values.practice,
             time: values.time, 
             }
          try {
-             await addPractice(dataToAdd)
+             await addPractice(dataToAdd).then(() => setFirestoreCall(true))
          }catch {
              console.log('error updating data')
          } 
-        setFirestoreCall(true)  
+         
     }
 
     const handleDelete = (values) => {
@@ -50,11 +51,11 @@ const MyDashboard = ({ isMobile, userData, practiceData, setFirestoreCall }) => 
             ofType: "danger",
             onOk: async () => {
                 try {
-                    await removePractice(values)
+                    await removePractice(values).then(() => setFirestoreCall(true))
                 }catch {
                     console.log('error updating data')
                 } 
-                setFirestoreCall(true)
+                
             }
         }) 
     } 
@@ -162,8 +163,8 @@ const MyDashboard = ({ isMobile, userData, practiceData, setFirestoreCall }) => 
                         setIsEditing(false);
                     }}
                 >
-                    <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
-                        <div style={{width: "80%"}}>
+                    <div style={{display: "flex", flexWrap: "wrap", justifyContent: "space-between"}}>
+                        <div style={{width: "75%"}}>
                             <Typography.Paragraph>Practice Description</Typography.Paragraph>
                             <Input 
                                 placeholder='add practice description'
@@ -178,7 +179,7 @@ const MyDashboard = ({ isMobile, userData, practiceData, setFirestoreCall }) => 
                                 })
                             }}/>
                         </div>
-                        <div style={{width: "15%"}}>
+                        <div style={{width: "20%"}}>
                             <Typography.Paragraph>Minutes</Typography.Paragraph>
                             <Select 
                                 title="Time" 

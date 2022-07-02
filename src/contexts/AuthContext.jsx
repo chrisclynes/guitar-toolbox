@@ -20,18 +20,18 @@ export function AuthProvider({ children }) {
                 },
                 tasks: [
                     {
-                        id: 12340,
+                        key: 12340,
                         task: "Practice alternate picking using the major scale",
                         time: 15, 
                     },
                     {
-                        id: 43210,
+                        key: 43210,
                         task: "Learn a major chord progression in I-vi-IV-V",
                         time: 20, 
                         },
                 ]           
             }) 
-        });
+        })
     }
 
     const login = (email, password) => {
@@ -62,7 +62,7 @@ export function AuthProvider({ children }) {
         updateDoc(tasksRef, {
                 tasks: arrayUnion(
                     {
-                        id: values.id,
+                        key: values.key,
                         task: values.task,
                         time: values.time, 
                         },
@@ -83,7 +83,7 @@ export function AuthProvider({ children }) {
         updateDoc(tasksRef, {
                 tasks: arrayRemove(
                     {
-                        id: values.id,
+                        key: values.key,
                         task: values.task,
                         time: values.time, 
                         },

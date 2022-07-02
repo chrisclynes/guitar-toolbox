@@ -65,8 +65,8 @@ const Metronome = ({metronomeInterval, isPlaying, setIsPlaying}) => {
         }
     }
 
-    //clears metronomeInterval based on state change, 
-    //have to use a use Effect for this, otherwise it will continue playing
+    //clears metronomeInterval if one is started, 
+    //starts new interval
     useEffect(() => {
       if (isPlaying) {
           clearInterval(metronomeInterval.current);
@@ -78,6 +78,7 @@ const Metronome = ({metronomeInterval, isPlaying, setIsPlaying}) => {
   useEffect(() => {
       clearInterval(metronomeInterval.current)
       setIsPlaying(false)
+      // eslint-disable-next-line
   }, []);
 
   

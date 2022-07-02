@@ -59,7 +59,7 @@ export function AuthProvider({ children }) {
 
     const addPractice = async (values) => {
         const tasksRef = doc(db, "UserData", currentUser.uid)
-        updateDoc(tasksRef, {
+        return updateDoc(tasksRef, {
                 tasks: arrayUnion(
                     {
                         key: values.key,
@@ -72,7 +72,7 @@ export function AuthProvider({ children }) {
 
     const updatePractice = async (values) => {
         const tasksRef = doc(db, "UserData", currentUser.uid)
-        updateDoc(tasksRef, {
+        return updateDoc(tasksRef, {
                 "user.tasksCompleted": values.tasksCompleted,
                 "user.totalTaskTimeMins": values.totalTaskTimeMins 
         })      
@@ -80,7 +80,7 @@ export function AuthProvider({ children }) {
 
    const removePractice = async (values) => {
         const tasksRef = doc(db, "UserData", currentUser.uid)
-        updateDoc(tasksRef, {
+        return updateDoc(tasksRef, {
                 tasks: arrayRemove(
                     {
                         key: values.key,

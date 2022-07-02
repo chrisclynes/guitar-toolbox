@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Card, Form, Input, Button, Alert } from 'antd';
 import { useAuth } from '../../contexts/AuthContext';
 
@@ -8,8 +8,6 @@ const UpdateProfile = ({handleLogout, isMobile}) => {
     const [error, setError] = useState('');
     const [success, setSucess] = useState(false)
     const [loading, setLoading] = useState(false);
-
-    const navigate = useNavigate();
     
 
     const onFinish = (values) => {
@@ -125,7 +123,7 @@ const UpdateProfile = ({handleLogout, isMobile}) => {
                     }
                     </Form>
             </Card>
-            <Link to="/mydashboard" >
+            <Link to="/" >
                 <div >Cancel</div>
             </Link>
         </div>

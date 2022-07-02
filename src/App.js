@@ -333,7 +333,12 @@ const App = () => {
                             <Routes>
                                 <Route 
                                     path="/" 
-                                    element={<Homepage setMenuArray={setMenuArray} isMobile={isMobile} />} 
+                                    element={<Homepage 
+                                        setMenuArray={setMenuArray} 
+                                        isMobile={isMobile} 
+                                        userData={userData}
+                                        practiceData={practiceData}
+                                    />} 
                                 />
                                 <Route 
                                     path="/mydashboard" 

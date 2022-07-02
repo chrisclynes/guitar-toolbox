@@ -67,12 +67,10 @@ const App = () => {
     
     //request data if current user logged in and firestoreCall state is true
     useEffect(() => {
-        console.log("triggered uesEffect")
         async function getFirestoreData() { 
             if(currentUser && firestoreCall){
                 const docRef = doc(db, "UserData", currentUser.uid);
                 try {
-                    console.log("getting data from firestore")
                     const docSnap = await getDoc(docRef);
                     setPracticeData(docSnap.data().tasks);
                     setUserData(docSnap.data().user);

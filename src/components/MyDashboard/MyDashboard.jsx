@@ -29,7 +29,6 @@ const MyDashboard = ({ isMobile, userData, practiceData, setFirestoreCall }) => 
       }
 
     const handleAdd = async (values) => {
-        console.log("add")
         const dataToAdd = {
             key: nanoid(),
             task: values.practice,

@@ -51,7 +51,6 @@ const ChordsPage = ({ isMobile }) => {
                     tones: apiData.tones
                 });
                 setPrevChordCalled(chordToCall);
-                // console.log(response.data)
             }catch (error) {
                 console.log(error)
                 if(error){
@@ -75,7 +74,6 @@ const ChordsPage = ({ isMobile }) => {
                     tones: apiData.tones
                 });
                 setPrevChordCalled(chordToCall);
-                // console.log(response.data)
             }catch (error) {
                 console.log(error)
                 if(error){

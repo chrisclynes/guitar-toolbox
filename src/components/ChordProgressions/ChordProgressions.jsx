@@ -63,7 +63,6 @@ const ChordProgressions = ({isMobile}) => {
         const URL = 'https://api.uberchord.com/v1/chords?names=';
         const chordToCall = `${URL}${chords}`;
         if(chords === prevChordsCalled) return
-        console.log(progressionData)
             try {
                 const response = await axios.get(chordToCall)
                 setChordData(response.data.map((item, i) => ({
@@ -77,7 +76,6 @@ const ChordProgressions = ({isMobile}) => {
                 //set to show progression chords onscreen in readable format
                 setProgTextDisplay(progressionData.chordProgression.join(", ").replace(/(%23)/g, "#").replace(/(_)/g, ''));
                 setPrevChordsCalled(chords);
-                // console.log(response.data)
             }catch (error) {
                 console.log(error)
             }

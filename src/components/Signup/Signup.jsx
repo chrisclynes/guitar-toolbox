@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { Card, Form, Input, Button, Alert } from 'antd';
 import { useAuth } from '../../contexts/AuthContext';
 
    
-const Signup = ({ setMenuArray }) => {
-    const { signup } = useAuth();
+const Signup = ({ setMenuArray, getFirestoreData }) => {
+    const { signup, currentUser } = useAuth();
     const [error, setError] = useState('');
     const [success, setSucess] = useState(false)
     const [loading, setLoading] = useState(false);
@@ -25,10 +25,11 @@ const Signup = ({ setMenuArray }) => {
         try {
             setError('');
             setLoading(true);
-            await signup(values.email, values.password, values.username);
+            await signup(values.email, values.password, values.username)
             setSucess(true);
             setMenuArray(["dashboard"]);
-            setTimeout(() => navigate("/mydashboard"), 1500);
+            //notification of success before re-routing
+            setTimeout(() => navigate("/mydashboard"), 1500)
         }catch {
             setError('Account could not be created');
         }
@@ -39,6 +40,15 @@ const Signup = ({ setMenuArray }) => {
         setSucess(false);
         setError("information entered is incorrect");
       };
+
+    //after sign in, useAuth state change will trigger this
+    //get data if user logged in
+    useEffect(() => {
+        if(currentUser){
+            console.log("state changed")
+            getFirestoreData()
+        }  
+    }, [currentUser])
  
       
     return (

@@ -41,7 +41,7 @@ export function AuthProvider({ children }) {
 
     const logout = (email, password) => {
         //firebase method to check login of email and password, returns a promise
-        return auth.signOut()
+        return auth.signOut(email, password)
     }
 
     const resetPassword = (email) => {

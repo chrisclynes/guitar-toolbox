@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { Card, Form, Input, Button, Alert } from 'antd';
 import { useAuth } from '../../contexts/AuthContext';
 
    
-const Login = ({ setMenuArray }) => {
-    const { login } = useAuth();
+const Login = ({ setMenuArray, getFirestoreData }) => {
+    const { login, currentUser } = useAuth();
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
@@ -19,10 +19,7 @@ const Login = ({ setMenuArray }) => {
         try {
             setError('');
             setLoading(true);
-            await login(values.email, values.password)
-            //if successful route user to dashboard
-            setMenuArray(["dashboard"]);
-            navigate("/mydashboard");
+            await login(values.email, values.password).then(async () => await getFirestoreData())
         }catch {
             setError("Email or password incorrect");
         }
@@ -32,6 +29,17 @@ const Login = ({ setMenuArray }) => {
       const onFinishFailed = () => {
         setError('Failed to log in');
       };
+
+//after sign in, useAuth state change will trigger this
+//get data if user logged in
+useEffect(() => {
+    if(currentUser){
+        console.log("state changed")
+        getFirestoreData()
+        setMenuArray(["dashboard"]);
+        navigate("/mydashboard");
+    }  
+}, [currentUser])
 
     return (
         <div className="page-container">

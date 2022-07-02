@@ -10,8 +10,7 @@ import {
     Divider 
     } from 'antd';
 import { useAuth } from '../../contexts/AuthContext';
-import { db } from '../../firebase';
-import { doc, getDoc } from 'firebase/firestore';
+
 import { nanoid } from 'nanoid';
 
 import ProgressBar from '../../container/ProgressBar/ProgressBar';
@@ -20,8 +19,7 @@ import Tasks from '../../container/Tasks/Tasks';
 import "./MyDashboard.css";
 
 
-const MyDashboard = ({ isMobile, userData, setUserData,  }) => {
-    const [practiceData, setPracticeData] = useState();
+const MyDashboard = ({ isMobile, userData, practiceData, getFirestoreData  }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [addPracticeData, setAddPracticeData] = useState();
     const { currentUser, addPractice, removePractice, updatePractice } = useAuth();
@@ -81,21 +79,7 @@ const MyDashboard = ({ isMobile, userData, setUserData,  }) => {
         }) 
     } 
 
-    const getFirestoreData = async () => { 
-        const docRef = doc(db, "UserData", currentUser.uid);
-        try {
-            const docSnap = await getDoc(docRef);
-            setPracticeData(docSnap.data().tasks);
-            setUserData(docSnap.data().user);
-          } catch (e) {
-            console.log("Error getting cached document:", e);
-          }
-          
-    }
-
-    useEffect(() => {
-        getFirestoreData()
-    }, [])
+    
 
     //used for rendering select option in add practice Modal
     const timeOptions = [];

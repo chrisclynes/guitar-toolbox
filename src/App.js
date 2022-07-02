@@ -32,6 +32,8 @@ import {
     MenuOutlined, 
     UserOutlined 
     } from '@ant-design/icons';
+import { db } from './firebase';
+import { doc, getDoc } from 'firebase/firestore';
 
 import logo from './images/guitarlogo.png';
 
@@ -41,6 +43,7 @@ const { Header, Footer, Sider, Content } = Layout;
 
 const App = () => {
     const [userData, setUserData] = useState();
+    const [practiceData, setPracticeData] = useState();
     const [isMobile, setIsMobile] = useState(null);
     //mobile menu drawer
     const [visible, setVisible] = useState(false);
@@ -59,7 +62,28 @@ const App = () => {
             setIsMobile(false)
         }
       }
-    
+    //-------------------------firestore----------------
+    const getFirestoreData = async () => { 
+        if(currentUser){
+            const docRef = doc(db, "UserData", currentUser.uid);
+            try {
+                const docSnap = await getDoc(docRef);
+                setPracticeData(docSnap.data().tasks);
+                setUserData(docSnap.data().user);
+              } catch (e) {
+                console.log("Error getting cached document:", e);
+              }
+        } 
+    }
+    //onload used for page refresh to pull data if user still logged in
+    useEffect(() => {
+        if(currentUser){
+            console.log("state changed")
+            getFirestoreData()
+        }  
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+    //-----------------------------------------
     useEffect(() => {
         handleResize()
         window.addEventListener("resize", handleResize);
@@ -87,8 +111,9 @@ const App = () => {
     const handleLogout = async () => {
         try {
             await logout();
-                handleMenuHighlight(["dashboard"]);
+                handleMenuHighlight(["home"]);
                 setUserData(null);
+                setPracticeData(null);
                 navigate("/");
         } catch {
             console.log("failed to logout")
@@ -314,7 +339,8 @@ const App = () => {
                                                 <MyDashboard 
                                                     isMobile={isMobile} 
                                                     userData={userData} 
-                                                    setUserData={setUserData}
+                                                    practiceData={practiceData} 
+                                                    getFirestoreData={getFirestoreData}
                                                 />
                                             </PrivateRoute>
                                         } 
@@ -331,11 +357,17 @@ const App = () => {
                                         } 
                                 />
                                 <Route path="/signup" element={
-                                        <Signup setMenuArray={setMenuArray} />
+                                        <Signup 
+                                            setMenuArray={setMenuArray} 
+                                            getFirestoreData={getFirestoreData}
+                                        />
                                     } 
                                 />
                                 <Route path="/login" element={
-                                        <Login setMenuArray={setMenuArray} />
+                                        <Login 
+                                            setMenuArray={setMenuArray} 
+                                            getFirestoreData={getFirestoreData}
+                                        />
                                      } 
                                 />
                                 <Route path="/forgot-password" element={

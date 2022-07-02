@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { Card, Form, Input, Button, Alert } from 'antd';
 import { useAuth } from '../../contexts/AuthContext';
 
    
-const Signup = ({ setMenuArray, getFirestoreData }) => {
-    const { signup, currentUser } = useAuth();
+const Signup = ({ setMenuArray, setFirestoreCall }) => {
+    const { signup } = useAuth();
     const [error, setError] = useState('');
     const [success, setSucess] = useState(false)
     const [loading, setLoading] = useState(false);
@@ -27,6 +27,7 @@ const Signup = ({ setMenuArray, getFirestoreData }) => {
             setLoading(true);
             await signup(values.email, values.password, values.username)
             setSucess(true);
+            setFirestoreCall(true)
             setMenuArray(["dashboard"]);
             //notification of success before re-routing
             setTimeout(() => navigate("/mydashboard"), 1500)
@@ -40,15 +41,6 @@ const Signup = ({ setMenuArray, getFirestoreData }) => {
         setSucess(false);
         setError("information entered is incorrect");
       };
-
-    //after sign in, useAuth state change will trigger this
-    //get data if user logged in
-    useEffect(() => {
-        if(currentUser){
-            console.log("state changed")
-            getFirestoreData()
-        }  
-    }, [currentUser])
  
       
     return (

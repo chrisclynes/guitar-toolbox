@@ -43,6 +43,7 @@ const { Header, Footer, Sider, Content } = Layout;
 
 const App = () => {
     const [userData, setUserData] = useState();
+    const [firestoreCall, setFirestoreCall] = useState(true);
     const [practiceData, setPracticeData] = useState();
     const [isMobile, setIsMobile] = useState(null);
     //mobile menu drawer
@@ -63,27 +64,29 @@ const App = () => {
         }
       }
     //-------------------------firestore----------------
-    const getFirestoreData = async () => { 
-        if(currentUser){
-            const docRef = doc(db, "UserData", currentUser.uid);
-            try {
-                const docSnap = await getDoc(docRef);
-                setPracticeData(docSnap.data().tasks);
-                setUserData(docSnap.data().user);
-              } catch (e) {
-                console.log("Error getting cached document:", e);
-              }
-        } 
-    }
-    //onload used for page refresh to pull data if user still logged in
+    
+    //request data if current user logged in and firestoreCall state is true
     useEffect(() => {
-        if(currentUser){
-            console.log("state changed")
-            getFirestoreData()
-        }  
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+        console.log("triggered uesEffect")
+        async function getFirestoreData() { 
+            if(currentUser && firestoreCall){
+                const docRef = doc(db, "UserData", currentUser.uid);
+                try {
+                    console.log("getting data from firestore")
+                    const docSnap = await getDoc(docRef);
+                    setPracticeData(docSnap.data().tasks);
+                    setUserData(docSnap.data().user);
+                  } catch (e) {
+                    console.log("Error getting cached document:", e);
+                  }
+            } 
+        }
+        getFirestoreData()
+        return setFirestoreCall(false)
+        
+    }, [currentUser, firestoreCall])
     //-----------------------------------------
+    //isMobile set
     useEffect(() => {
         handleResize()
         window.addEventListener("resize", handleResize);
@@ -340,7 +343,7 @@ const App = () => {
                                                     isMobile={isMobile} 
                                                     userData={userData} 
                                                     practiceData={practiceData} 
-                                                    getFirestoreData={getFirestoreData}
+                                                    setFirestoreCall={setFirestoreCall}
                                                 />
                                             </PrivateRoute>
                                         } 
@@ -359,14 +362,14 @@ const App = () => {
                                 <Route path="/signup" element={
                                         <Signup 
                                             setMenuArray={setMenuArray} 
-                                            getFirestoreData={getFirestoreData}
+                                            setFirestoreCall={setFirestoreCall}
                                         />
                                     } 
                                 />
                                 <Route path="/login" element={
                                         <Login 
                                             setMenuArray={setMenuArray} 
-                                            getFirestoreData={getFirestoreData}
+                                            setFirestoreCall={setFirestoreCall}
                                         />
                                      } 
                                 />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { 
     Col, 
     Row, 
@@ -19,10 +19,10 @@ import Tasks from '../../container/Tasks/Tasks';
 import "./MyDashboard.css";
 
 
-const MyDashboard = ({ isMobile, userData, practiceData, getFirestoreData  }) => {
+const MyDashboard = ({ isMobile, userData, practiceData, setFirestoreCall }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [addPracticeData, setAddPracticeData] = useState();
-    const { currentUser, addPractice, removePractice, updatePractice } = useAuth();
+    const { addPractice, removePractice, updatePractice } = useAuth();
     
     const handleAddPractice = () => {
         setIsEditing(true)
@@ -39,7 +39,7 @@ const MyDashboard = ({ isMobile, userData, practiceData, getFirestoreData  }) =>
          }catch {
              console.log('error updating data')
          } 
-        getFirestoreData()  
+        setFirestoreCall(true)  
     }
 
     const handleDelete = (values) => {
@@ -54,7 +54,7 @@ const MyDashboard = ({ isMobile, userData, practiceData, getFirestoreData  }) =>
                 }catch {
                     console.log('error updating data')
                 } 
-                getFirestoreData()
+                setFirestoreCall(true)
             }
         }) 
     } 
@@ -74,7 +74,7 @@ const MyDashboard = ({ isMobile, userData, practiceData, getFirestoreData  }) =>
                 }catch {
                     console.log('error updating data')
                 } 
-                getFirestoreData()
+                setFirestoreCall(true)
             }
         }) 
     } 
@@ -102,7 +102,8 @@ const MyDashboard = ({ isMobile, userData, practiceData, getFirestoreData  }) =>
                 </div>
                 <br/>
               <div>
-                You can use this tool to create routines, set practice segments, or simply as notes to work on specific songs, solos...
+                You can use this tool to create routines, set practice segments, 
+                or simply as notes to work on specific songs, solos...
               </div>
               <br/>
               <div>Once you complete a task, press the green checkmark to track your progress</div>

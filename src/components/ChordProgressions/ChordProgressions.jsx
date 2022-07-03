@@ -168,6 +168,7 @@ const ChordProgressions = ({isMobile}) => {
                 <div className="progression-selectors-container center-items" style={{margin: "1rem"}}>
                 <Space size="small">
                         <Select 
+                            getPopupContainer={trigger => trigger.parentNode}
                             defaultValue="Major" style={{width: "80px"}} 
                             name="major-minor-selctor" 
                             onChange={(val) => handleMajMinToggle(val)}>
@@ -182,6 +183,7 @@ const ChordProgressions = ({isMobile}) => {
                             <div className="major-selection-container">
                                 <Space size="small">
                                     <Select 
+                                        getPopupContainer={trigger => trigger.parentNode}
                                         defaultValue="C Major" 
                                         style={{width: "100px"}} 
                                         name="major-keys-selctor" 
@@ -198,6 +200,7 @@ const ChordProgressions = ({isMobile}) => {
                                     </Select>
                                     {!toggleSelectors &&
                                         <Select 
+                                                getPopupContainer={trigger => trigger.parentNode}
                                                 style={{width: "150px"}} 
                                                 name="major-progression-selctor"
                                                 placeholder="Progression" 
@@ -228,6 +231,7 @@ const ChordProgressions = ({isMobile}) => {
                             <div className="minor-selection-container">
                                 <Space size="small">
                                     <Select 
+                                        getPopupContainer={trigger => trigger.parentNode}
                                         defaultValue="C Minor" 
                                         style={{width: "100px"}} 
                                         name="minor-keys-selctor" 
@@ -243,7 +247,8 @@ const ChordProgressions = ({isMobile}) => {
                                         })}
                                     </Select>
                                     {!toggleSelectors &&
-                                        <Select  
+                                        <Select 
+                                                getPopupContainer={trigger => trigger.parentNode} 
                                                 style={{width: "150px"}} 
                                                 name="minor-progression-selctor"
                                                 placeholder="Progression"  
@@ -301,7 +306,10 @@ const ChordProgressions = ({isMobile}) => {
                             {/* if choice array.length == # of selectors, append new selector limit to 8 */}
                             {[...Array(chooseProgData.count)].map((_, index) => {
                                 return (
-                                <Select key={"selector" + index} defaultValue="" onChange={(val) => {
+                                <Select 
+                                    getPopupContainer={trigger => trigger.parentNode}
+                                    key={"selector" + index} 
+                                    defaultValue="" onChange={(val) => {
                                         handleProgressionArray(val, index)
                                         setToggleChoiceProgBtn(true)
                                         }

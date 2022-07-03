@@ -5,8 +5,16 @@ import { SoundOutlined } from '@ant-design/icons';
 const { Option } = Select;
 const { Title } = Typography;
 
-//------------------Metronome Engine WebAudioAPI-----------------------
-function convertToMs (bpm, duration, type) {
+//------------------Metronome Component-----------------------
+const Metronome = ({metronomeInterval, isPlaying, setIsPlaying}) => {
+  
+  const [duration, setDuration] = useState(1 / 4);  
+  const [type, setType] = useState(1);
+  const [bpm, setBpm] = useState(90);
+  const [volume, setVolume] = useState(30);   
+
+//------------------Metronome Engine WebAudioAPI--------------
+  function convertToMs (bpm, duration, type) {
     return 60000 * 4 * duration * type / bpm
 }
 
@@ -26,15 +34,8 @@ function metronomeEngine(audio, time, duration, volume) {
     click.start(time);
     click.stop(time + duration);
 }
+//----------------------------------------------------
 
-//------------------Metronome Component-----------------------
-const Metronome = ({metronomeInterval, isPlaying, setIsPlaying}) => {
-  
-  const [duration, setDuration] = useState(1 / 4);  
-  const [type, setType] = useState(1);
-  const [bpm, setBpm] = useState(90);
-  const [volume, setVolume] = useState(30);   
-  
   const step = convertToMs(bpm, duration, type) / 1000;
     const lookAhead = step / 2;
   
@@ -115,17 +116,25 @@ const Metronome = ({metronomeInterval, isPlaying, setIsPlaying}) => {
                     }
                 <div className="metronome-options-constainer" style={{marginTop: "2rem"}}>
                     <Space>
-                      <Select id="duration" onChange={(val) => setDuration(val)} value={duration}>
-                        <Option value={1}>Whole</Option>
-                        <Option value={1 / 2}>Half</Option>
-                        <Option value={1 / 4}>Quarter</Option>
-                        <Option value={1 / 8}>8th </Option>
-                        <Option value={1 / 16}>16th</Option>
+                      <Select 
+                        getPopupContainer={trigger => trigger.parentNode}
+                        id="duration" 
+                        onChange={(val) => setDuration(val)} 
+                        value={duration}>
+                          <Option value={1}>Whole</Option>
+                          <Option value={1 / 2}>Half</Option>
+                          <Option value={1 / 4}>Quarter</Option>
+                          <Option value={1 / 8}>8th </Option>
+                          <Option value={1 / 16}>16th</Option>
                       </Select> 
-                      <Select id="typ" onChange={(val) => setType(val)} value={type}>
-                        <Option value={1}>None</Option>
-                        <Option value={3 / 2}>Dotted</Option>
-                        <Option value={2 / 3}>Triplet</Option>
+                      <Select 
+                        getPopupContainer={trigger => trigger.parentNode}
+                        id="typ" 
+                        onChange={(val) => setType(val)} 
+                        value={type}>
+                          <Option value={1}>None</Option>
+                          <Option value={3 / 2}>Dotted</Option>
+                          <Option value={2 / 3}>Triplet</Option>
                       </Select>
                     </Space>
                 </div>

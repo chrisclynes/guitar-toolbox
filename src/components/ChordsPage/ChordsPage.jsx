@@ -152,6 +152,7 @@ const ChordsPage = ({ isMobile }) => {
                     <Space size="small">
                         <div>
                             <Select 
+                                getPopupContainer={trigger => trigger.parentNode}
                                 style={{width: "80px"}} 
                                 defaultValue="A" 
                                 name="chord-root-selector" 
@@ -166,6 +167,7 @@ const ChordsPage = ({ isMobile }) => {
                         </div>
                         <div>
                             <Select 
+                                getPopupContainer={trigger => trigger.parentNode}
                                 defaultValue="" 
                                 style={{width: "80px"}} 
                                 label="Quality" 

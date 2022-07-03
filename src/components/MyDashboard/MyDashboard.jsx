@@ -138,8 +138,8 @@ const MyDashboard = ({ isMobile, userData, practiceData, setFirestoreCall }) => 
                         <Col span={12} >
                             <ProgressBar title="Time Practiced" item={
                                 userData?.totalTaskTimeMins < 60 ?
-                                `${userData?.totalTaskTimeMins} mins` : 
-                                `${Math.round((userData?.totalTaskTimeMins / 60)*10)/10} hrs`
+                                `${userData?.totalTaskTimeMins} min` : 
+                                `${Math.round((userData?.totalTaskTimeMins / 60)*10)/10} hr`
                                 } 
                                 isMobile={isMobile}
                             />
@@ -181,6 +181,7 @@ const MyDashboard = ({ isMobile, userData, practiceData, setFirestoreCall }) => 
                         <div style={{width: "20%"}}>
                             <Typography.Paragraph>Minutes</Typography.Paragraph>
                             <Select 
+                                getPopupContainer={trigger => trigger.parentNode}
                                 title="Time" 
                                 onChange={(val) => {
                                 setAddPracticeData((prev) => {
@@ -193,7 +194,13 @@ const MyDashboard = ({ isMobile, userData, practiceData, setFirestoreCall }) => 
                             }}>
                                 {timeOptions.map((item, i) => {
                                     return (
-                                        <Select.Option key={i} value={item}>{item}</Select.Option> 
+                                        <Select.Option 
+                                            getPopupContainer={trigger => trigger.parentNode}
+                                            key={i} 
+                                            value={item}
+                                        >
+                                            {item}
+                                        </Select.Option> 
                                         )
                                     })   
                                 }

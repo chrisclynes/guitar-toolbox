@@ -90,14 +90,18 @@ const Homepage = ({ setMenuArray, isMobile, userData, practiceData }) => {
                                     <Divider />
                                     <div className="home-about-content" style={{margin: "2rem 0rem"}}>
                                         <p>
-                                            Guitar Toolbox is great for creating practice routines, 
+                                            Guitar Toolbox is perfect for creating practice routines, 
                                             learning chords and chord progressions, 
                                             new scales, and practicing rhythm. 
                                             With the provided tools, you can master the art of guitar.
                                         </p>
                                 </div>
                                 <div className="center-items" style={isMobile ? {width: "100%"} : {width: "100%"}}>
-                                    <Carousel style={carouselStyle} autoplay>
+                                    <Carousel 
+                                        style={carouselStyle} 
+                                        autoplay
+                                        dots={false}
+                                        >
                                         <div style={contentStyle}>
                                             <Image src={carousel_img1} alt="guitar_img1"/>
                                         </div>

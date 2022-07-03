@@ -35,17 +35,31 @@ const ScalesPage = ({ metronomeInterval, isPlaying, setIsPlaying, isMobile }) =>
             <div className="page-container">
                 <div className="scales-title header-margin">
                     <Title>Guitar Scales</Title>
-                    <h2>Learn new scales and practice with a metronome</h2>
+                    <h2>
+                        Learn new scales and practice with a metronome
+                    </h2>
                     <Divider/>
                 </div>
                 {isMobile &&
                     <div className="scale-selector-container">
-                    <Paragraph type="secondary"  >choose a scale to start practicing</Paragraph>
+                    <Paragraph type="secondary"  >
+                            choose a scale to start practicing
+                    </Paragraph>
                         <Space>
-                            <Select defaultValue="Major Scale" style={{width: "220px"}} name="scales-selctor" onChange={(val, key) => scaleSelectHandler(val, key.key)}>
+                            <Select 
+                                getPopupContainer={trigger => trigger.parentNode}
+                                defaultValue="Major Scale" 
+                                style={{width: "220px"}} 
+                                name="scales-selctor" 
+                                onChange={(val, key) => scaleSelectHandler(val, key.key)}>
                                     {guitarScalesData.map((item, i) => {
                                         return (
-                                            <Option key={i} value={Object.keys(item)[0]}>{Object.keys(item)[0]}</Option>
+                                            <Option 
+                                                key={i} 
+                                                value={Object.keys(item)[0]}
+                                            >
+                                                {Object.keys(item)[0]}
+                                            </Option>
                                         )
                                     })}
                             </Select>
@@ -53,24 +67,45 @@ const ScalesPage = ({ metronomeInterval, isPlaying, setIsPlaying, isMobile }) =>
                     </div>
                 }
                 <div className="scales-container center-items">
-                    <ScaleCard title={scaleData.scaleSixthTitle} image={scaleData.sixthRoot} />
-                    <ScaleCard title={scaleData.scaleFifthTitle} image={scaleData.fifthRoot} />
+                    <ScaleCard 
+                        title={scaleData.scaleSixthTitle} 
+                        image={scaleData.sixthRoot} 
+                    />
+                    <ScaleCard 
+                        title={scaleData.scaleFifthTitle} 
+                        image={scaleData.fifthRoot} 
+                    />
                 </div>
                 {!isMobile &&
                     <div className="scale-selector-container">
-                    <Paragraph type="secondary"  >choose a scale to start practicing</Paragraph>
+                    <Paragraph type="secondary"  >
+                            choose a scale to start practicing
+                    </Paragraph>
                         <Space>
-                            <Select defaultValue="Major Scale" style={{width: "220px"}} name="scales-selctor" onChange={(val, key) => scaleSelectHandler(val, key.key)}>
+                            <Select 
+                                getPopupContainer={trigger => trigger.parentNode}
+                                defaultValue="Major Scale" 
+                                style={{width: "220px"}} name="scales-selctor" 
+                                onChange={(val, key) => scaleSelectHandler(val, key.key)}>
                                     {guitarScalesData.map((item, i) => {
                                         return (
-                                            <Option key={i} value={Object.keys(item)[0]}>{Object.keys(item)[0]}</Option>
+                                            <Option 
+                                                key={i} 
+                                                value={Object.keys(item)[0]}
+                                            >
+                                                {Object.keys(item)[0]}
+                                            </Option>
                                         )
                                     })}
                             </Select>
                         </Space>
                     </div>
                 }
-                <Metronome metronomeInterval={metronomeInterval}  isPlaying={isPlaying} setIsPlaying={setIsPlaying} />
+                <Metronome 
+                    metronomeInterval={metronomeInterval}  
+                    isPlaying={isPlaying} 
+                    setIsPlaying={setIsPlaying} 
+                />
             </div>
         </Layout>
     )

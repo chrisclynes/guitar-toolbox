@@ -90,7 +90,7 @@ const Homepage = ({ setMenuArray, isMobile, userData, practiceData }) => {
                                     <Divider />
                                     <div className="home-about-content" style={{margin: "2rem 0rem"}}>
                                         <p>
-                                            Guitar Toolbox is a great for creating practice routines, 
+                                            Guitar Toolbox is great for creating practice routines, 
                                             learning chords and chord progressions, 
                                             new scales, and practicing rhythm. 
                                             With the provided tools, you can master the art of guitar.

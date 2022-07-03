@@ -5,22 +5,14 @@ import { SoundOutlined } from '@ant-design/icons';
 const { Option } = Select;
 const { Title } = Typography;
 
-//------------------Metronome Component-----------------------
-const Metronome = ({metronomeInterval, isPlaying, setIsPlaying}) => {
-  
-  const [duration, setDuration] = useState(1 / 4);  
-  const [type, setType] = useState(1);
-  const [bpm, setBpm] = useState(90);
-  const [volume, setVolume] = useState(30);   
-
 //------------------Metronome Engine WebAudioAPI--------------
-  function convertToMs (bpm, duration, type) {
-    return 60000 * 4 * duration * type / bpm
-}
-
 const aContext = new AudioContext();
 const clickVolume = aContext.createGain();
 let lastClick = 0;
+
+function convertToMs (bpm, duration, type) {
+  return 60000 * 4 * duration * type / bpm
+}
 
 function metronomeEngine(audio, time, duration, volume) {
     let click = audio.createOscillator();
@@ -34,6 +26,15 @@ function metronomeEngine(audio, time, duration, volume) {
     click.start(time);
     click.stop(time + duration);
 }
+
+//------------------Metronome Component-----------------------
+const Metronome = ({metronomeInterval, isPlaying, setIsPlaying}) => {
+  
+  const [duration, setDuration] = useState(1 / 4);  
+  const [type, setType] = useState(1);
+  const [bpm, setBpm] = useState(90);
+  const [volume, setVolume] = useState(30);   
+
 //----------------------------------------------------
 
   const step = convertToMs(bpm, duration, type) / 1000;

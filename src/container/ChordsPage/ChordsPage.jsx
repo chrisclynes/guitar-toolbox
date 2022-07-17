@@ -35,9 +35,15 @@ const ChordsPage = ({ isMobile }) => {
     const stringSelector = ["E", "A", "D", "G", "B", "E"];
 
     const convertTones = (tones) => {
-        const tonesMap = {Ab: "G#", Bb: "A#", Db: "C#", Eb: "D#", Gb: "F#"}
-        const regEx = /[A-Z]b/g;
-        return tones.replace(regEx, (match) => tonesMap[match])
+        const tonesMapFlat = {Ab: "G#", Bb: "A#", Db: "C#", Eb: "D#", Gb: "F#"}
+        const tonesMapSharp = {"G#": "Ab", "A#": "Bb", "C#": "Db", "D#": "Gb", "F#": "Gb"}
+        const regExFlat = /[A-Z]b/g;
+        const regExSharp = /[A-Z]#/g;
+        if(tones.match(/[A-Z]b/g)){
+          return tones.replace(regExFlat, (match) => tonesMapFlat[match])
+        } else {
+          return tones.replace(regExSharp, (match) => tonesMapSharp[match])
+        }
     }
 
 //----------------------Event Handlers--------------------------------------------------
@@ -51,12 +57,11 @@ const ChordsPage = ({ isMobile }) => {
                 if(chordError !== "") setChordError("");
                 setChordData({
                     //remove underscore and determine if chord has an enharmonic name
-                    chordName: selectorVals.root.match(/(%23)/g) ? apiData.enharmonicChordName.replace(/(,)/g, '') : apiData.chordName.replace(/(,)/g, ''),
+                    chordName: `${apiData.chordName.replace(/(,)/g, '')}${apiData.enharmonicChordName !== apiData.chordName ? ` or ${apiData.enharmonicChordName.replace(/(,)/g, '')}` : ""}`,
                     strings: apiData.strings,
-                    tones: selectorVals.root.match(/(%23)/g) ? convertTones(apiData.tones) : apiData.tones
+                    tones: `${apiData.tones}${apiData.enharmonicChordName !== apiData.chordName ? ` or ${convertTones(apiData.tones)}` : ""}`
                 });
                 setPrevChordCalled(chordToCall);
-                console.log(selectorVals)
             }catch (error) {
                 console.log(error)
                 if(error){
@@ -77,7 +82,7 @@ const ChordsPage = ({ isMobile }) => {
                     //remove underscore and determine if chord has an enharmonic name
                     chordName: `${apiData.chordName.replace(/(,)/g, '')}${apiData.enharmonicChordName !== apiData.chordName ? ` or ${apiData.enharmonicChordName.replace(/(,)/g, '')}` : ""}`,
                     strings: apiData.strings,
-                    tones: `${apiData.tones}${apiData.enharmonicChordName !== apiData.chordName ? ` or ${selectorVals.root.match(/(%23)/g) ? convertTones(apiData.tones) : apiData.tones}` : ""}`
+                    tones: `${apiData.tones}${apiData.enharmonicChordName !== apiData.chordName ? ` or ${convertTones(apiData.tones)}` : ""}`
                 });
                 setPrevChordCalled(chordToCall);
             }catch (error) {

@@ -69,7 +69,7 @@ const ChordProgressions = ({isMobile}) => {
                     //provides chordData with the progression nashville number for title on card
                     title: progressionData.progNumbers[i],
                     //remove underscore and determine if chord has an enharmonic name
-                    chordName: `${item.chordName.replace(/(,)/g, '')}${item.enharmonicChordName !== item.chordName ? `/${item.enharmonicChordName.replace(/(,)/g, '')}` : ""}`,
+                    chordName: progressionData.chordProgression[i].replace(/(%23)/g, "#").replace(/(_)/g, ''),
                     strings: item.strings,
                     })
                 ));

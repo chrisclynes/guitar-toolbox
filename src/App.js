@@ -11,10 +11,10 @@ import {
     Login, 
     ForgotPassword, 
     UpdateProfile 
-    } from './components';
+    } from './container';
 import ScrollToTop from './services/ScrollToTop.js';
 import { useAuth } from './contexts/AuthContext';
-import PrivateRoute from './components/PrivateRoute';
+import PrivateRoute from './container/PrivateRoute';
 
 import { 
     Layout, 
@@ -56,6 +56,7 @@ const App = () => {
     const { currentUser, logout } = useAuth();
     const navigate = useNavigate();
 
+    //----------------------Mobile check-------------------
     const handleResize = () => {
         if (window.innerWidth < 720) {
             setIsMobile(true)
@@ -63,6 +64,12 @@ const App = () => {
             setIsMobile(false)
         }
       }
+        //isMobile set
+    useEffect(() => {
+        handleResize()
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [])
     //-------------------------firestore----------------
     
     //request data if current user logged in and firestoreCall state is true
@@ -84,13 +91,7 @@ const App = () => {
         
     }, [currentUser, firestoreCall])
     //-----------------------------------------
-    //isMobile set
-    useEffect(() => {
-        handleResize()
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, [])
-
+  
     const showDrawer = () => {
         setVisible(true);
       };

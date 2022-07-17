@@ -1,7 +1,7 @@
 import React from 'react';
 import { Layout, Typography, Divider } from 'antd';
 
-import Metronome from '../../container/Metronome/Metronome';
+import Metronome from '../../components/Metronome/Metronome';
 
 const { Title } = Typography;
 

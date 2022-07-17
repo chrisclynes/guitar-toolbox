@@ -13,8 +13,8 @@ import { useAuth } from '../../contexts/AuthContext';
 
 import { nanoid } from 'nanoid';
 
-import ProgressBar from '../../container/ProgressBar/ProgressBar';
-import Tasks from '../../container/Tasks/Tasks';
+import ProgressBar from '../../components/ProgressBar/ProgressBar';
+import Tasks from '../../components/Tasks/Tasks';
 
 import "./MyDashboard.css";
 

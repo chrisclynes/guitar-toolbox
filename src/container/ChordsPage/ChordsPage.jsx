@@ -11,8 +11,8 @@ import {
     Modal 
     } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
-import ChordCard from '../../container/ChordCard/ChordCard';
-import VoicingOption from '../../container/VoicingOption/VoicingOption';
+import ChordCard from '../../components/ChordCard/ChordCard';
+import VoicingOption from '../../components/VoicingOption/VoicingOption';
 import axios from 'axios';
 
 import images from '../../constants/images';
@@ -34,6 +34,11 @@ const ChordsPage = ({ isMobile }) => {
     const chordKeySelectors = ["A_", "Ab_", "A%23_", "B_", "Bb_", "C_", "C%23_", "D_", "Db_", "D%23_", "E_", "Eb_", "F_", "F%23_", "G_", "Gb_", "G%23_"];
     const stringSelector = ["E", "A", "D", "G", "B", "E"];
 
+    const convertTones = (tones) => {
+        const tonesMap = {Ab: "G#", Bb: "A#", Db: "C#", Eb: "D#", Gb: "F#"}
+        const regEx = /[A-Z]b/g;
+        return tones.replace(regEx, (match) => tonesMap[match])
+    }
 
 //----------------------Event Handlers--------------------------------------------------
     const handleChordData = async () => {
@@ -45,12 +50,13 @@ const ChordsPage = ({ isMobile }) => {
                 const apiData = response.data[0]
                 if(chordError !== "") setChordError("");
                 setChordData({
-                    //replace URI code with # and remove underscore
-                    chordName: apiData.chordName.replace(/(%23)/g, "#").replace(/(,)/g, ''),
+                    //remove underscore and determine if chord has an enharmonic name
+                    chordName: selectorVals.root.match(/(%23)/g) ? apiData.enharmonicChordName.replace(/(,)/g, '') : apiData.chordName.replace(/(,)/g, ''),
                     strings: apiData.strings,
-                    tones: apiData.tones
+                    tones: selectorVals.root.match(/(%23)/g) ? convertTones(apiData.tones) : apiData.tones
                 });
                 setPrevChordCalled(chordToCall);
+                console.log(selectorVals)
             }catch (error) {
                 console.log(error)
                 if(error){
@@ -68,10 +74,10 @@ const ChordsPage = ({ isMobile }) => {
                 const apiData = response.data[0]
                 if(voicingError !== "") setVoicingError("");
                 setChordData({
-                    //replace URI code with # and remove underscore
-                    chordName: apiData.chordName.replace(/(%23)/g, "#").replace(/(,)/g, ''),
+                    //remove underscore and determine if chord has an enharmonic name
+                    chordName: `${apiData.chordName.replace(/(,)/g, '')}${apiData.enharmonicChordName !== apiData.chordName ? ` or ${apiData.enharmonicChordName.replace(/(,)/g, '')}` : ""}`,
                     strings: apiData.strings,
-                    tones: apiData.tones
+                    tones: `${apiData.tones}${apiData.enharmonicChordName !== apiData.chordName ? ` or ${selectorVals.root.match(/(%23)/g) ? convertTones(apiData.tones) : apiData.tones}` : ""}`
                 });
                 setPrevChordCalled(chordToCall);
             }catch (error) {

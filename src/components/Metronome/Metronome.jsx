@@ -37,7 +37,7 @@ const Metronome = ({metronomeInterval, isPlaying, setIsPlaying}) => {
 
 //----------------------------------------------------
 
-  const step = convertToMs(bpm, duration, type) / 1000;
+  const step = convertToMs(bpm, duration, type) / 1000; 
     const lookAhead = step / 2;
   
   const timer = () => {

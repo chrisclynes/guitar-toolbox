@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Layout, Typography, Space, Button, Select, Col, Row, Divider} from 'antd';
+import { Layout, Typography, Space, Button, Select, Col, Divider} from 'antd';
 
 import { majorKeys, minorKeys, majorProgressions, minorProgressions, majorNashNumbers, minorNashNumbers } from '../../constants/data';
-import ChordCard from '../../container/ChordCard/ChordCard';
+import ChordCard from '../../components/ChordCard/ChordCard';
 
 import axios from 'axios';
 import "./ChordProgressions.css";
@@ -68,9 +68,9 @@ const ChordProgressions = ({isMobile}) => {
                 setChordData(response.data.map((item, i) => ({
                     //provides chordData with the progression nashville number for title on card
                     title: progressionData.progNumbers[i],
-                    //replace URI code with # and remove underscore
-                    chordName: item.chordName.replace(/(%23)/g, "#").replace(/(,)/g, ''),
-                    strings: item.strings
+                    //remove underscore and determine if chord has an enharmonic name
+                    chordName: `${item.chordName.replace(/(,)/g, '')}${item.enharmonicChordName !== item.chordName ? `/${item.enharmonicChordName.replace(/(,)/g, '')}` : ""}`,
+                    strings: item.strings,
                     })
                 ));
                 //set to show progression chords onscreen in readable format
@@ -146,8 +146,9 @@ const ChordProgressions = ({isMobile}) => {
                             <Divider>
                                 <div>{progTextDisplay}</div>
                             </Divider>
-                            <div className="center-items" style={{width: "100%"}}>
-                                <Row gutter={[16, 16]}>    
+                            <div 
+                                className="center-items" 
+                                style={{width: "100%", flex: 1, flexWrap: "wrap", justifyContent: "center", alignItems: "flex-start"}}> 
                                     {chordData.map((item, i) => {
                                         return (
                                             <Col  key={i}>
@@ -158,8 +159,7 @@ const ChordProgressions = ({isMobile}) => {
                                                     strings={item.strings} />
                                             </Col> 
                                         )
-                                    })}    
-                                </Row>
+                                    })}        
                             </div>
                         </div>
                         }       

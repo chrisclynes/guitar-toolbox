@@ -8,11 +8,11 @@ const majorKeys = [
     { "E Major": { I: "E", ii: "F_m", iii: "G%23_m", IV: "A", V: "B", vi: "C%23_m", vii: "D%23_dim" }},
     { "F Major": { I: "F", ii: "G_m", iii: "A_m", IV: "Bb", V: "C", vi: "D_m", vii: "E_dim" }},
     { "G Major": { I: "G", ii: "A_m", iii: "B_m", IV: "C", V: "D", vi: "E_m", vii: "F%23_dim" }},
-    { "A#/Bb Major": { I: "Bb", ii: "C_m", iii: "D_m", IV: "Eb", V: "F", vi: "G_m", vii: "A_dim" }},
-    { "C#/Db Major": { I: "Db", ii: "Eb_m", iii: "F_m", IV: "Gb", V: "Ab", vi: "Bb_m", vii: "C_dim" }},
-    { "D#/Eb Major": { I: "Eb", ii: "F_m", iii: "G_m", IV: "Ab", V: "Bb", vi: "C_m", vii: "D_dim" }},
-    { "F#/Gb Major": { I: "F%23", ii: "G%23_m", iii: "A%23_m", IV: "B", V: "C%23", vi: "D%23_m", vii: "E%23_dim" }},
-    { "G#/Ab Major": { I: "Ab", ii: "Bb_m", iii: "C_m", IV: "Db", V: "Eb", vi: "F_m", vii: "G_dim" }},      
+    { "Bb Major": { I: "Bb", ii: "C_m", iii: "D_m", IV: "Eb", V: "F", vi: "G_m", vii: "A_dim" }},
+    { "Db Major": { I: "Db", ii: "Eb_m", iii: "F_m", IV: "Gb", V: "Ab", vi: "Bb_m", vii: "C_dim" }},
+    { "Eb Major": { I: "Eb", ii: "F_m", iii: "G_m", IV: "Ab", V: "Bb", vi: "C_m", vii: "D_dim" }},
+    { "F# Major": { I: "F%23", ii: "G%23_m", iii: "A%23_m", IV: "B", V: "C%23", vi: "D%23_m", vii: "E%23_dim" }},
+    { "Ab Major": { I: "Ab", ii: "Bb_m", iii: "C_m", IV: "Db", V: "Eb", vi: "F_m", vii: "G_dim" }},      
 ];
 
 const minorKeys = [
@@ -23,11 +23,11 @@ const minorKeys = [
     { "E Minor": { i: "E_m", ii: "F%23_dim", III: "G", iv: "A_m", v: "B_m", VI: "C", VII: "D" }}, 
     { "F Minor": { i: "F_m", ii: "G_dim", III: "Ab", iv: "Bb_m", v: "C_m", VI: "Db", VII: "Eb" }},
     { "G Minor": { i: "G_m", ii: "A_dim", III: "Bb", iv: "C_m", v: "D_m", VI: "Eb", VII: "F" }},
-    { "A#/Bb Minor": { i: "A%23_m", ii: "C_dim", III: "C%23", iv: "D%23_m", v: "F_m", VI: "Gb", VII: "Ab" }},
-    { "C#Db Minor": { i: "C%23_m", ii: "D%23_dim", III: "E", iv: "F%23_m", v: "G%23_m", VI: "A", VII: "B" }},
-    { "D#Eb Minor": { i: "D%23_m", ii: "F_dim", III: "F%23", iv: "G%23_m", v: "A%23_m", VI: "B", VII: "C%23" }},
-    { "F#/Gb Minor": { i: "F%23_m", ii: "G%23_dim", III: "A", iv: "B_m", v: "C%23_m", VI: "D", VII: "E" }}, 
-    { "G#/Ab Minor": { i: "G%23_m", ii: "A%23_dim", III: "B", iv: "C%23_m", v: "D%23_m", VI: "E", VII: "F%23" }},
+    { "A# Minor": { i: "A%23_m", ii: "C_dim", III: "C%23", iv: "D%23_m", v: "F_m", VI: "Gb", VII: "Ab" }},
+    { "C# Minor": { i: "C%23_m", ii: "D%23_dim", III: "E", iv: "F%23_m", v: "G%23_m", VI: "A", VII: "B" }},
+    { "Eb Minor": { i: "Eb_m", ii: "F_dim", III: "Gb", iv: "Ab_m", v: "Bb_m", VI: "B", VII: "Db" }},
+    { "F# Minor": { i: "F%23_m", ii: "G%23_dim", III: "A", iv: "B_m", v: "C%23_m", VI: "D", VII: "E" }}, 
+    { "G# Minor": { i: "G%23_m", ii: "A%23_dim", III: "B", iv: "C%23_m", v: "D%23_m", VI: "E", VII: "F%23" }},
 ];
 
 //add more progressions here to build up selection, handleProgressionArray function will do all the work

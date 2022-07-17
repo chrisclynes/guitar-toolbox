@@ -18,17 +18,27 @@ const Homepage = ({ setMenuArray, isMobile, userData, practiceData }) => {
     const { currentUser } = useAuth();
     const contentStyle = {
         height: 'auto',
+        width: 'auto',
         color: '#fff',
         lineHeight: '160px',
-        background: 'none',
-        
+        background: 'none', 
       };
-      const carouselStyle ={
+
+      const carouselStyleMobile ={
         width: "500px",
-        borderRadius:'15px',overflow:'hidden',
+        overflow:'hidden',
         height:'330px',
         background:'black',
-    }
+      }
+
+      const carouselStyle ={
+        width: "800px",
+        borderRadius:'15px',
+        overflow:'hidden',
+        height:'500px',
+        background:'black',
+      }
+      
 
     const getRandomPractice = () => {
         if(practiceData && practiceData.length > 0){
@@ -96,9 +106,9 @@ const Homepage = ({ setMenuArray, isMobile, userData, practiceData }) => {
                                             With the provided tools, you can master the art of guitar.
                                         </p>
                                 </div>
-                                <div className="center-items" style={isMobile ? {width: "100%"} : {width: "100%"}}>
+                                <div className="center-items">
                                     <Carousel 
-                                        style={carouselStyle} 
+                                        style={isMobile ? carouselStyleMobile : carouselStyle} 
                                         autoplay
                                         dots={false}
                                         >

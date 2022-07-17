@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Layout, Typography, Space, Select, Divider } from 'antd';
 
-import Metronome from '../../container/Metronome/Metronome';
-import ScaleCard from '../../container/ScaleCard/ScaleCard';
+import Metronome from '../../components/Metronome/Metronome';
+import ScaleCard from '../../components/ScaleCard/ScaleCard';
 
 import images from '../../constants/images';
 import { guitarScalesData } from '../../constants/data';

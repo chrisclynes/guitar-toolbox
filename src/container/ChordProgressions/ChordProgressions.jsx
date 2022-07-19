@@ -19,21 +19,21 @@ const ChordProgressions = ({isMobile}) => {
     const [toggleChoiceProgBtn, setToggleChoiceProgBtn] = useState(false);
     const [progressionData, setProgressionData] = useState({
         progQuality: "Major",
-        progKey: "C Major",
+        progKey: "A Major",
         progKeyIndex: 0,
         progNumbers: ["I", "IV", "V"],
-        chordProgression: ["C", "F", "G"]
+        chordProgression: ["A", "D", "E"]
     });
     const [chordData, setChordData] = useState([
-            {title: "I", chordName: "C", strings: "X 3 2 0 1 0" }, 
-            {title: "IV", chordName: "F", strings: "1 3 3 2 1 1" }, 
-            {title: "V", chordName: "G", strings: "3 2 0 0 3 3" }]
+            {title: "I", chordName: "A", strings: "X 0 2 2 2 0" }, 
+            {title: "IV", chordName: "D", strings: "X X 0 2 3 2" }, 
+            {title: "V", chordName: "E", strings: "0 2 2 1 0 0" }]
         );
     const [chooseProgData, setChooseProgData] = useState({
         count: 1,
         choiceArr: []
     });
-    const [progTextDisplay, setProgTextDisplay] = useState('C, F, G');
+    const [progTextDisplay, setProgTextDisplay] = useState('A, D, E');
     //prevents mutiple api calls.
     const [prevChordsCalled, setPrevChordsCalled] = useState('');
 //---------------------------USE EFFECTS------------------------------
@@ -103,10 +103,10 @@ const ChordProgressions = ({isMobile}) => {
         setProgressionData((prevState) => ({
                     ...prevState, 
                     progQuality: val,
-                    progKey: val === "Major" ? "C Major" : "C Minor",
+                    progKey: val === "Major" ? "A Major" : "A Minor",
                     progKeyIndex: 0,
                     progNumbers: val === "Major" ? ["I", "IV", "V"] : ["i", "iv", "v"],
-                    chordProgression: val === "Major" ? ["C", "F", "G"] : ["Cm", "Fm", "Gm"]
+                    chordProgression: val === "Major" ? ["A", "D", "E"] : ["Am", "Dm", "Em"]
                      }))
         setChooseProgData((prevState) => ({
                         ...prevState,
@@ -184,7 +184,7 @@ const ChordProgressions = ({isMobile}) => {
                                 <Space size="small">
                                     <Select 
                                         getPopupContainer={trigger => trigger.parentNode}
-                                        defaultValue="C Major" 
+                                        defaultValue="A Major" 
                                         style={{width: "100px"}} 
                                         name="major-keys-selctor" 
                                         onChange={(val, key) => handleKeysSelector(val, key)}>
@@ -232,7 +232,7 @@ const ChordProgressions = ({isMobile}) => {
                                 <Space size="small">
                                     <Select 
                                         getPopupContainer={trigger => trigger.parentNode}
-                                        defaultValue="C Minor" 
+                                        defaultValue="A Minor" 
                                         style={{width: "100px"}} 
                                         name="minor-keys-selctor" 
                                         onChange={(val, key) => handleKeysSelector(val, key)}>

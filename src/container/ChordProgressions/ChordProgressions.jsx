@@ -24,6 +24,7 @@ const ChordProgressions = ({isMobile}) => {
         progNumbers: ["I", "IV", "V"],
         chordProgression: ["A", "D", "E"]
     });
+    //initial chord set data
     const [chordData, setChordData] = useState([
             {title: "I", chordName: "A", strings: "X 0 2 2 2 0" }, 
             {title: "IV", chordName: "D", strings: "X X 0 2 3 2" }, 

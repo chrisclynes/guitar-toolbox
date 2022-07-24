@@ -8,5 +8,13 @@
 + scales tool
 + user data for scheduling practice tasks and creating routines
 
+### Dependencies 
+
++ firebase Auth
++ firebase firestore
++ React Guitar Chords
++ Ant Design
++ Axios
++ Nano Id
 
 

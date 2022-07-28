@@ -99,7 +99,8 @@ const ChordsPage = ({ isMobile }) => {
             alterations: val.toLowerCase()
         }))
     }
-
+    
+//----------------------Modal--------------------------------------------------
     const info = () => {
         Modal.info({
           title: 'How to Serach for Chords',

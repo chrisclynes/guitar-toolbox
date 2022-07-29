@@ -133,7 +133,7 @@ const ChordsPage = ({ isMobile }) => {
               <br/>
               <div>
                 If a match is not found, 
-                it will try to find a similar chord.
+                A similar chord may be displayed.
               </div>
               <br/>
               <div>Chords tones will be displayed beneath the chord</div>
@@ -157,7 +157,7 @@ const ChordsPage = ({ isMobile }) => {
                     tones={chordData.tones} />
                 <div>
                     <Paragraph type="secondary" style={{margin: "1rem"}} >
-                        Select root note, quality, add any optional alterations
+                        Select root note, quality, and add any optional alterations
                     </Paragraph>
                 </div>
                 <div className="chord-options-container">

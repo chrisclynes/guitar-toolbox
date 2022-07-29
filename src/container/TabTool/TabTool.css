@@ -1,0 +1,18 @@
+
+.chord-options-two-container {
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+}
+
+.chord-options-container {
+    display: flex;
+    flex-direction: row; 
+}
+
+.chord-option {
+    margin: 0.5rem;
+}

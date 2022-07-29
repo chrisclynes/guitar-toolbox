@@ -137,6 +137,7 @@ const App = () => {
         <div className="app">
             <ScrollToTop />
             {!isMobile &&
+            //-----------------DESKTOP MENU-------------------
                 <Sider theme='light' >
                     <Menu 
                         theme='light'
@@ -241,6 +242,7 @@ const App = () => {
                         }
                     </Header>
                 {isMobile &&
+                //-----------------MOBILE MENU-------------------
                     <Drawer 
                         title="Menu" 
                         placement="right" 
@@ -300,6 +302,7 @@ const App = () => {
                                 }
                             </Menu>
                     </Drawer>
+                    //------------------------------------------
                 }
                     <div 
                         className="main-view" 

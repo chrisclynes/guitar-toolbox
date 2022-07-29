@@ -45,20 +45,6 @@
     padding-right: 5px;
 }
 
-.mobile-title-container {
-    position: absolute;
-    top: 0rem;
-    left: 1rem;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-family: 'Baloo 2', cursive;
-    font-family: 'PT Sans Caption', sans-serif;
-    font-size: 1.25rem;
-    width: 178px;
-    text-align: left;
-}
-
 .theme-container {
     position: absolute;
     width: 100%;
@@ -75,6 +61,21 @@
     margin-right: 0;
     transform: translateX(2rem);
 }
+
+.mobile-title-container {
+    position: absolute;
+    top: 0rem;
+    left: 1rem;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family: 'Baloo 2', cursive;
+    font-family: 'PT Sans Caption', sans-serif;
+    font-size: 1.25rem;
+    width: 178px;
+    text-align: left;
+}
+
 .mobile-menu-btn {
     position: absolute;
     top: 0rem;

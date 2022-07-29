@@ -125,6 +125,13 @@ const App = () => {
 
     const { Item } = Menu;
     const { Title } = Typography;
+    const navLinks = [ 
+        {name: "Chords", link: "chords" }, 
+        {name: "Tab Tool", link: "tabtool" }, 
+        {name: "Chord Progressions", link: "chord-progressions" }, 
+        {name: "Scales", link: "scales" }, 
+        {name: "Metronome", link: "metronome" }, 
+        ];
 
     return (
         <div className="app">
@@ -163,34 +170,18 @@ const App = () => {
                             </Item>
                         }
                         <Divider />
-                        <Item key="chords">
-                            <Link 
-                                to="/chords" 
-                                onClick={() => handleMenuHighlight(["chords"])}>
-                                Chords
-                            </Link>
-                        </Item>
-                        <Item key="chord-progressions">
-                            <Link 
-                                to="/chord-progressions" 
-                                onClick={() => handleMenuHighlight(["chord-progressions"])}>
-                                Chord Progressions
-                            </Link>
-                        </Item>
-                        <Item key="scales">
-                            <Link 
-                                to="/scales"
-                                onClick={() => handleMenuHighlight(["scales"])}>
-                                Scales
-                            </Link>
-                        </Item>
-                        <Item key="metronome">
-                            <Link 
-                                to="/metronome" 
-                                onClick={() => handleMenuHighlight(["metronome"])}>
-                                Metronome
-                            </Link>
-                        </Item>
+                        {navLinks.map((item) => {
+                            return (
+                                <Item key={item.link}>
+                                    <Link 
+                                        to={`/${item.link}`}
+                                        onClick={() => handleMenuHighlight([item.link])}>
+                                        {item.name}
+                                    </Link>
+                                </Item>
+                                )
+                            })
+                        }
                     </Menu>
                 </Sider>
             }
@@ -295,34 +286,18 @@ const App = () => {
                                     </>
                                 }
                                 <Divider />
-                                <Item key="chords">
-                                    <Link 
-                                        to="/chords" 
-                                        onClick={() => handleMenuHighlight(["chords"])}>
-                                        Chords
-                                    </Link>
-                                </Item>
-                                <Item key="chord-progressions">
-                                    <Link 
-                                        to="/chord-progressions" 
-                                        onClick={() => handleMenuHighlight(["chord-progressions"])}>
-                                        Chord Progressions
-                                    </Link>
-                                </Item>
-                                <Item key="scales">
-                                    <Link 
-                                        to="/scales" 
-                                        onClick={() => handleMenuHighlight(["scales"])}>
-                                        Scales
-                                    </Link>
-                                </Item>
-                                <Item key="metronome">
-                                    <Link 
-                                        to="/metronome" 
-                                        onClick={() => handleMenuHighlight(["metronome"])}>
-                                        Metronome
-                                    </Link>
-                                </Item>
+                                {navLinks.map((item) => {
+                                    return (
+                                        <Item key={item.link}>
+                                            <Link 
+                                                to={`/${item.link}`}
+                                                onClick={() => handleMenuHighlight([item.link])}>
+                                                {item.name}
+                                            </Link>
+                                        </Item>
+                                    )
+                                  })
+                                }
                             </Menu>
                     </Drawer>
                 }

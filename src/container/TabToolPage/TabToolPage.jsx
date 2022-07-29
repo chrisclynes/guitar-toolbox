@@ -16,7 +16,7 @@ import VoicingOption from '../../components/VoicingOption/VoicingOption';
 import axios from 'axios';
 
 import images from '../../constants/images';
-import "./ChordsPage.css";
+import "./TabToolPage.css";
 
 const { example_search } = images;
 const { Option } = Select;

@@ -3,8 +3,9 @@ import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import { 
     Homepage, 
     ChordsPage,
+    TabToolPage,
     MyDashboard, 
-    ChordProgressions, 
+    ChordProgressionsPage, 
     ScalesPage, 
     MetronomePage, 
     Signup, 
@@ -385,8 +386,12 @@ const App = () => {
                                         <ChordsPage isMobile={isMobile}/>
                                     } 
                                 />
+                                <Route path="/tabtool" element={
+                                        <TabToolPage isMobile={isMobile}/>
+                                    } 
+                                />
                                 <Route path="/chord-progressions" element={
-                                        <ChordProgressions isMobile={isMobile}/>
+                                        <ChordProgressionsPage isMobile={isMobile}/>
                                     } 
                                 />
                                 <Route path="/scales" element={

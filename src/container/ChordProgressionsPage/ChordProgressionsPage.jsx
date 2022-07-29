@@ -5,7 +5,7 @@ import { majorKeys, minorKeys, majorProgressions, minorProgressions, majorNashNu
 import ChordCard from '../../components/ChordCard/ChordCard';
 
 import axios from 'axios';
-import "./ChordProgressions.css";
+import "./ChordProgressionsPage.css";
 
 const { Option } = Select;
 

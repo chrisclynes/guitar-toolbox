@@ -3,7 +3,6 @@ import {
     Layout, 
     Typography, 
     Space, 
-    Select, 
     Image, 
     Button, 
     Divider,
@@ -59,40 +58,34 @@ const ChordsPage = ({ isMobile }) => {
 //----------------------Modal--------------------------------------------------
     const info = () => {
         Modal.info({
-          title: 'How to Serach for Chords',
+          title: 'How to use Tab Tool',
           content: (
             <div>
               <Divider />
               <div>
-                    Select your basic options first, 
-                    then add additional chord information in the input box.
+                    Select fretted notes based on the fretboard number for each string.
                 </div>
                 <br/>
                 <div>
-                    You can chain additional chord infomation together.
+                    "0" is an open string.
                 </div>
-            <br/>
-              <Typography.Title level={5}>
-                Examples:
-              </Typography.Title>
-              <div style={{paddingLeft: "2rem"}}>
-                <ul>
-                    <li>7</li>
-                    <li>dim</li>
-                    <li>aug</li>
-                    <li>7b5</li>
-                    <li>713</li>
-                    <li>maj79(add11)</li>
-                </ul>
-              </div>
-              <Image src={example_search} alt="search example" />
-              <br/>
-              <div>
-                If a match is not found, 
-                A similar chord may be displayed.
-              </div>
-              <br/>
-              <div>Chords tones will be displayed beneath the chord</div>
+                <br/>
+                <div>
+                    "X" is for a string not played, or muted.
+                </div>
+                <br/>
+                <div>
+                    To determine a single note anywhere on the fretboard, set all strings to "X"
+                    except the intended note's string.
+                </div>
+                <br/>
+                <div>
+                    A fret number may be displayed in the upper right corner for the current fret position.
+                </div>
+                <br/>
+                <div>
+                    All tones will be display below the fretboard.
+                </div>
             </div>
           ),
           onOk() {},
@@ -129,16 +122,22 @@ const ChordsPage = ({ isMobile }) => {
                     </div>
                 </Space>
                 <div>
-                        <Button 
-                            type="primary" 
-                            size="medium" 
-                            style={{margin: "1rem"}} 
-                            onClick={() => handleVoicingData()} >
-                                Get Chord
-                            </Button>
-                        <Paragraph type="danger" >
-                            {voicingError}
-                        </Paragraph>
+                    <Button 
+                        type="default" 
+                        size="medium" 
+                        onClick={() => info()} >
+                            <InfoCircleOutlined />
+                    </Button>
+                    <Button 
+                        type="primary" 
+                        size="medium" 
+                        style={{margin: "1rem"}} 
+                        onClick={() => handleVoicingData()} >
+                            Get Info
+                        </Button>
+                    <Paragraph type="danger" >
+                        {voicingError}
+                    </Paragraph>
                 </div>
             </div>
         </Layout>

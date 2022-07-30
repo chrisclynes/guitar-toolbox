@@ -5,20 +5,17 @@ import {
     Space, 
     Select, 
     Input,
-    Image, 
     Button, 
     Divider,
-    Modal 
     } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import ChordCard from '../../components/ChordCard/ChordCard';
 import VoicingOption from '../../components/VoicingOption/VoicingOption';
 import axios from 'axios';
+import info from './modal';
 
-import images from '../../constants/images';
 import "./ChordsPage.css";
 
-const { example_search } = images;
 const { Option } = Select;
 const { Title, Paragraph } = Typography;
 
@@ -100,48 +97,6 @@ const ChordsPage = ({ isMobile }) => {
         }))
     }
     
-//----------------------Modal--------------------------------------------------
-    const info = () => {
-        Modal.info({
-          title: 'How to Serach for Chords',
-          content: (
-            <div>
-              <Divider />
-              <div>
-                    Select your basic options first, 
-                    then add additional chord information in the input box.
-                </div>
-                <br/>
-                <div>
-                    You can chain additional chord infomation together.
-                </div>
-            <br/>
-              <Typography.Title level={5}>
-                Examples:
-              </Typography.Title>
-              <div style={{paddingLeft: "2rem"}}>
-                <ul>
-                    <li>7</li>
-                    <li>dim</li>
-                    <li>aug</li>
-                    <li>7b5</li>
-                    <li>713</li>
-                    <li>maj79(add11)</li>
-                </ul>
-              </div>
-              <Image src={example_search} alt="search example" />
-              <br/>
-              <div>
-                If a match is not found, 
-                A similar chord may be displayed.
-              </div>
-              <br/>
-              <div>Chords tones will be displayed beneath the chord</div>
-            </div>
-          ),
-          onOk() {},
-        });
-      };
 //---------------------------COMPONENT RENDER---------------------------------
     return (
         <Layout>
@@ -227,13 +182,13 @@ const ChordsPage = ({ isMobile }) => {
                     <div className="chord-options-two-container">
                             {stringSelector.map((string, index) => {
                                 return <VoicingOption 
-                                    setVoicingData={setVoicingData} 
-                                    key={index} 
-                                    stringKey={index} 
-                                    string={string} 
-                                    isMobile={isMobile} 
-                                    />
-                            })}
+                                            setVoicingData={setVoicingData} 
+                                            key={index} 
+                                            stringKey={index} 
+                                            string={string} 
+                                            isMobile={isMobile} 
+                                        />
+                                })}
                     </div>
                 </Space>
                 <div>

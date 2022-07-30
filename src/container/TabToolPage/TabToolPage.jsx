@@ -3,21 +3,18 @@ import {
     Layout, 
     Typography, 
     Space, 
-    Image, 
     Button, 
     Divider,
-    Modal 
     } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import ChordCard from '../../components/ChordCard/ChordCard';
 import VoicingOption from '../../components/VoicingOption/VoicingOption';
 import axios from 'axios';
+import info from './modal';
 
-import images from '../../constants/images';
 import "./TabToolPage.css";
 import convertTones from '../../services/convertTones';
 
-const { example_search } = images;
 const { Title, Paragraph } = Typography;
 
 const ChordsPage = ({ isMobile }) => { 
@@ -55,42 +52,6 @@ const ChordsPage = ({ isMobile }) => {
             }
     }
     
-//----------------------Modal--------------------------------------------------
-    const info = () => {
-        Modal.info({
-          title: 'How to use Tab Tool',
-          content: (
-            <div>
-              <Divider />
-              <div>
-                    Select fretted notes based on the fretboard number for each string.
-                </div>
-                <br/>
-                <div>
-                    "0" is an open string.
-                </div>
-                <br/>
-                <div>
-                    "X" is for a string not played, or muted.
-                </div>
-                <br/>
-                <div>
-                    To determine a single note anywhere on the fretboard, set all strings to "X"
-                    except the intended note's string.
-                </div>
-                <br/>
-                <div>
-                    A fret number may be displayed in the upper right corner for the current fret position.
-                </div>
-                <br/>
-                <div>
-                    All tones will be display below the fretboard.
-                </div>
-            </div>
-          ),
-          onOk() {},
-        });
-      };
 //---------------------------COMPONENT RENDER---------------------------------
     return (
         <Layout>
@@ -123,18 +84,18 @@ const ChordsPage = ({ isMobile }) => {
                 </Space>
                 <div>
                     <Button 
-                        type="default" 
-                        size="medium" 
-                        onClick={() => info()} >
-                            <InfoCircleOutlined />
-                    </Button>
-                    <Button 
                         type="primary" 
                         size="medium" 
                         style={{margin: "1rem"}} 
                         onClick={() => handleVoicingData()} >
                             Get Info
                         </Button>
+                    <Button 
+                        type="default" 
+                        size="medium" 
+                        onClick={() => info()} >
+                            <InfoCircleOutlined />
+                    </Button>
                     <Paragraph type="danger" >
                         {voicingError}
                     </Paragraph>

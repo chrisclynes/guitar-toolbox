@@ -67,7 +67,7 @@ const ChordsPage = ({ isMobile }) => {
                     tones={chordData.tones} />
             
                 <Paragraph type="secondary" style={{margin: "1rem"}} >
-                    Or, learn a new chord by using tab below
+                    Enter tab for corresponding strings to get information about notes or chords
                 </Paragraph>
                     <Space>
                     <div className="chord-options-two-container">

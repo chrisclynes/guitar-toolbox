@@ -147,9 +147,13 @@ const App = () => {
                         //set highlighted sider menu item, array will always only contain a single value
                         onClick={((item) => setMenuArray([item.key]))}
                         >
-                        <div className="guitar-logo">
-                            <img src={logo} alt="logo" />
-                        </div>
+                            <Link 
+                                to="/" 
+                                onClick={() => handleMenuHighlight(["home"])}>
+                                 <div className="guitar-logo">
+                                    <img src={logo} alt="logo" />
+                                </div>
+                            </Link>
                         <div className="sider-menu-title">
                             Guitar Toolbox
                         </div>

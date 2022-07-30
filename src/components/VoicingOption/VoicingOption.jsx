@@ -19,7 +19,7 @@ const VoicingOption = ({string, stringKey, setVoicingData, isMobile }) => {
             <Typography.Paragraph>{string}</Typography.Paragraph>
             <Select 
                 getPopupContainer={trigger => trigger.parentNode}
-                defaultValue="X" 
+                defaultValue="0" 
                 style={isMobile ? {width: "60px"}: {width: "70px"}} 
                 name="chord-voicing-selector" 
                 onChange={(value) => handleOptionData(value)}>

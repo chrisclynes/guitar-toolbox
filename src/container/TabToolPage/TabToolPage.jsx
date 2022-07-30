@@ -16,31 +16,20 @@ import axios from 'axios';
 
 import images from '../../constants/images';
 import "./TabToolPage.css";
+import convertTones from '../../services/convertTones';
 
 const { example_search } = images;
 const { Title, Paragraph } = Typography;
 
 const ChordsPage = ({ isMobile }) => { 
-    const [chordData, setChordData] = useState({chordName: "A", strings: "X 0 2 2 2 0", tones: "A, C#, E" });
-    const [voicingData, setVoicingData] = useState({strings: ["X", "X", "X", "X", "X", "X"] });
-    const [chordError, setChordError] = useState("");
+    const [chordData, setChordData] = useState({chordName: " ", strings: "0 0 0 0 0 0", tones:"" });
+    const [voicingData, setVoicingData] = useState({strings: ["0", "0", "0", "0", "0", "0"] });
+    
     const [voicingError, setVoicingError] = useState("");
     //prevents mutiple api calls on unchanged data.
     const [prevChordCalled, setPrevChordCalled] = useState('');
 
     const stringSelector = ["E", "A", "D", "G", "B", "E"];
-
-    const convertTones = (tones) => {
-        const tonesMapFlat = {Ab: "G#", Bb: "A#", Db: "C#", Eb: "D#", Gb: "F#"}
-        const tonesMapSharp = {"G#": "Ab", "A#": "Bb", "C#": "Db", "D#": "Gb", "F#": "Gb"}
-        const regExFlat = /[A-Z]b/g;
-        const regExSharp = /[A-Z]#/g;
-        if(tones.match(/[A-Z]b/g)){
-          return tones.replace(regExFlat, (match) => tonesMapFlat[match])
-        } else {
-          return tones.replace(regExSharp, (match) => tonesMapSharp[match])
-        }
-    }
 
 //----------------------Event Handlers--------------------------------------------------
 
@@ -114,21 +103,15 @@ const ChordsPage = ({ isMobile }) => {
         <Layout>
             <div className="page-container">
                 <div className="chords-title header-margin">
-                    <Title>Chord Search</Title>
-                    <h2>Your tool to mastering new chords!</h2>
+                    <Title>Tab Tool</Title>
+                    <h2>Determine chords or notes by using tablature</h2>
                     <Divider />
                 </div>
                 <ChordCard 
                     chordName={chordData.chordName} 
                     strings={chordData.strings} 
                     tones={chordData.tones} />
-                <div>
-                    <Paragraph type="secondary" style={{margin: "1rem"}} >
-                        Select root note, quality, and add any optional alterations
-                    </Paragraph>
-                </div>
-                
-                <Paragraph type="danger" >{chordError}</Paragraph>
+            
                 <Paragraph type="secondary" style={{margin: "1rem"}} >
                     Or, learn a new chord by using tab below
                 </Paragraph>
@@ -136,7 +119,7 @@ const ChordsPage = ({ isMobile }) => {
                     <div className="chord-options-two-container">
                             {stringSelector.map((string, index) => {
                                 return <VoicingOption 
-                                    setVoicingData={setVoicingData} 
+                                    setVoicingData={setVoicingData}
                                     key={index} 
                                     stringKey={index} 
                                     string={string} 

@@ -7,12 +7,13 @@ import {
     Input,
     Button, 
     Divider,
-    Form
     } from 'antd';
 import { InfoCircleOutlined, SyncOutlined } from '@ant-design/icons';
+import { chordKeySelectors } from '../../constants/data';
 import ChordCard from '../../components/ChordCard/ChordCard';
 import axios from 'axios';
 import info from './modal';
+import convertTones from '../../services/convertTones';
 
 import "./ChordsPage.css";
 
@@ -21,25 +22,10 @@ const { Title, Paragraph } = Typography;
 
 const ChordsPage = ({ isMobile }) => {
     const [chordData, setChordData] = useState({chordName: "A", strings: "X 0 2 2 2 0", tones: "A, C#, E" });
-    const [selectorVals, setSelectorVals] = useState({root: "A_", quality: "", alterations: ""});
-    const [selected, setSelected] = useState("A");
+    const [selectorVals, setSelectorVals] = useState({root: "A", quality: "Major", alterations: ""});
     const [chordError, setChordError] = useState("");
     //prevents mutiple api calls on unchanged data.
-    const [prevChordCalled, setPrevChordCalled] = useState('');
-
-    const chordKeySelectors = ["A_", "Ab_", "A%23_", "B_", "Bb_", "C_", "C%23_", "D_", "Db_", "D%23_", "E_", "Eb_", "F_", "F%23_", "G_", "Gb_", "G%23_"];
-
-    const convertTones = (tones) => {
-        const tonesMapFlat = {Ab: "G#", Bb: "A#", Db: "C#", Eb: "D#", Gb: "F#"}
-        const tonesMapSharp = {"G#": "Ab", "A#": "Bb", "C#": "Db", "D#": "Gb", "F#": "Gb"}
-        const regExFlat = /[A-Z]b/g;
-        const regExSharp = /[A-Z]#/g;
-        if(tones.match(/[A-Z]b/g)){
-          return tones.replace(regExFlat, (match) => tonesMapFlat[match])
-        } else {
-          return tones.replace(regExSharp, (match) => tonesMapSharp[match])
-        }
-    }
+    const [prevChordCalled, setPrevChordCalled] = useState("");
 
 //----------------------Event Handlers--------------------------------------------------
     const handleChordData = async () => {
@@ -65,15 +51,38 @@ const ChordsPage = ({ isMobile }) => {
             }
     }
 
+    const handleRootSelect = (val) => {
+        setSelectorVals((prevState) => ({
+            ...prevState,
+            root: val
+        }))
+        //`${val.replace(/(#)/g, "%23")}_`
+    }
+
+    const handleQualitySelect = (val) => {
+        setSelectorVals((prevState) => ({
+            ...prevState,
+            quality: val
+        }))
+        //Minor ? "m" : ""
+    }
+
     const handleAlterationsInput = (val) => {
         setSelectorVals((prevState) => ({
             ...prevState, 
-            alterations: val.toLowerCase()
+            alterations: val
         }))
+        //.toLowerCase()
     }
 
-    const handleOperationChange = () => {
-        setSelected("A");
+    
+
+    const handleResetSelectors = () => {
+        setSelectorVals({
+            root: "A", 
+            quality: "Major", 
+            alterations: ""
+        });
     }
     
 //---------------------------COMPONENT RENDER---------------------------------
@@ -101,15 +110,13 @@ const ChordsPage = ({ isMobile }) => {
                             <Select 
                                 getPopupContainer={trigger => trigger.parentNode}
                                 style={{width: "80px"}} 
-                                value={selected} 
-                                
+                                value={selectorVals.root} 
                                 name="rootSelect" 
-                                onChange={(val) => setSelected(val)}>{/*setSelectorVals((prevState) => ({...prevState, root: val}))*/}
+                                onChange={(val) => handleRootSelect(val)}>{/*setSelectorVals((prevState) => ({...prevState, root: val}))*/}
                                     {chordKeySelectors.map((item, i) => {
-                                        return <Option key={i} value={item}>{item
-                                                .replace(/(%23)/g, "#")
-                                                .replace(/(_)/g, '')}
-                                            </Option>
+                                        return <Option key={i} value={item}>
+                                                    {item}
+                                                </Option>
                                         })}
                             </Select>
                             
@@ -117,23 +124,23 @@ const ChordsPage = ({ isMobile }) => {
                         <div>
                             <Select 
                                 getPopupContainer={trigger => trigger.parentNode}
-                                defaultValue="" 
+                                value={selectorVals.quality} 
                                 style={{width: "80px"}} 
                                 label="Quality" 
                                 name="chord-quality-selector" 
-                                onChange={(val) => setSelectorVals((prevState) => ({...prevState, quality: val}))}>
-                                    <Option value="">Major</Option>
-                                    <Option value="m">Minor</Option>
+                                onChange={(val) => handleQualitySelect(val)}>{/*setSelectorVals((prevState) => ({...prevState, quality: val}))*/}
+                                    <Option value="Major">Major</Option>
+                                    <Option value="Minor">Minor</Option>
                             </Select>
                         </div>
                         <div>
                                 <Input 
                                     style={{ width: "100px" }} 
                                     name="chord-alterations" 
-                                    defaultValue="" 
+                                    value={selectorVals.alterations} 
                                     placeholder="sus2, maj7..." 
                                     onChange={(e) => handleAlterationsInput(e.target.value)}
-                                />
+                                />{/*handleAlterationsInput(e.target.value)*/}
                         </div>
                         <div>
                         <Button 
@@ -157,7 +164,7 @@ const ChordsPage = ({ isMobile }) => {
                         <Button 
                             type="primary" 
                             size="medium" 
-                            onClick={() => handleOperationChange()} >
+                            onClick={() => handleResetSelectors()} >
                                 <SyncOutlined />
                         </Button>
                     </div>

@@ -66,6 +66,8 @@ const minorProgressions = [
 ];
 const minorNashNumbers = ["i", "ii", "III", "iv", "v", "VI", "VII"];
 
+const chordKeySelectors = ["A", "A#", "Bb", "B", "C", "C#", "Db", "D", "D#", "Eb", "E", "F", "F#", "Gb", "G", "G#", "Ab"];
+
 const guitarScalesData = [
     {"Major Scale": {
         fifth: images.Major5th,
@@ -100,5 +102,6 @@ export {
     minorProgressions, 
     minorNashNumbers, 
     majorNashNumbers, 
+    chordKeySelectors,
     guitarScalesData 
     };

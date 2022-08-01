@@ -6,7 +6,7 @@ import {
     Button, 
     Divider,
     } from 'antd';
-import { InfoCircleOutlined } from '@ant-design/icons';
+import { InfoCircleOutlined, SyncOutlined } from '@ant-design/icons';
 import ChordCard from '../../components/ChordCard/ChordCard';
 import VoicingOption from '../../components/VoicingOption/VoicingOption';
 import axios from 'axios';
@@ -51,6 +51,7 @@ const ChordsPage = ({ isMobile }) => {
                 }
             }
     }
+
     
 //---------------------------COMPONENT RENDER---------------------------------
     return (
@@ -88,8 +89,14 @@ const ChordsPage = ({ isMobile }) => {
                         size="medium" 
                         style={{margin: "1rem"}} 
                         onClick={() => handleVoicingData()} >
-                            Get Info
-                        </Button>
+                            Get Note(s)
+                    </Button>
+                    <Button 
+                        type="primary" 
+                        size="medium" 
+                        onClick={() =>info()} >
+                            <SyncOutlined />
+                    </Button>
                     <Button 
                         type="default" 
                         size="medium" 

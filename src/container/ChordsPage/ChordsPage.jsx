@@ -10,10 +10,9 @@ import {
     } from 'antd';
 import { InfoCircleOutlined, SyncOutlined } from '@ant-design/icons';
 import { chordKeySelectors } from '../../constants/data';
+import chordApi from '../../services/chordApi';
 import ChordCard from '../../components/ChordCard/ChordCard';
-import axios from 'axios';
 import info from './modal';
-import convertTones from '../../services/convertTones';
 
 import "./ChordsPage.css";
 
@@ -24,31 +23,20 @@ const ChordsPage = ({ isMobile }) => {
     const [chordData, setChordData] = useState({chordName: "A", strings: "X 0 2 2 2 0", tones: "A, C#, E" });
     const [selectorVals, setSelectorVals] = useState({root: "A", quality: "Major", alterations: ""});
     const [chordError, setChordError] = useState("");
-    //prevents mutiple api calls on unchanged data.
     const [prevChordCalled, setPrevChordCalled] = useState("");
 
 //----------------------Event Handlers--------------------------------------------------
     const handleChordData = async () => {
-        const URL = 'https://api.uberchord.com/v1/chords/';
-        const chordToCall = `${URL}${selectorVals.root}${selectorVals.quality}${selectorVals.alterations}`;
-        if(chordToCall === prevChordCalled) return 
-            try {
-                const response = await axios.get(chordToCall)
-                const apiData = response.data[0]
-                if(chordError !== "") setChordError("");
-                setChordData({
-                    //remove underscore and determine if chord has an enharmonic name
-                    chordName: `${apiData.chordName.replace(/(,)/g, '')}${apiData.enharmonicChordName !== apiData.chordName ? ` or ${apiData.enharmonicChordName.replace(/(,)/g, '')}` : ""}`,
-                    strings: apiData.strings,
-                    tones: `${apiData.tones}${apiData.enharmonicChordName !== apiData.chordName ? ` or ${convertTones(apiData.tones)}` : ""}`
-                });
-                setPrevChordCalled(chordToCall);
-            }catch (error) {
-                console.log(error)
-                if(error){
-                    setChordError("Chord not found or incorrect input!")
-                }
-            }
+        if(prevChordCalled === selectorVals) return //prevents unnecessary api call
+
+        const chordResponse = await chordApi(prevChordCalled, selectorVals)
+        if(chordResponse === "error"){
+            setChordError("Chord not found or incorrect input!");     
+        }else {
+            setChordError('')
+            setChordData(chordResponse);
+            setPrevChordCalled(selectorVals);
+        }            
     }
 
     const handleRootSelect = (val) => {
@@ -56,7 +44,6 @@ const ChordsPage = ({ isMobile }) => {
             ...prevState,
             root: val
         }))
-        //`${val.replace(/(#)/g, "%23")}_`
     }
 
     const handleQualitySelect = (val) => {
@@ -64,7 +51,6 @@ const ChordsPage = ({ isMobile }) => {
             ...prevState,
             quality: val
         }))
-        //Minor ? "m" : ""
     }
 
     const handleAlterationsInput = (val) => {
@@ -72,10 +58,7 @@ const ChordsPage = ({ isMobile }) => {
             ...prevState, 
             alterations: val
         }))
-        //.toLowerCase()
     }
-
-    
 
     const handleResetSelectors = () => {
         setSelectorVals({
@@ -83,6 +66,11 @@ const ChordsPage = ({ isMobile }) => {
             quality: "Major", 
             alterations: ""
         });
+        setChordData({
+            chordName: "A", 
+            strings: "X 0 2 2 2 0", 
+            tones: "A, C#, E" 
+        })
     }
     
 //---------------------------COMPONENT RENDER---------------------------------

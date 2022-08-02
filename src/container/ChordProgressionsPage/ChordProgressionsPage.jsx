@@ -4,7 +4,7 @@ import { Layout, Typography, Space, Button, Select, Col, Divider} from 'antd';
 import { majorKeys, minorKeys, majorProgressions, minorProgressions, majorNashNumbers, minorNashNumbers } from '../../constants/data';
 import ChordCard from '../../components/ChordCard/ChordCard';
 
-import axios from 'axios';
+import chordsApi from '../../services/chordsApi';
 import "./ChordProgressionsPage.css";
 
 const { Option } = Select;
@@ -37,6 +37,7 @@ const ChordProgressions = ({isMobile}) => {
     const [progTextDisplay, setProgTextDisplay] = useState('A, D, E');
     //prevents mutiple api calls.
     const [prevChordsCalled, setPrevChordsCalled] = useState('');
+    const [chordError, setChordError] = useState('');
 //---------------------------USE EFFECTS------------------------------
 
     //sets the main "progressionData" state's chordProgression values for api call.
@@ -60,26 +61,26 @@ const ChordProgressions = ({isMobile}) => {
 //---------------------------EVENT HANDLERS------------------------------
 
     const handleChordData = async () => {
-        const chords = progressionData.chordProgression.join(",");
-        const URL = 'https://api.uberchord.com/v1/chords?names=';
-        const chordToCall = `${URL}${chords}`;
-        if(chords === prevChordsCalled) return
-            try {
-                const response = await axios.get(chordToCall)
-                setChordData(response.data.map((item, i) => ({
-                    //provides chordData with the progression nashville number for title on card
-                    title: progressionData.progNumbers[i],
-                    //remove underscore and determine if chord has an enharmonic name
-                    chordName: progressionData.chordProgression[i].replace(/(%23)/g, "#").replace(/(_)/g, ''),
-                    strings: item.strings,
-                    })
-                ));
-                //set to show progression chords onscreen in readable format
-                setProgTextDisplay(progressionData.chordProgression.join(", ").replace(/(%23)/g, "#").replace(/(_)/g, ''));
-                setPrevChordsCalled(chords);
-            }catch (error) {
-                console.log(error)
-            }
+        if(prevChordsCalled === chordData) return //prevents unnecessary api call
+       
+        const chordsString = `?names=${progressionData.chordProgression.join(",")}`
+        const chordResponse = await chordsApi(chordsString)
+        console.log(chordResponse)
+        if(chordResponse === "error"){
+            setChordError("Chord not found or incorrect input!");     
+        }else {
+            setChordError('')
+            setChordData(chordResponse.map((item, i) => ({
+                            //provides chordData with the progression nashville number for title on card
+                            title: progressionData.progNumbers[i],
+                            //remove underscore and determine if chord has an enharmonic name
+                            chordName: progressionData.chordProgression[i].replace(/(%23)/g, "#").replace(/(_)/g, ''),
+                            strings: item.strings,
+                            })))
+            //set to show progression chords onscreen in readable format
+            setProgTextDisplay(progressionData.chordProgression.join(", ").replace(/(%23)/g, "#").replace(/(_)/g, ''));
+            setPrevChordsCalled(chordData);
+        }    
     }
 
     const handleProgressionArray = (value, index) => {

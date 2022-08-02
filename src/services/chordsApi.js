@@ -4,7 +4,6 @@ const baseURL = 'https://api.uberchord.com/v1/chords';
 
 const chordApi = async (chordsString) => {
     const chordsToCall = `${baseURL}${chordsString}`;
-    console.log(chordsToCall)
         try {
             const response = await axios.get(chordsToCall);
             const apiData = response.data;

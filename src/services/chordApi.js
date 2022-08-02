@@ -1,7 +1,7 @@
 import convertTones from "./convertTones";
 import axios from 'axios';
 
-const baseURL = 'https://api.uberchord.com/v1/chords/';
+const baseURL = 'https://api.uberchord.com/v1/chords';
 
 const chordApi = async (chordString) => {
     const chordToCall = `${baseURL}${chordString}`;

@@ -13,14 +13,12 @@ import info from './modal';
 import chordApi from '../../services/chordApi';
 
 import "./TabToolPage.css";
-import convertTones from '../../services/convertTones';
 
 const { Title, Paragraph } = Typography;
 
 const ChordsPage = ({ isMobile }) => { 
     const [chordData, setChordData] = useState({chordName: " ", strings: "0 0 0 0 0 0", tones:"" });
     const [voicingData, setVoicingData] = useState({strings: ["0", "0", "0", "0", "0", "0"] });
-    const [chordError, setChordError] = useState("");
     const [voicingError, setVoicingError] = useState("");
     //prevents mutiple api calls on unchanged data.
     const [prevChordCalled, setPrevChordCalled] = useState('');
@@ -32,29 +30,27 @@ const ChordsPage = ({ isMobile }) => {
     const handleVoicingData = async () => {
         if(prevChordCalled === voicingData.strings) return //prevents unnecessary api call
 
-        const chordString = `${voicingData.strings.join("-")}`;
+        const chordString = `?voicing=${voicingData.strings.join("-")}`;
         const chordResponse = await chordApi(chordString);
         if(chordResponse === "error"){
-            setChordError("Chord not found or incorrect input!");     
+            setVoicingError("Chord not found or incorrect input!");     
         }else {
-            setChordError('');
+            setVoicingError('');
             setChordData(chordResponse);
             setPrevChordCalled(voicingData.strings);
         }
     }
 
-    // const handleResetSelectors = () => {
-    //     setSelectorVals({
-    //         root: "A", 
-    //         quality: "Major", 
-    //         alterations: ""
-    //     });
-    //     setChordData({
-    //         chordName: "A", 
-    //         strings: "X 0 2 2 2 0", 
-    //         tones: "A, C#, E" 
-    //     })
-    // }
+    const handleResetSelectors = () => {
+        setChordData({
+            chordName: "", 
+            strings: "0 0 0 0 0 0", 
+            tones: "" 
+        })
+        setVoicingData({
+            strings: ["0", "0", "0", "0", "0", "0"] 
+        });
+    }
 
     
 //---------------------------COMPONENT RENDER---------------------------------
@@ -89,28 +85,32 @@ const ChordsPage = ({ isMobile }) => {
                     </div>
                 </Space>
                 <div>
-                    <Button 
-                        type="primary" 
-                        size="medium" 
-                        style={{margin: "1rem"}} 
-                        onClick={() => handleVoicingData()} >
-                            Get Note(s)
-                    </Button>
-                    <Button 
-                        type="primary" 
-                        size="medium" 
-                        onClick={() =>info()} >
-                            <SyncOutlined />
-                    </Button>
-                    <Button 
-                        type="default" 
-                        size="medium" 
-                        onClick={() => info()} >
-                            <InfoCircleOutlined />
-                    </Button>
-                    <Paragraph type="danger" >
-                        {voicingError}
-                    </Paragraph>
+                    <Space>
+                        <Button 
+                            type="primary" 
+                            size="medium" 
+                            style={{marginTop: "1rem"}} 
+                            onClick={() => handleVoicingData()} >
+                                Get Note(s)
+                        </Button>
+                        <Button 
+                            type="primary" 
+                            size="medium" 
+                            style={{marginTop: "1rem"}} 
+                            onClick={() =>handleResetSelectors()} >
+                                <SyncOutlined />
+                        </Button>
+                        <Button 
+                            type="default" 
+                            size="medium" 
+                            style={{marginTop: "1rem"}} 
+                            onClick={() => info()} >
+                                <InfoCircleOutlined />
+                        </Button>
+                        <Paragraph type="danger" >
+                            {voicingError}
+                        </Paragraph>
+                    </Space>
                 </div>
             </div>
         </Layout>

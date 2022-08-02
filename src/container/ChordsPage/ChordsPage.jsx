@@ -30,7 +30,7 @@ const ChordsPage = ({ isMobile }) => {
         if(prevChordCalled === selectorVals) return //prevents unnecessary api call
        
         const {root, quality, alterations} = selectorVals;
-        const chordString = `${root.replace(/(#)/g, "%23")}_${quality === "Major" ? '' : 'm'}${alterations.toLowerCase()}`
+        const chordString = `/${root.replace(/(#)/g, "%23")}_${quality === "Major" ? '' : 'm'}${alterations.toLowerCase()}`
         const chordResponse = await chordApi(chordString)
         if(chordResponse === "error"){
             setChordError("Chord not found or incorrect input!");     

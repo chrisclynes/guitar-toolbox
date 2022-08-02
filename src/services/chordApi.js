@@ -3,9 +3,8 @@ import axios from 'axios';
 
 const baseURL = 'https://api.uberchord.com/v1/chords/';
 
-const chordApi = async (prevChord, selectorVals) => {
-    const {root, quality, alterations} = selectorVals;
-    const chordToCall = `${baseURL}${root.replace(/(#)/g, "%23")}_${quality === "Major" ? '' : 'm'}${alterations.toLowerCase()}`;
+const chordApi = async (chordString) => {
+    const chordToCall = `${baseURL}${chordString}`;
         try {
             const response = await axios.get(chordToCall);
             const apiData = response.data[0];

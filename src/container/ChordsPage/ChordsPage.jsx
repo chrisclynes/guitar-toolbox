@@ -28,8 +28,10 @@ const ChordsPage = ({ isMobile }) => {
 //----------------------Event Handlers--------------------------------------------------
     const handleChordData = async () => {
         if(prevChordCalled === selectorVals) return //prevents unnecessary api call
-
-        const chordResponse = await chordApi(prevChordCalled, selectorVals)
+       
+        const {root, quality, alterations} = selectorVals;
+        const chordString = `${root.replace(/(#)/g, "%23")}_${quality === "Major" ? '' : 'm'}${alterations.toLowerCase()}`
+        const chordResponse = await chordApi(chordString)
         if(chordResponse === "error"){
             setChordError("Chord not found or incorrect input!");     
         }else {
@@ -94,20 +96,18 @@ const ChordsPage = ({ isMobile }) => {
                 <div className="chord-options-container">
                     <Space size="small">
                         <div>
-                        
                             <Select 
                                 getPopupContainer={trigger => trigger.parentNode}
                                 style={{width: "80px"}} 
                                 value={selectorVals.root} 
                                 name="rootSelect" 
-                                onChange={(val) => handleRootSelect(val)}>{/*setSelectorVals((prevState) => ({...prevState, root: val}))*/}
+                                onChange={(val) => handleRootSelect(val)}>
                                     {chordKeySelectors.map((item, i) => {
                                         return <Option key={i} value={item}>
                                                     {item}
                                                 </Option>
                                         })}
-                            </Select>
-                            
+                            </Select>    
                         </div>
                         <div>
                             <Select 
@@ -116,19 +116,19 @@ const ChordsPage = ({ isMobile }) => {
                                 style={{width: "80px"}} 
                                 label="Quality" 
                                 name="chord-quality-selector" 
-                                onChange={(val) => handleQualitySelect(val)}>{/*setSelectorVals((prevState) => ({...prevState, quality: val}))*/}
+                                onChange={(val) => handleQualitySelect(val)}>
                                     <Option value="Major">Major</Option>
                                     <Option value="Minor">Minor</Option>
                             </Select>
                         </div>
                         <div>
-                                <Input 
-                                    style={{ width: "100px" }} 
-                                    name="chord-alterations" 
-                                    value={selectorVals.alterations} 
-                                    placeholder="sus2, maj7..." 
-                                    onChange={(e) => handleAlterationsInput(e.target.value)}
-                                />{/*handleAlterationsInput(e.target.value)*/}
+                            <Input 
+                                style={{ width: "100px" }} 
+                                name="chord-alterations" 
+                                value={selectorVals.alterations} 
+                                placeholder="sus2, maj7..." 
+                                onChange={(e) => handleAlterationsInput(e.target.value)}
+                            />
                         </div>
                         <div>
                         <Button 

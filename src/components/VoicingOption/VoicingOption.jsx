@@ -3,14 +3,12 @@ import { Typography,  Select } from 'antd';
 
 const { Option } = Select;
 
-
-
-const VoicingOption = ({string, stringKey, setVoicingData, isMobile }) => {
+const VoicingOption = ({string, stringIndex, voicingData, setVoicingData, isMobile }) => {
 
     const handleOptionData = (val) => {
         
         setVoicingData(prevState => ({ 
-            strings: prevState.strings.map((el, i) => i === stringKey? el = val: el)//sets the index of state array to option input value
+            strings: prevState.strings.map((element, i) => i === stringIndex ? element = val : element)//sets the index of state array to option input value
          }))   
     }
 
@@ -19,7 +17,7 @@ const VoicingOption = ({string, stringKey, setVoicingData, isMobile }) => {
             <Typography.Paragraph>{string}</Typography.Paragraph>
             <Select 
                 getPopupContainer={trigger => trigger.parentNode}
-                defaultValue="0"
+                value={voicingData.strings[stringIndex]}
                 label="voicing"
                 style={isMobile ? {width: "60px"}: {width: "70px"}} 
                 name="chord-voicing-selector" 

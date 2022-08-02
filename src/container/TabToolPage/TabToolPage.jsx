@@ -9,8 +9,8 @@ import {
 import { InfoCircleOutlined, SyncOutlined } from '@ant-design/icons';
 import ChordCard from '../../components/ChordCard/ChordCard';
 import VoicingOption from '../../components/VoicingOption/VoicingOption';
-import axios from 'axios';
 import info from './modal';
+import chordApi from '../../services/chordApi';
 
 import "./TabToolPage.css";
 import convertTones from '../../services/convertTones';
@@ -20,7 +20,7 @@ const { Title, Paragraph } = Typography;
 const ChordsPage = ({ isMobile }) => { 
     const [chordData, setChordData] = useState({chordName: " ", strings: "0 0 0 0 0 0", tones:"" });
     const [voicingData, setVoicingData] = useState({strings: ["0", "0", "0", "0", "0", "0"] });
-    
+    const [chordError, setChordError] = useState("");
     const [voicingError, setVoicingError] = useState("");
     //prevents mutiple api calls on unchanged data.
     const [prevChordCalled, setPrevChordCalled] = useState('');
@@ -30,27 +30,31 @@ const ChordsPage = ({ isMobile }) => {
 //----------------------Event Handlers--------------------------------------------------
 
     const handleVoicingData = async () => {
-        const URL = 'https://api.uberchord.com/v1/chords?voicing=';
-        const chordToCall = `${URL}${voicingData.strings.join("-")}`;
-        if(chordToCall === prevChordCalled) return
-            try {
-                const response = await axios.get(chordToCall)
-                const apiData = response.data[0]
-                if(voicingError !== "") setVoicingError("");
-                setChordData({
-                    //remove underscore and determine if chord has an enharmonic name
-                    chordName: `${apiData.chordName.replace(/(,)/g, '')}${apiData.enharmonicChordName !== apiData.chordName ? ` or ${apiData.enharmonicChordName.replace(/(,)/g, '')}` : ""}`,
-                    strings: apiData.strings,
-                    tones: `${apiData.tones}${apiData.enharmonicChordName !== apiData.chordName ? ` or ${convertTones(apiData.tones)}` : ""}`
-                });
-                setPrevChordCalled(chordToCall);
-            }catch (error) {
-                console.log(error)
-                if(error){
-                    setVoicingError("Chord not found!")
-                }
-            }
+        if(prevChordCalled === voicingData.strings) return //prevents unnecessary api call
+
+        const chordString = `${voicingData.strings.join("-")}`;
+        const chordResponse = await chordApi(chordString);
+        if(chordResponse === "error"){
+            setChordError("Chord not found or incorrect input!");     
+        }else {
+            setChordError('');
+            setChordData(chordResponse);
+            setPrevChordCalled(voicingData.strings);
+        }
     }
+
+    // const handleResetSelectors = () => {
+    //     setSelectorVals({
+    //         root: "A", 
+    //         quality: "Major", 
+    //         alterations: ""
+    //     });
+    //     setChordData({
+    //         chordName: "A", 
+    //         strings: "X 0 2 2 2 0", 
+    //         tones: "A, C#, E" 
+    //     })
+    // }
 
     
 //---------------------------COMPONENT RENDER---------------------------------
@@ -73,10 +77,11 @@ const ChordsPage = ({ isMobile }) => {
                     <Space>
                     <div className="chord-options-two-container">
                             {stringSelector.map((string, index) => {
-                                return <VoicingOption 
+                                return <VoicingOption
+                                    voicingData={voicingData} 
                                     setVoicingData={setVoicingData}
                                     key={index} 
-                                    stringKey={index} 
+                                    stringIndex={index} 
                                     string={string} 
                                     isMobile={isMobile} 
                                     />

@@ -100,7 +100,7 @@ const ChordsPage = ({ isMobile }) => {
                                 getPopupContainer={trigger => trigger.parentNode}
                                 style={{width: "80px"}} 
                                 value={selectorVals.root} 
-                                name="rootSelect" 
+                                name="root" 
                                 onChange={(val) => handleRootSelect(val)}>
                                     {chordKeySelectors.map((item, i) => {
                                         return <Option key={i} value={item}>
@@ -114,8 +114,7 @@ const ChordsPage = ({ isMobile }) => {
                                 getPopupContainer={trigger => trigger.parentNode}
                                 value={selectorVals.quality} 
                                 style={{width: "80px"}} 
-                                label="Quality" 
-                                name="chord-quality-selector" 
+                                name="quality" 
                                 onChange={(val) => handleQualitySelect(val)}>
                                     <Option value="Major">Major</Option>
                                     <Option value="Minor">Minor</Option>

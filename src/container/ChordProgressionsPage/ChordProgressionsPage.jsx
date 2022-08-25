@@ -179,8 +179,7 @@ const ChordProgressions = ({isMobile}) => {
                                 <div>{progTextDisplay}</div>
                             </Divider>
                             <div 
-                                className="center-items" 
-                                style={{width: "100%", flex: 1, flexWrap: "wrap", justifyContent: "center", alignItems: "flex-start"}}> 
+                                className="center-items flex-center" > 
                                     {chordData.map((item, i) => {
                                         return (
                                             <Col  key={i}>

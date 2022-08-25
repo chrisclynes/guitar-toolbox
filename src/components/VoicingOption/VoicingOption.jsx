@@ -2,7 +2,7 @@ import React from "react";
 import { Typography,  Select } from 'antd';
 
 const { Option } = Select;
-const count = 23;
+const numberOfFrets = 25;
 
 const VoicingOption = ({string, stringIndex, voicingData, setVoicingData, isMobile }) => {
 
@@ -25,8 +25,8 @@ const VoicingOption = ({string, stringIndex, voicingData, setVoicingData, isMobi
                 onChange={(value) => handleOptionData(value)}>
                     <Option value="X">X</Option>
                     {
-                        [...Array(count)].map((space, i) => {
-                            <Option key={i} value={String(i)}>{space}</Option>
+                        [...Array(numberOfFrets)].map((space, i) => {
+                            return <Option key={i} value={i}>{i}</Option>
                         })
                     }
             </Select>

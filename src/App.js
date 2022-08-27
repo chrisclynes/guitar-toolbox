@@ -130,7 +130,8 @@ const App = () => {
         {name: "Tab Tool", link: "tabtool" }, 
         {name: "Chord Progressions", link: "chord-progressions" }, 
         {name: "Scales", link: "scales" }, 
-        {name: "Metronome", link: "metronome" }, 
+        {name: "Metronome", link: "metronome" },
+        {name: "Circle of Fifths", link: "circle-of-fifths"} 
         ];
 
     return (

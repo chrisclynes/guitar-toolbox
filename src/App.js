@@ -11,7 +11,8 @@ import {
     Signup, 
     Login, 
     ForgotPassword, 
-    UpdateProfile 
+    UpdateProfile,
+    CircleOfFifthsPage
     } from './container';
 import ScrollToTop from './services/ScrollToTop.js';
 import { useAuth } from './contexts/AuthContext';
@@ -130,8 +131,8 @@ const App = () => {
         {name: "Tab Tool", link: "tabtool" }, 
         {name: "Chord Progressions", link: "chord-progressions" }, 
         {name: "Scales", link: "scales" }, 
-        {name: "Metronome", link: "metronome" },
-        {name: "Circle of Fifths", link: "circle-of-fifths"} 
+        {name: "Circle of Fifths", link: "circle-of-fifths"},
+        {name: "Metronome", link: "metronome" },  
         ];
 
     return (
@@ -382,6 +383,10 @@ const App = () => {
                                         isPlaying={isPlaying} setIsPlaying={setIsPlaying} 
                                         isMobile={isMobile}/>
                                     } 
+                                />
+                                <Route path="/circle-of-fifths" element={
+                                    <CircleOfFifthsPage />
+                                    }
                                 />
                                 <Route path="/metronome" element={
                                         <MetronomePage 

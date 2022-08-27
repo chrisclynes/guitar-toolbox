@@ -1,5 +1,6 @@
 import React from 'react';
 import { Layout, Typography, Divider } from 'antd';
+import CircleOfFifths from '../../components/CircleOfFifths/CircleOfFifths';
 
 const { Title } = Typography;
 
@@ -14,7 +15,7 @@ const CircleOfFifthsPage = () => {
                         <Divider />
                     </div>
                 <div className="Circle-main-container">
-                    {/*render circle here*/}
+                    <CircleOfFifths />
                 </div>
             </div>
         </Layout>  

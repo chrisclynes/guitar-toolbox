@@ -3,20 +3,36 @@ import { Card } from 'antd';
 
 
 import './CircleOfFifths.css';
-const circleOutside = ["C", "G", "D", "A", "E", "B", "Gb", "Db", "Ab", "Eb", "Bb", "F"];
+const circleOutside = ["G", "D", "A", "E", "B", "F#", "Db", "Ab", "Eb", "Bb", "F", "C"];
+const circleInside = ["Em", "Bm", "F#m", "C#m", "G#m", "D#m", "Bbm", "Fm", "Cm", "Gm", "Dm", "Am"];
 
 
-const CircleOfFifths = ({ title, image}) => {
+const CircleOfFifths = ({ title }) => {
     return (
         <Card title={title} style={{ margin: "1rem"}} bodyStyle={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-            <div className="outer-circle">
-                {circleOutside.map((item, i) => {
-                    return (
-                        <div key={i} className={`outsideSlice${i}`}>{item}</div>
-                    )
-                })}
+            <div className="outer-cricle">
+                <ul className="main-notes">
+                    {circleOutside.map((item, i) => {
+                        return (
+                            <li className="main-note" key={i}>
+                                <span>{item}</span>
+                            </li>
+                        )
+                    })}
+                    <div className="inner-cricle">
+                        <ul className="rel-notes">
+                            {circleInside.map((item, i) => {
+                                return (
+                                    <li className="rel-note" key={i}>
+                                        <span>{item}</span>
+                                    </li>
+                                )
+                            })}
+                            <div className="center-circle"></div>
+                        </ul>
+                    </div>
+                </ul>
             </div>
-            <div className="inner-circle"></div>
         </Card>
     )
 }

@@ -11,7 +11,7 @@ const CircleOfFifths = ({ title }) => {
     return (
         <Card title={title} style={{ margin: "1rem"}} bodyStyle={{display: "flex", justifyContent: "center", alignItems: "center"}}>
             <div className="outer-cricle">
-                <ul className="main-notes">
+                <ul className="notes">
                     {circleOutside.map((item, i) => {
                         return (
                             <li className="main-note" key={i}>
@@ -19,8 +19,9 @@ const CircleOfFifths = ({ title }) => {
                             </li>
                         )
                     })}
+                    </ul>
                     <div className="inner-cricle">
-                        <ul className="rel-notes">
+                        <ul className="notes rel-notes">
                             {circleInside.map((item, i) => {
                                 return (
                                     <li className="rel-note" key={i}>
@@ -31,7 +32,7 @@ const CircleOfFifths = ({ title }) => {
                             <div className="center-circle"></div>
                         </ul>
                     </div>
-                </ul>
+                
             </div>
         </Card>
     )

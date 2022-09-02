@@ -1,26 +1,35 @@
 /* --------------------OUTER CIRCLE ---------------------*/
 .outer-cricle {
-    background-image: conic-gradient(orange 64%, blue 17%, black);
+    background-image: orange 30%, white 70%;
     border: 1px solid #000;
     border-radius: 50%;
     position: relative;
     width: 380px;
     height: 380px;
     margin: auto;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.main-notes {
+.notes {
     left: 150px;
     font-size: 23.3333333333px;
     letter-spacing: -1.6px;
     line-height: 50px;
 }
 
-.main-notes li {
+.notes :hover {
+    background-color: blue;
+    overflow: hidden;
+}
+
+.notes li {
     width: 80px;
 }
 
-.main-notes span {
+.notes span {
     display: block;
 }
 
@@ -43,76 +52,76 @@ ul {
     text-align: center;
 }
 
-.main-notes li:nth-of-type(1) {
+.notes li:nth-of-type(1) {
 transform: rotate(30deg);
 }
-.main-notes li:nth-of-type(1) span {
+.notes li:nth-of-type(1) span {
 transform: rotate(-30deg);
 }
-.main-notes li:nth-of-type(2) {
+.notes li:nth-of-type(2) {
 transform: rotate(60deg);
 }
-.main-notes li:nth-of-type(2) span {
+.notes li:nth-of-type(2) span {
 transform: rotate(-60deg);
 }
-.main-notes li:nth-of-type(3) {
+.notes li:nth-of-type(3) {
 transform: rotate(90deg);
 }
-.main-notes li:nth-of-type(3) span {
+.notes li:nth-of-type(3) span {
 transform: rotate(-90deg);
 }
-.main-notes li:nth-of-type(4) {
+.notes li:nth-of-type(4) {
 transform: rotate(120deg);
 }
-.main-notes li:nth-of-type(4) span {
+.notes li:nth-of-type(4) span {
 transform: rotate(-120deg);
 }
-.main-notes li:nth-of-type(5) {
+.notes li:nth-of-type(5) {
 transform: rotate(150deg);
 }
-.main-notes li:nth-of-type(5) span {
+.notes li:nth-of-type(5) span {
 transform: rotate(-150deg);
 }
-.main-notes li:nth-of-type(6) {
+.notes li:nth-of-type(6) {
 transform: rotate(180deg);
 }
-.main-notes li:nth-of-type(6) span {
+.notes li:nth-of-type(6) span {
 transform: rotate(-180deg);
 }
-.main-notes li:nth-of-type(7) {
+.notes li:nth-of-type(7) {
 transform: rotate(210deg);
 }
-.main-notes li:nth-of-type(7) span {
+.notes li:nth-of-type(7) span {
 transform: rotate(-210deg);
 }
-.main-notes li:nth-of-type(8) {
+.notes li:nth-of-type(8) {
 transform: rotate(240deg);
 }
-.main-notes li:nth-of-type(8) span {
+.notes li:nth-of-type(8) span {
 transform: rotate(-240deg);
 }
-.main-notes li:nth-of-type(9) {
+.notes li:nth-of-type(9) {
 transform: rotate(270deg);
 }
-.main-notes li:nth-of-type(9) span {
+.notes li:nth-of-type(9) span {
 transform: rotate(-270deg);
 }
-.main-notes li:nth-of-type(10) {
+.notes li:nth-of-type(10) {
 transform: rotate(300deg);
 }
-.main-notes li:nth-of-type(10) span {
+.notes li:nth-of-type(10) span {
 transform: rotate(-300deg);
 }
-.main-notes li:nth-of-type(11) {
+.notes li:nth-of-type(11) {
 transform: rotate(330deg);
 }
-.main-notes li:nth-of-type(11) span {
+.notes li:nth-of-type(11) span {
 transform: rotate(-330deg);
 }
-.main-notes li:nth-of-type(12) {
+.notes li:nth-of-type(12) {
 transform: rotate(360deg);
 }
-.main-notes li:nth-of-type(12) span {
+.notes li:nth-of-type(12) span {
 transform: rotate(-360deg);
 }
 
@@ -124,8 +133,6 @@ transform: rotate(-360deg);
     width: 280px;
     height: 280px;
     margin: auto;
-    left: -100px;
-    top: 50px;
 }
 
 .rel-notes {

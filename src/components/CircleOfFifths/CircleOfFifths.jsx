@@ -29,11 +29,11 @@ const CircleOfFifths = ({ title }) => {
                                     </li>
                                 )
                             })}
-                            <div className="center-circle"></div>
                         </ul>
+                        <div className="center-circle"></div>
                     </div>
-                
             </div>
+            
         </Card>
     )
 }

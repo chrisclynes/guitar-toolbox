@@ -15,14 +15,23 @@
 
 .notes {
     left: 150px;
-    font-size: 23.3333333333px;
+    font-size: 23px;
     letter-spacing: -1.6px;
     line-height: 50px;
 }
 
 .notes :hover {
-    background-color: blue;
+    background-color: transparent;
     overflow: hidden;
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    border-top: 190px solid rgba(77, 184, 255, 0.164);
+}
+
+.rel-notes :hover {
+    background-color: transparent;
+    overflow: hidden;
+    border: none;
 }
 
 .notes li {
@@ -37,7 +46,7 @@
     position: absolute;
     transform-origin: 50% 100%;
     height: 190px;
-  }
+}
 
 li {
     cursor: pointer;
@@ -133,6 +142,9 @@ transform: rotate(-360deg);
     width: 280px;
     height: 280px;
     margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .rel-notes {
@@ -174,6 +186,4 @@ ul {
     width: 180px;
     height: 180px;
     margin: auto;
-    left: -50px;
-    top: 50px;
 }

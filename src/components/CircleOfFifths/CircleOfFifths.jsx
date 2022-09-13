@@ -33,7 +33,6 @@ const CircleOfFifths = ({ title }) => {
                         <div className="center-circle"></div>
                     </div>
             </div>
-            
         </Card>
     )
 }

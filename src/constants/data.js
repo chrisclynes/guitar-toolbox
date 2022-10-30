@@ -26,7 +26,7 @@ const minorKeys = [
     { "E Minor": { i: "E_m", ii: "F%23_dim", III: "G", iv: "A_m", v: "B_m", VI: "C", VII: "D" }}, 
     { "F Minor": { i: "F_m", ii: "G_dim", III: "Ab", iv: "Bb_m", v: "C_m", VI: "Db", VII: "Eb" }},
     { "G Minor": { i: "G_m", ii: "A_dim", III: "Bb", iv: "C_m", v: "D_m", VI: "Eb", VII: "F" }},
-    { "A# Minor": { i: "A%23_m", ii: "C_dim", III: "C%23", iv: "D%23_m", v: "F_m", VI: "A%23", VII: "G%23" }},
+    { "A# Minor": { i: "A%23_m", ii: "C_dim", III: "C%23", iv: "D%23_m", v: "F_m", VI: "F%23", VII: "G%23" }},
     { "Bb Minor": { i: "Bb_m", ii: "C_dim", III: "Db", iv: "Eb_m", v: "F_m", VI: "Bb", VII: "Ab" }},
     { "C# Minor": { i: "C%23_m", ii: "D%23_dim", III: "E", iv: "F%23_m", v: "G%23_m", VI: "A", VII: "B" }},
     { "Db Minor": { i: "Db_m", ii: "Eb_dim", III: "E", iv: "Gb_m", v: "Ab_m", VI: "A", VII: "B" }},
